@@ -1,14 +1,13 @@
 +++
 title = "Converting Definitions to Custom Resources"
-draft = false
 gh_repo = "chef-web-docs"
 
 [menu]
   [menu.infra]
     title = "Migrating from Definitions"
-    identifier = "chef_infra/cookbook_reference/resources/definitions.md Migrating from Definitions"
-    parent = "chef_infra/cookbook_reference/resources"
-    weight = 30
+    identifier = "chef_infra/cookbook_reference/custom_resources/definitions"
+    parent = "chef_infra/cookbook_reference/custom_resources"
+    weight = 40
 +++
 
 ## Migrating from Definitions to Custom Resources
