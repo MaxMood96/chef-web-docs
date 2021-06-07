@@ -1,12 +1,11 @@
 +++
-title = "About Custom Resources"
-draft = false
+title = "Custom Resources"
 gh_repo = "chef-web-docs"
 aliases = ["/custom_resources.html"]
 
 [menu]
   [menu.infra]
-    title = "About Custom Resources"
+    title = "Custom Resources"
     identifier = "chef_infra/cookbook_reference/custom_resources/custom_resources Custom Resources"
     parent = "chef_infra/cookbook_reference/custom_resources"
     weight = 10
@@ -544,5 +543,4 @@ end
 
 ## Further Reading
 
-See the [dsl reference](dsl_reference.md) for a description of available methods.
-
+See the [Custom Resources Glossary](/custom_resource_glossary) for a description of available methods.
