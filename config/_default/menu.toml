@@ -344,13 +344,6 @@ identifier = "chef_infra"
     weight = 40
 
     [[infra]]
-    title = "Custom Resources"
-    identifier = "chef_infra/concepts/custom_resources.md Custom Resources"
-    parent = "chef_infra/concepts"
-    url = "/custom_resources/"
-    weight = 50
-
-    [[infra]]
     title = "Policy"
     identifier = "chef_infra/concepts/policy"
     parent = "chef_infra/concepts"
