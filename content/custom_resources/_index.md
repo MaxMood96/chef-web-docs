@@ -266,7 +266,13 @@ matters!
 Use the **package** resource to install httpd:
 
 ```ruby
+# These are equivalent
+package 'httpd' do
+  action :install
+end
+
 package 'httpd' # Ommiting the action uses the default action and properties on the resource
+
 ```
 
 <<<<<<< HEAD:content/custom_resources.md
