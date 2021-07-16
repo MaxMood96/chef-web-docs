@@ -421,6 +421,12 @@ identifier = "chef_infra"
     title = "Resources"
     identifier = "chef_infra/cookbook_reference/resources"
     parent = "chef_infra/cookbook_reference"
+    weight = 70
+
+    [[infra]]
+    title = "Custom Resources"
+    identifier = "chef_infra/cookbook_reference/custom_resources"
+    parent = "chef_infra/cookbook_reference"
     weight = 80
 
   [[infra]]
