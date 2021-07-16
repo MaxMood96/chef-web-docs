@@ -41,11 +41,11 @@ The layout for a custom resource is:
 property :property_name, RubyType, default: 'value'
 
 action :action_a do
- # a mix of built-in Chef resources and Ruby
+ # a mix of built-in Chef Infra resources and Ruby
 end
 
 action :action_b do
- # a mix of built-in Chef resources and Ruby
+ # a mix of built-in Chef Infra resources and Ruby
 end
 ```
 
@@ -53,7 +53,7 @@ The first action listed is the default action.
 
 ### Example Resource
 
-This example `site` utilizes Chef's built-in `file`, `service` and
+This example `site` utilizes Chef Infra's built-in `file`, `service` and
 `package` resources, and includes `:create` and `:delete` actions. Since
 it uses built-in Chef Infra Client resources, besides defining the
 property and actions, the code is very similar to that of a recipe.
@@ -87,16 +87,6 @@ end
 where
 
 - `homepage` is a property that sets the default HTML for the
-<<<<<<< HEAD:content/custom_resources.md
-    `index.html` file with a default value of `'<h1>Hello world!</h1>'`
-- the `action` block uses the built-in collection of resources to tell
-    Chef Infra Client how to install Apache, start the service, and then
-    create the contents of the file located at
-    `/var/www/html/index.html`
-- `action :create` is the default resource, because it is listed
-    first; `action :delete` must be called specifically (because it is
-    not the default action)
-=======
   `index.html` file with a default value of `'<h1>Hello world!</h1>'`
 - the `action` block uses the built-in collection of resources to tell
   Chef Infra Client how to install Apache, start the service, and then
@@ -105,7 +95,6 @@ where
 - `action :create` is the default resource, because it is listed
   first; `action :delete` must be called specifically (because it is
   not the default action)
->>>>>>> f657659e9 ([3124] Update Custom Resource Documentation):content/custom_resources/index.md
 
 Once written, the custom resource may be used in a recipe just like any
 of the resources that are built into Chef Infra Client. The resource
@@ -168,19 +157,11 @@ Define a custom resource!
 A custom resource typically contains:
 
 - A list of defined custom properties (property values are specified
-<<<<<<< HEAD:content/custom_resources.md
-    in recipes)
-- At least one action (actions tell Chef Infra Client what to do)
-- For each action, use a collection of resources that are built into
-    Chef Infra Client to define the steps required to complete the
-    action
-=======
   in recipes)
 - At least one action (actions tell Chef Infra Client what to do)
 - For each action, use a collection of resources that are built into
   Chef Infra Client to define the steps required to complete the
   action
->>>>>>> f657659e9 ([3124] Update Custom Resource Documentation):content/custom_resources/index.md
 
 #### What is needed?
 
@@ -189,11 +170,7 @@ This custom resource requires:
 - Two template files
 - Two properties
 - An action that defines all of the steps necessary to create the
-<<<<<<< HEAD:content/custom_resources.md
-    website
-=======
   website
->>>>>>> f657659e9 ([3124] Update Custom Resource Documentation):content/custom_resources/index.md
 
 ### Define Properties
 
@@ -217,15 +194,9 @@ property :port, Integer, required: true
 where
 
 - `String` and `Integer` are Ruby types (all custom properties must
-<<<<<<< HEAD:content/custom_resources.md
-    have an assigned Ruby type)
-- `name_property: true` allows the value for this property to be equal
-    to the `'name'` of the resource block
-=======
   have an assigned Ruby type)
 - `name_property: true` allows the value for this property to be equal
   to the `'name'` of the resource block
->>>>>>> f657659e9 ([3124] Update Custom Resource Documentation):content/custom_resources/index.md
 
 The `instance_name` property is then used within the custom resource in
 many locations, including defining paths to configuration files,
@@ -275,15 +246,12 @@ package 'httpd' # Ommiting the action uses the default action and properties on 
 
 ```
 
-<<<<<<< HEAD:content/custom_resources.md
 where
 
 - `source` gets the `httpd.service.erb` template from this cookbook
 - `variables` assigns the `instance_name` property to a variable in
     the template
 
-=======
->>>>>>> f657659e9 ([3124] Update Custom Resource Documentation):content/custom_resources/index.md
 #### template, httpd.conf
 
 Use the **template** resource to configure httpd on the node based on
@@ -339,7 +307,6 @@ service "httpd-#{new_resource.instance_name}" do
 end
 ```
 
-<<<<<<< HEAD:content/custom_resources.md
 ### Create Templates
 
 The `/templates` directory must contain two templates:
@@ -415,8 +382,6 @@ WantedBy=multi-user.target
 Copy it as shown, add it under `/templates`, and then name it
 `httpd.service.erb`.
 
-=======
->>>>>>> f657659e9 ([3124] Update Custom Resource Documentation):content/custom_resources/index.md
 ### Final Resource
 
 ```ruby
