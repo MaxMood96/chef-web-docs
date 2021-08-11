@@ -11,14 +11,14 @@ aliases = ["/dsl_recipe.html", "/dsl_recipe"]
 [menu]
   [menu.infra]
     title = "Language Overview"
-    identifier = "chef_infra/cookbook_reference/infra_language/ Language Overview"
-    parent = "chef_infra/cookbook_reference/infra_language"
+    identifier = "chef_infra/infra_language/ Language Overview"
+    parent = "chef_infra/infra_language"
     weight = 10
 +++
 
 {{% infra_lang_summary %}}
 
-The Chef Infra Language is based on Ruby, allowing you to utilize the power of Ruby when the built-in language doesn't meet your needs out of the box. If you'd like to learn more about extending your Chef Infra code by using Ruby see our [Ruby Guide](/ruby/) for further information on Ruby functionality.
+{{% infra_lang_ruby %}}
 
 ## Resources
 
