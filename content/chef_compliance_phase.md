@@ -1,6 +1,7 @@
 +++
 title = "About the Compliance Phase"
 draft = false
+gh_repo = "chef-web-docs"
 
 [menu]
   [menu.infra]
@@ -11,14 +12,13 @@ draft = false
 
 +++
 <!-- markdownlint-disable MD036 -->
-[\[edit on GitHub\]](https://github.com/chef/chef-web-docs/blob/main/content/chef_compliance_phase.md)
 
 Chef Infra Client's Compliance Phase lets you automatically execute compliance audits and view the results as part of any Chef Infra Client run. The Compliance Phase of the Chef Infra Client run replaces the legacy [audit cookbook](https://supermarket.chef.io/cookbooks/audit) and works with your existing audit cookbook attributes, and you can also set it up for new cookbooks. This additional phase gives you the latest compliance capabilities without having to manage cookbook dependencies or juggle versions during Chef Infra Client updates.
 
 Existing audit cookbook users can migrate to the new Compliance Phase by removing the audit cookbook from their run_list and setting the `node['audit']['compliance_phase']` attribute to `true`.
 
 The Compliance Phase replaces the `audit cookbook` by integrating Chef InSpec compliance checks into the [Chef Infra Client run]({{< relref "chef_client_overview.md" >}})
-The Compliance Phase is designed to run on any node in your system that is set up--or ["bootstrapped"]({{< relref "install_bootstrap" >}})--for a `chef-client` run.
+The Compliance Phase is designed to run on any node in your system that's set up--or [bootstrapped]({{< relref "install_bootstrap" >}})--for a `chef-client` run.
 
 **New in Chef Infra Client 17.8**
 
@@ -31,7 +31,7 @@ The Compliance Phase requires Chef Infra Client 17 or higher.
 If your system is configured to use the `audit cookbook`, make these changes to switch to the Compliance Phase:
 
 1. Set the `node['audit']['compliance_phase']` attribute to `true` through a Policyfile or cookbook attributes file.
-1. Remove the `audit cookbook` from your ['run-list']({{< relref "run_lists.md" >}}).
+1. Remove the `audit cookbook` from your [run-list]({{< relref "run_lists.md" >}}).
 
 1. On your next Chef Infra Client run, you should see the Compliance Phase results.
 
@@ -49,7 +49,7 @@ default['audit']['compliance_phase'] = true
 
 Setting one or more Chef InSpec profiles turns on the Compliance Phase in a Chef Infra Client run. The presence of this configuration in your attributes file instructs Chef Infra Client to fetch and execute the specific Chef InSpec profiles and write the results to disk using the default `cli` and `json-file` reporters.
 
-Retrieve ['Chef InSpec profiles']({{< relref "inspec/profiles/" >}}) from Chef Automate, Supermarket, a local file, GitHub, or over HTTP with the `node['audit']['profiles']` attribute.
+Retrieve [Chef InSpec profiles]({{< relref "inspec/profiles/" >}}) from Chef Automate, Supermarket, a local file, GitHub, or over HTTP with the `node['audit']['profiles']` attribute.
 
 The following examples:
 
@@ -127,7 +127,7 @@ The following examples:
 
 ### Fetch Profiles
 
-Set the fetcher attribute with `default['audit']['fetcher']` to retrieve Chef InSpec compliance profiles from either Chef Automate or Chef Infra Server in addition to the location defined by `default ['audit']['profile']`. Left unset, the Compliance Phase defaults to the [fetchers included in Chef InSpec](https://docs.chef.io/inspec/profiles/#profile-dependencies). Chef Infra and Chef InSpec fetchers are mutually exclusive so, you can only use one of these configurations.
+Set the fetcher attribute with `default['audit']['fetcher']` to retrieve Chef InSpec compliance profiles from either Chef Automate or Chef Infra Server in addition to the location defined by `default ['audit']['profile']`. Left unset, the Compliance Phase defaults to the [fetchers included in Chef InSpec]({{< relref "/inspec/profiles#profile-dependencies" >}}). Chef Infra and Chef InSpec fetchers are mutually exclusive so, you can only use one of these configurations.
 
 The following examples:
 
@@ -176,7 +176,7 @@ The following examples:
 
 ### Reporters
 
-Reporters control what is done with the resulting report after the Chef InSpec run. Either a single value or a list of multiple values is supported. The default is the `cli` and `json-file` reporters.
+Reporters control what's done with the resulting report after the Chef InSpec run. Either a single value or a list of multiple values is supported. The default is the `cli` and `json-file` reporters.
 
 Reporters can send Compliance Phase results to:
 
@@ -195,7 +195,7 @@ The following examples:
 
 {{< foundation_tabs tabs-id="compliance-phase-reporter-panel" >}}
   {{< foundation_tab active="true" panel-link="automate-reporter" tab-text="Automate">}}
-  {{< foundation_tab panel-link="server-reporter" tab-text="Automate via Infra Server" >}}
+  {{< foundation_tab panel-link="server-reporter" tab-text="Automate using Infra Server" >}}
   {{< foundation_tab panel-link="local-reporter" tab-text="File" >}}
 {{< /foundation_tabs >}}
 {{< foundation_tabs_panels tabs-id="compliance-phase-reporter-panel" >}}
@@ -213,7 +213,7 @@ The following examples:
   default['audit']['reporter'] = 'chef-automate'
   ```
   {{< warning >}}
-  Reporting Compliance Phase results directly to Chef Automate requires setting `data_collector.server_url` and `data_collector.token` in your `client.rb` to fetch profiles from Chef Automate. This configuration is described in more detail in the Chef Automate ['data collector documentation']({{< relref "automate/data_collection/" >}}).
+  Reporting Compliance Phase results directly to Chef Automate requires setting `data_collector.server_url` and `data_collector.token` in your `client.rb` to fetch profiles from Chef Automate. This configuration is described in more detail in the Chef Automate [data collector documentation]({{< relref "automate/data_collection/" >}}).
   {{< /warning >}}
   {{< /foundation_tabs_panel >}}
   {{< foundation_tabs_panel panel-id="server-reporter" >}}
@@ -225,7 +225,7 @@ The following examples:
   'supermarket': 'hardening/ssh-hardening'
   }
   # Fetch additional profiles
-  default['audit']['fetcher'] = 'chef-automate'
+  default['audit']['fetcher'] = 'chef-server'
   # Set reporter
   default['audit']['reporter'] = 'chef-server-automate'
   ```
@@ -265,16 +265,16 @@ The following examples:
 
 ## Customize Profiles
 
-You can upload profiles to Chef Automate using the [Chef Automate API](https://docs.chef.io/automate/api/#operation/Create) or the `inspec compliance` command.
+You can upload profiles to Chef Automate using the [Chef Automate API](/automate/api/#operation/Create) or the `inspec compliance` command.
 
 ### Waivers
 
-Use ['waivers'](https://docs.chef.io/inspec/waivers/) to mark individual failing controls as administratively accepted, either on a temporary or permanent basis.
+Use [waivers]({{< relref "/inspec/waivers" >}}) to mark individual failing controls as administratively accepted, either on a temporary or permanent basis.
 
 To use waivers:
 
 1. Prepare a YAML waiver file.
-1. Deliver the waiver file to the node in a ['cookbook_file'](https://docs.chef.io/resources/cookbook_file/) or ['remote_file'](https://docs.chef.io/resources/remote_file/).
+1. Deliver the waiver file to the node in a [cookbook_file]({{< relref "/resources/cookbook_file" >}}) or [remote_file]({{< relref "/resources/remote_file" >}}).
 1. Set the `waiver_file` attribute for the Compliance Phase to that location. For example:
 
 ```ruby
@@ -283,11 +283,11 @@ default['audit']['waiver_file'] = "waivers.yaml"
 
 ### External Data
 
-Chef InSpec profiles should be self-contained and independent from external data. Sometimes, a profile's test may exhibit different behavior depending on aspects of the node being tested and in these cases, you may want to use external data. Chef InSpec profiles accept ['inputs'](https://docs.chef.io/inspec/inputs/) that let you customize the test.
+Chef InSpec profiles should be self-contained and independent from external data. Sometimes, a profile's test may exhibit different behavior depending on aspects of the node being tested and in these cases, you may want to use external data. Chef InSpec profiles accept [inputs]({{< relref "/inspec/inputs" >}}) that let you customize the test.
 
 #### Chef InSpec Input
 
-You can pass ['Chef InSpec inputs'](https://docs.chef.io/inspec/inputs/) to the Chef InSpec runner. Chef InSpec inputs were previously called `attributes` and you will set them in an `['audit']['attributes']` hash in your attributes file.
+You can pass [Chef InSpec inputs]({{< relref "/inspec/inputs" >}}) to the Chef InSpec runner. Chef InSpec inputs were previously called `attributes` and you will set them in an `['audit']['attributes']` hash in your attributes file.
 Any data added to `['audit']['attributes']` as a hash is passed to Chef InSpec as individual attributes.
 
   ```ruby
@@ -322,7 +322,7 @@ environment = attribute('environment', description: 'The Chef Infra environment 
 
 control 'debug-disabled-in-production' do
   title 'Debug logs disabled in production'
-  desc 'Debug logs contain potentially sensitive information and should not be on in production.'
+  desc 'Debug logs contain potentially sensitive information and shouldn't be on in production.'
   impact 1.0
 
   describe file('/path/to/my/app/config') do
@@ -337,7 +337,7 @@ end
 
 Compliance Phase can be configured to pass the Chef Infra node object as a Chef InSpec attribute named `chef_node`.
 
-While using the `chef_node` object provides the ability to write more flexible profiles, it is  difficult to reuse these profiles outside of the Compliance Phase. To reuse these profiles, you will need to understand how to pass in a single attribute containing Chef Infra-like data. Pass external data explicitly whenever possible.
+While using the `chef_node` object provides the ability to write more flexible profiles, it's  difficult to reuse these profiles outside of the Compliance Phase. To reuse these profiles, you will need to understand how to pass in a single attribute containing Chef Infra-like data. Pass external data explicitly whenever possible.
 
 To use this option, first set it in a wrapper cookbook:
 
@@ -394,7 +394,7 @@ default['audit']['compliance_phase] = true
 
 ### control_results_limit
 
-The list of results per control will be truncated to this amount to reduce the size of reports. A summary of removed results will be sent with each impacted control. Defaults to `50`.
+The list of results for each control will be truncated to this amount to reduce the size of reports. A summary of removed results will be sent with each impacted control. Defaults to `50`.
 
 ```ruby
 # allow 100 results
@@ -482,7 +482,7 @@ default['audit']['quiet'] = false
 
 ### reporter
 
-Controls what is done with the resulting report after the Chef InSpec run. Accepts a single string value or an array of multiple values. The 'cli' reporter mimics the Chef InSpec command line output in your terminal, which lets you see your system's compliance status at the end of the Compliance Phase. Accepted values: 'chef-server-automate', 'chef-automate', 'json-file', 'audit-enforcer', 'cli'
+Controls what's done with the resulting report after the Chef InSpec run. Accepts a single string value or an array of multiple values. The 'cli' reporter mimics the Chef InSpec command line output in your terminal, which lets you see your system's compliance status at the end of the Compliance Phase. Accepted values: 'chef-server-automate', 'chef-automate', 'json-file', 'audit-enforcer', 'cli'
 
 ```ruby
 # set the reporter to Chef Automate
@@ -500,7 +500,7 @@ default['audit']['run_time_limit'] = 5.0
 
 ### result_include_backtrace
 
-When a Chef InSpec resource throws an exception, results contain a short error message and a detailed ruby stacktrace of the error. Default: false (does not send backtrace). Example:
+When a Chef InSpec resource throws an exception, results contain a short error message and a detailed ruby stacktrace of the error. Default: false (doesn't send backtrace). Example:
 
 ```ruby
 # include backtrace
@@ -509,7 +509,7 @@ default['audit']['result_include_backtrace'] = true
 
 ### result_message_limit
 
-Truncates any control result messages exceeding this character limit. Chef Automate has a 4 MB report size limit and cannot ingest reports exceeding this limitation. Chef InSpec will append this text at the end of any truncated messages: `[Truncated to 10000 characters]` Default: 10000.
+Truncates any control result messages exceeding this character limit. Chef Automate has a 4 MB report size limit and can't ingest reports exceeding this limitation. Chef InSpec will append this text at the end of any truncated messages: `[Truncated to 10000 characters]` Default: 10000.
 
 ```ruby
 default['audit']['result_message_limit] = 10000
@@ -551,13 +551,13 @@ The size of the report being generated from running the Compliance Phase is infl
 - controls metadata (title, description, tags, etc)
 - number of resources (users, processes, etc) that are being tested
 
-Depending on your setup, there are some limits you need to be aware of. A common one is Chef Infra Server default (1MB) request size. Exceeding this limit will reject the report with `ERROR: 413 "Request Entity Too Large"`. For more details about these limits, please refer to ['the documentation on troubleshooting 413 errors'](#413-request-entity-too-large).
+Depending on your setup, there are some limits you need to be aware of. A common one is Chef Infra Server default (1MB) request size. Exceeding this limit will reject the report with `ERROR: 413 "Request Entity Too Large"`. For more details about these limits, please refer to [the documentation on troubleshooting 413 errors](#413-request-entity-too-large).
 
 ### HTTP Errors
 
 #### 401, 403 Unauthorized - bad clock
 
-Occasionally, the system date/time will drift between client and server. If this drift is greater than a couple of minutes, the Chef Infra Server will throw a 401 unauthorized and the request will not be forwarded to the Chef Automate server.
+Occasionally, the system date/time will drift between client and server. If this drift is greater than a couple of minutes, the Chef Infra Server will throw a 401 unauthorized and the request won't be forwarded to the Chef Automate server.
 
 On the Chef Infra Server you can see this in the following logs:
 
@@ -565,7 +565,7 @@ On the Chef Infra Server you can see this in the following logs:
 # chef-server-ctl tail
 
 ==> /var/log/opscode/nginx/access.log <==
-192.168.200.102 - - ['28/Aug/2016:14:57:36 +0000']  "GET /organizations/4thcafe/nodes/vagrant-c0971990 HTTP/1.1" 401 "0.004" 93 "-" "Chef Client/12.14.38 (ruby-2.3.1-p112; ohai-8.19.2; x86_64-linux; +https://chef.io)" "127.0.0.1:8000" "401" "0.003" "12.14.38" "algorithm=sha1;version=1.1;" "vagrant-c0971990" "2013-09-25T15:00:14Z" "2jmj7l5rSw0yVb/vlWAYkK/YBwk=" 1060
+192.168.200.102 - - ['28/Aug/2016:14:57:36 +0000']  "GET /organizations/4thcafe/nodes/vagrant-c0971990 HTTP/1.1" 401 "0.004" 93 "-" "Chef Infra Client/12.14.38 (ruby-2.3.1-p112; ohai-8.19.2; x86_64-linux; +https://chef.io)" "127.0.0.1:8000" "401" "0.003" "12.14.38" "algorithm=sha1;version=1.1;" "vagrant-c0971990" "2013-09-25T15:00:14Z" "2jmj7l5rSw0yVb/vlWAYkK/YBwk=" 1060
 
 ==> /var/log/opscode/opscode-erchef/crash.log <==
 2016-08-28 14:57:36 =ERROR REPORT====
@@ -642,7 +642,7 @@ The 413 "Request Entity Too Large" error appears in both the stacktrace and the 
   The Chef Infra Server Nginx log confirms the `413` error:
   ```text
   ==> /var/log/opscode/nginx/access.log <==
-  192.168.56.40 - - ['21/Dec/2017:11:35:30 +0000']  "POST /organizations/eu_org/data-collector HTTP/1.1" 413 "0.803" 64 "-" "Chef Client/13.6.4 (ruby-2.4.2-p198; ohai-13.6.0; x86_64-linux; +https://chef.io)" "-" "-" "-" "13.6.4" "algorithm=sha1;version=1.1;" "bootstrapped-node" "2017-12-21T11:35:31Z" "GR6RyPvKkZDaGyQDYCPfoQGS8G4=" 1793064
+  192.168.56.40 - - ['21/Dec/2017:11:35:30 +0000']  "POST /organizations/eu_org/data-collector HTTP/1.1" 413 "0.803" 64 "-" "Chef Infra Client/13.6.4 (ruby-2.4.2-p198; ohai-13.6.0; x86_64-linux; +https://chef.io)" "-" "-" "-" "13.6.4" "algorithm=sha1;version=1.1;" "bootstrapped-node" "2017-12-21T11:35:31Z" "GR6RyPvKkZDaGyQDYCPfoQGS8G4=" 1793064
   ```
   {{< /foundation_tabs_panel >}}
 
@@ -652,7 +652,7 @@ The 413 "Request Entity Too Large" error appears in both the stacktrace and the 
 
 ## Troubleshooting
 
-Chef Automate sets the `logstash` limit to 10% of the system memory automatically as part of the `automate-ctl reconfigure` command execution. You have reached the java heap size(`-Xmx`) limit of `logstash` if a Chef InSpec report does not become available in Chef Automate and this error is in the `logstash` logs:
+Chef Automate sets the `logstash` limit to 10% of the system memory automatically as part of the `automate-ctl reconfigure` command execution. You have reached the java heap size(`-Xmx`) limit of `logstash` if a Chef InSpec report doesn't become available in Chef Automate and this error is in the `logstash` logs:
 
 ```text
 /var/log/delivery/logstash/current

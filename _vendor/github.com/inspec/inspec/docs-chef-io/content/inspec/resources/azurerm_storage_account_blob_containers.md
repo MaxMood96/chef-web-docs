@@ -11,12 +11,14 @@ platform = "azure"
     parent = "inspec/resources/azure"
 +++
 
+{{< inspec/azurerm_deprecated resource="azure_storage_account_blob_containers" >}}
+
 Use the `azurerm_storage_account_blob_containers` InSpec audit resource to test properties and configuration of Blob Containers within an Azure Storage Account.
 
 ## Azure REST API version
 
 This resource interacts with version `2018-07-01` of the Azure Management API. For more
-information see the [Official Azure Documentation](https://docs.microsoft.com/en-us/rest/api/storagerp/blobcontainers/blobcontainers_list).
+information see the [Official Azure Documentation](https://docs.microsoft.com/en-us/java/api/com.azure.resourcemanager.storage.models.blobcontainers.list?view=azure-java-stable).
 
 At the moment, there doesn't appear to be a way to select the version of the
 Azure API docs. If you notice a newer version being referenced in the official
@@ -25,7 +27,7 @@ version.
 
 ## Availability
 
-### Installation
+### Install
 
 This resource is available in the `inspec-azure` [resource
 pack](/inspec/glossary/#resource-pack). To use it, add the
@@ -98,8 +100,9 @@ The etag of the Resource, e.g. `\"0x8D592D74CC20EBA\"`.
 
 ## Matchers
 
-This InSpec audit resource has the following special matchers. For a full list of available matchers,
-please visit our [Universal Matchers page](/inspec/matchers/).
+{{< readfile file="content/inspec/reusable/md/inspec_matchers_link.md" >}}
+
+This resource has the following special matchers.
 
 ### exists
 

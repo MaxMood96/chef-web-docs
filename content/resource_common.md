@@ -11,7 +11,7 @@ aliases = ["/resource_common.html"]
     title = "Common Resource Functionality"
     identifier = "chef_infra/resources/resource_common.md Common Resource Functionality"
     parent = "chef_infra/resources"
-    weight = 30
+    weight = 40
 +++
 <!-- markdownlint-disable-file MD036 -->
 
@@ -21,7 +21,11 @@ path options.
 
 ## Actions
 
-{{% resources_common_actions %}}
+The following actions may be used with any resource:
+
+`:nothing`
+
+: {{< readfile file="content/reusable/md/resources_common_actions_nothing.md" >}}
 
 ### Examples
 
@@ -29,11 +33,11 @@ The following examples show how to use common actions in a recipe.
 
 **Use the :nothing action**
 
-{{% resource_service_use_nothing_action %}}
+{{< readfile file="content/reusable/md/resource_service_use_nothing_action.md" >}}
 
 ## Properties
 
-{{% resources_common_properties %}}
+{{< readfile file="content/reusable/md/resources_common_properties.md" >}}
 
 ### Examples
 
@@ -41,15 +45,15 @@ The following examples show how to use common properties in a recipe.
 
 **Use the ignore_failure common property**
 
-{{% resource_package_use_ignore_failure_attribute %}}
+{{< readfile file="content/reusable/md/resource_package_use_ignore_failure_attribute.md" >}}
 
 **Use the retries and retry_delay common properties**
 
-{{% resource_service_use_retries_properties %}}
+{{< readfile file="content/reusable/md/resource_service_use_retries_properties.md" >}}
 
 ## Guards
 
-{{% resources_common_guards %}}
+{{< readfile file="content/reusable/md/resources_common_guards.md" >}}
 
 {{< note >}}
 
@@ -68,18 +72,18 @@ end
 
 ### Properties
 
-{{% resources_common_guards_properties %}}
+{{< readfile file="content/reusable/md/resources_common_guards_properties.md" >}}
 
 ### Arguments
 
-{{% resources_common_guards_arguments %}}
+{{< readfile file="content/reusable/md/resources_common_guards_arguments.md" >}}
 
 ### not_if Examples
 
 **Update if not already updated**
 
 The following example shows how to use `not_if` to guard against running
-the `apt-get-update` command when a file already exists that is the same
+the `apt-get-update` command when a file already exists that's the same
 as the updated file:
 
 ```ruby
@@ -94,7 +98,7 @@ end
 
 The following example shows how to use a custom block of Ruby code to
 ensure that a node can resolve the host. If the node can resolve the
-host, Chef Infra Client will do nothing. If the node cannot resolve the
+host, Chef Infra Client will don'thing. If the node can't resolve the
 host, Chef Infra Client will configure the host:
 
 ```ruby
@@ -113,7 +117,7 @@ end
 
 The following example shows how to use `not_if` to prevent ZeroMQ from
 being installed when the node on which the install is to occur has a
-version of Red Hat Enterprise Linux that is older than version 6.0:
+version of Red Hat Enterprise Linux that's older than version 6.0:
 
 ```ruby
 ark 'test_autogen' do
@@ -150,7 +154,7 @@ necessary. In this case, three attributes exist in the
 The `only_if` attributes are used to test for the presence of these
 packages on the target node before then asking Chef Infra Client to
 complete the process of installing these packages. If the packages are
-already present, Chef Infra Client will do nothing.
+already present, Chef Infra Client will don'thing.
 
 ```ruby
 package 'libpcre3-dev' do
@@ -205,39 +209,39 @@ end
 
 ## Guard Interpreters
 
-{{% resources_common_guard_interpreter %}}
+{{< readfile file="content/reusable/md/resources_common_guard_interpreter.md" >}}
 
 ### Attributes
 
-{{% resources_common_guard_interpreter_attributes %}}
+{{< readfile file="content/reusable/md/resources_common_guard_interpreter_attributes.md" >}}
 
 ### Inheritance
 
-{{% resources_common_guard_interpreter_attributes_inherit %}}
+{{< readfile file="content/reusable/md/resources_common_guard_interpreter_attributes_inherit.md" >}}
 
 ### Examples
 
-{{% resources_common_guard_interpreter_example_default %}}
+{{< readfile file="content/reusable/md/resources_common_guard_interpreter_example_default.md" >}}
 
 ## Lazy Evaluation
 
-{{% resources_common_lazy_evaluation %}}
+{{< readfile file="content/reusable/md/resources_common_lazy_evaluation.md" >}}
 
 ## Notifications
 
-{{% resources_common_notification %}}
+{{< readfile file="content/reusable/md/resources_common_notification.md" >}}
 
 ### Timers
 
-{{% resources_common_notification_timers %}}
+{{< readfile file="content/reusable/md/resources_common_notification_timers.md" >}}
 
 ### Notifies
 
-{{% resources_common_notification_notifies %}}
+{{< readfile file="content/reusable/md/resources_common_notification_notifies.md" >}}
 
-{{% resources_common_notification_notifies_syntax %}}
+{{< readfile file="content/reusable/md/resources_common_notification_notifies_syntax.md" >}}
 
-Changed in Chef Client 12.6 to use `:before` timer with the `notifies`
+Changed in Chef Infra Client 12.6 to use `:before` timer with the `notifies`
 and `subscribes` properties to specify that the action on a notified
 resource should be run before processing the resource block in which the
 notification is located.
@@ -249,53 +253,53 @@ recipe.
 
 **Delay notifications**
 
-{{% resource_template_notifies_delay %}}
+{{< readfile file="content/reusable/md/resource_template_notifies_delay.md" >}}
 
 **Notify immediately**
 
-{{% resource_template_notifies_run_immediately %}}
+{{< readfile file="content/reusable/md/resource_template_notifies_run_immediately.md" >}}
 
 **Notify multiple resources**
 
-{{% resource_template_notifies_multiple_resources %}}
+{{< readfile file="content/reusable/md/resource_template_notifies_multiple_resources.md" >}}
 
 **Notify in a specific order**
 
-{{% resource_execute_notifies_specific_order %}}
+{{< readfile file="content/reusable/md/resource_execute_notifies_specific_order.md" >}}
 
 **Reload a service**
 
-{{% resource_template_notifies_reload_service %}}
+{{< readfile file="content/reusable/md/resource_template_notifies_reload_service.md" >}}
 
 **Restart a service when a template is modified**
 
-{{% resource_template_notifies_restart_service_when_template_modified %}}
+{{< readfile file="content/reusable/md/resource_template_notifies_restart_service_when_template_modified.md" >}}
 
 **Send notifications to multiple resources**
 
-{{% resource_template_notifies_send_notifications_to_multiple_resources %}}
+{{< readfile file="content/reusable/md/resource_template_notifies_send_notifications_to_multiple_resources.md" >}}
 
 **Execute a command using a template**
 
-{{% resource_execute_command_from_template %}}
+{{< readfile file="content/reusable/md/resource_execute_command_from_template.md" >}}
 
 **Restart a service, and then notify a different service**
 
-{{% resource_service_restart_and_notify %}}
+{{< readfile file="content/reusable/md/resource_service_restart_and_notify.md" >}}
 
 **Restart one service before restarting another**
 
-{{% resource_before_notification_restart %}}
+{{< readfile file="content/reusable/md/resource_before_notification_restart.md" >}}
 
 **Notify when a remote source changes**
 
-{{% resource_remote_file_transfer_remote_source_changes %}}
+{{< readfile file="content/reusable/md/resource_remote_file_transfer_remote_source_changes.md" >}}
 
 ### Subscribes
 
-{{% resources_common_notification_subscribes %}}
+{{< readfile file="content/reusable/md/resources_common_notification_subscribes.md" >}}
 
-{{% resources_common_notification_subscribes_syntax %}}
+{{< readfile file="content/reusable/md/resources_common_notification_subscribes_syntax.md" >}}
 
 #### Examples
 
@@ -304,36 +308,36 @@ a recipe.
 
 **Verify a configuration update**
 
-{{% resource_execute_subscribes_prevent_restart_and_reconfigure %}}
+{{< readfile file="content/reusable/md/resource_execute_subscribes_prevent_restart_and_reconfigure.md" >}}
 
 **Reload a service when a template is updated**
 
-{{% resource_service_subscribes_reload_using_template %}}
+{{< readfile file="content/reusable/md/resource_service_subscribes_reload_using_template.md" >}}
 
 ## Relative Paths
 
-{{% resources_common_relative_paths %}}
+{{< readfile file="content/reusable/md/resources_common_relative_paths.md" >}}
 
 ### Examples
 
-{{% resource_template_use_relative_paths %}}
+{{< readfile file="content/reusable/md/resource_template_use_relative_paths.md" >}}
 
 ## Run in Compile Phase
 
-{{% resources_common_compile %}}
+{{< readfile file="content/reusable/md/resources_common_compile.md" >}}
 
 ### Using the compile_time property
 
-{{< readFile_shortcode file="resources_common_compile_begin.md" >}}
+{{< readfile file="content/reusable/md/resources_common_compile_begin.md" >}}
 
 ## Windows File Security
 
-{{% resources_common_windows_security %}}
+{{< readfile file="content/reusable/md/resources_common_windows_security.md" >}}
 
 ### Access Control Lists (ACLs)
 
-{{% resources_common_windows_security_acl %}}
+{{< readfile file="content/reusable/md/resources_common_windows_security_acl.md" >}}
 
 ### Inheritance
 
-{{% resources_common_windows_security_inherits %}}
+{{< readfile file="content/reusable/md/resources_common_windows_security_inherits.md" >}}

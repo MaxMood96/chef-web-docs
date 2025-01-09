@@ -13,6 +13,7 @@ aliases = ["/knife_setup.html", "/knife_setup/"]
     parent = "chef_workstation/chef_workstation_tools/knife"
     weight = 20
 +++
+<!-- markdownlint-disable-file MD036 -->
 
 knife is a command-line tool that provides an interface between a local chef-repo and the Chef Infra Server. The knife command line tool must be configured to communicate with the Chef Infra Server as well as any other infrastructure within your organization.
 
@@ -30,7 +31,7 @@ New-Item -Path "c:\" -Name ".chef" -ItemType "directory"
 New-Item -ItemType "file" -Path "c:\.chef\config.rb"
 ```
 
-{{% chef_repo_many_users_same_knife %}}
+{{< readfile file="content/reusable/md/chef_repo_many_users_same_knife.md" >}}
 
 **Profile Support since Chef 13.7**
 
@@ -98,7 +99,7 @@ List your profiles with the `knife config list-profiles` command.
 
 For example:
 
-```
+```bash
 knife config list-profiles
 ```
 
@@ -139,18 +140,18 @@ The config.rb file loads every time the knife command is invoked using the follo
 - From a `config.rb` file within the current working directory, e.g., `./config.rb`
 - From a `config.rb` file within a `.chef` directory in the current working directory, e.g., `./.chef/config.rb`
 - From a `config.rb` file within a `.chef` directory located one directory above the current working directory, e.g., `../.chef/config.rb`
-- From `~/.chef/config.rb` (macOS and Linux platforms) or `c:\Users\<username>\.chef` (Microsoft Windows platform)
+- From `~/.chef/config.rb` (macOS and Linux platforms) or `c:\Users\<username>\.chef` (Windows platform)
 
 {{< note >}}
 
-On Microsoft Windows, the `config.rb` file is located at: `%HOMEDRIVE%:%HOMEPATH%\.chef` (e.g. `c:\Users\<username>\.chef`).
-In a script for Microsoft Windows, use: `%USERPROFILE%\chef-repo\.chef`.
+On Windows, the `config.rb` file is located at: `%HOMEDRIVE%:%HOMEPATH%\.chef` (e.g. `c:\Users\<username>\.chef`).
+In a script for Windows, use: `%USERPROFILE%\chef-repo\.chef`.
 
 {{< /note >}}
 
 ### config.rb Configuration Within a Chef Repository
 
-Use <span class="title-ref">knife configure</span> command to generate your initial `config.rb` file in your home directory.
+Use `knife configure` command to generate your initial `config.rb` file in your home directory.
 See [knife configure](/workstation/knife_configure/) for details.
 
 ## Setting Your Text Editor
@@ -184,7 +185,7 @@ The type of text editor that is used by knife can be configured by adding an ent
 knife[:editor] = "/usr/bin/vim"
 ```
 
-When a Microsoft Windows file path is enclosed in a double-quoted string (" "), the same backslash character (`\`) that is used to define the file path separator is also used in Ruby to define an escape character. The config.rb file is a Ruby file; therefore, file path separators must be escaped. In addition, spaces in the file path must be replaced with `~1` so that the length of each section within the file path is not more than 8 characters. For example, if EditPad Pro is the text editor of choice and is located at the following path:
+When a Windows file path is enclosed in a double-quoted string (" "), the same backslash character (`\`) that is used to define the file path separator is also used in Ruby to define an escape character. The config.rb file is a Ruby file; therefore, file path separators must be escaped. In addition, spaces in the file path must be replaced with `~1` so that the length of each section within the file path is not more than 8 characters. For example, if EditPad Pro is the text editor of choice and is located at the following path:
 
 ```powershell
 C:\\Program Files (x86)\EditPad Pro\EditPad.exe
@@ -223,4 +224,5 @@ knife[:editor] = '"C:\Program Files (x86)\vim\vim74\gvim.exe"'
 ```
 
 ### Using Quotes
+
  The text editor command cannot include spaces that are not properly wrapped in quotes. The command can be entered with double quotes (" ") or single quotes (' '), but this should be done consistently as shown in the examples above.

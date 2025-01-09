@@ -12,10 +12,11 @@ aliases = ["/knife_role.html", "/knife_role/"]
     identifier = "chef_workstation/chef_workstation_tools/knife/knife_role.md knife role"
     parent = "chef_workstation/chef_workstation_tools/knife"
 +++
+<!-- markdownlint-disable-file MD024 MD036 -->
 
-{{% role %}}
+{{< readfile file="content/reusable/md/role.md" >}}
 
-{{% knife_role_summary %}}
+{{< readfile file="content/workstation/reusable/md/knife_role_summary.md" >}}
 
 {{< note >}}
 
@@ -27,7 +28,7 @@ argument.
 
 {{< note >}}
 
-{{% knife_common_see_common_options_link %}}
+{{< readfile file="content/workstation/reusable/md/knife_common_see_common_options_link.md" >}}
 
 {{< /note >}}
 
@@ -86,7 +87,7 @@ This argument has the following options:
 
 {{< note >}}
 
-{{% knife_common_see_all_config_options %}}
+{{< readfile file="content/workstation/reusable/md/knife_common_see_all_config_options.md" >}}
 
 {{< /note >}}
 
@@ -219,7 +220,7 @@ This command does not have any specific options.
 
 {{< note >}}
 
-{{% knife_common_see_all_config_options %}}
+{{< readfile file="content/workstation/reusable/md/knife_common_see_all_config_options.md" >}}
 
 {{< /note >}}
 
@@ -291,7 +292,7 @@ This argument has the following options:
 
 {{< note >}}
 
-{{% knife_common_see_all_config_options %}}
+{{< readfile file="content/workstation/reusable/md/knife_common_see_all_config_options.md" >}}
 
 {{< /note >}}
 

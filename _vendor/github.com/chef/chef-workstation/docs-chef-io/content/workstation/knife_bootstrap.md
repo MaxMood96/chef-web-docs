@@ -12,16 +12,18 @@ aliases = ["/knife_bootstrap.html", "/knife_bootstrap/"]
     identifier = "chef_workstation/chef_workstation_tools/knife/knife_bootstrap.md knife bootstrap"
     parent = "chef_workstation/chef_workstation_tools/knife"
 +++
+<!-- markdownlint-disable-file MD036 MD046-->
 
-{{% chef_client_bootstrap_node %}}
+{{< readfile file="content/reusable/md/chef_client_bootstrap_node.md" >}}
 
-{{% knife_bootstrap_summary %}}
+{{< readfile file="content/workstation/reusable/md/knife_bootstrap_summary.md" >}}
 
 **Considerations:**
 
 - Knife will copy the contents of the `~/.chef/client.d` directory on your local workstation to the `client.d` directory on the device being bootstrapped with the `knife bootstrap` command. You can also set the `client_d_dir` option in the `config.rb` file to point to an arbitrary directory instead of `~/.chef/client.d`, and the contents of that directory will be copied to the device being bootstrapped. All config files inside the `client.d` directory will get copied into the `/etc/chef/client.d` directory on the system being bootstrapped.
 - SSL certificates from an on-premises Chef Infra Server can be copied to the `/trusted_certs_dir` directory on your local workstation automatically by running [knife ssl fetch](/workstation/knife_ssl_fetch/). These certificates are used during `knife` operations to communicate with the Chef Infra Server.
 - By default, `knife bootstrap` will attempt to use `ssh` to connect to the target node. Use the `-o` to specify a different protocol, such as `winrm` for windows nodes.
+- `knife bootstrap` does not support an option to provide passphrases for private SSH keys; use an unencrypted private key instead. This will also help with unattended bootstraps -- you can use an SSH agent to provide a password for you while it runs in the same shell as your knife client.
 
 ## Syntax
 
@@ -35,7 +37,7 @@ knife bootstrap FQDN_or_IP_ADDRESS (options)
 
 {{< note >}}
 
-{{% knife_common_see_common_options_link %}}
+{{< readfile file="content/workstation/reusable/md/knife_common_see_common_options_link.md" >}}
 
 {{< /note >}}
 
@@ -284,13 +286,54 @@ knife bootstrap FQDN_or_IP_ADDRESS (options)
 
 {{< note >}}
 
-{{% knife_common_see_all_config_options %}}
+{{< readfile file="content/workstation/reusable/md/knife_common_see_all_config_options.md" >}}
 
 {{< /note >}}
 
 ### Validatorless Bootstrap
 
-{{% knife_bootstrap_no_validator %}}
+The ORGANIZATION-validator.pem is typically added to the .chef directory
+on the workstation. When a node is bootstrapped from that workstation,
+the ORGANIZATION-validator.pem is used to authenticate the newly-created
+node to the Chef Infra Server during the initial Chef Infra Client run.
+It is possible to bootstrap a node using the USER.pem file instead of
+the ORGANIZATION-validator.pem file. This is known as a "validatorless
+bootstrap".
+
+To create a node using the USER.pem file, simply delete the
+ORGANIZATION-validator.pem file on the workstation. For example:
+
+```bash
+rm -f /home/lamont/.chef/myorg-validator.pem
+```
+
+and then make the following changes in the config.rb file:
+
+- Remove the `validation_client_name` setting
+- Edit the `validation_key` setting to be something that is not a path
+    to an existent ORGANIZATION-validator.pem file. For example:
+    `/nonexist`.
+
+As long as a USER.pem is also present on the workstation from which the
+validatorless bootstrap operation will be initiated, the bootstrap
+operation will run and will use the USER.pem file instead of the
+ORGANIZATION-validator.pem file.
+
+When running a validatorless `knife bootstrap` operation, the output is
+similar to:
+
+```bash
+desktop% knife bootstrap 10.1.1.1 -N foo01.acme.org \
+  -E dev -r 'role[base]' -j '{ "foo": "bar" }' \
+  --ssh-user vagrant --sudo
+Node foo01.acme.org exists, overwrite it? (Y/N)
+Client foo01.acme.org exists, overwrite it? (Y/N)
+Creating new client for foo01.acme.org
+Creating new node for foo01.acme.org
+Connecting to 10.1.1.1
+10.1.1.1 Starting first Chef Infra Client run...
+[....etc...]
+```
 
 {{< note >}}
 
@@ -300,11 +343,11 @@ The `--node-name` option is required for a validatorless bootstrap.
 
 ### FIPS Mode
 
-{{% fips_intro_client %}}
+{{< readfile file="content/reusable/md/fips_intro_client.md" >}}
 
 **Bootstrap a node using FIPS**
 
-{{% knife_bootstrap_node_fips %}}
+{{< readfile file="content/workstation/reusable/md/knife_bootstrap_node_fips.md" >}}
 
 ## Custom Templates
 
@@ -465,6 +508,7 @@ knife bootstrap -o winrm 123.456.7.8 -U username -P 'PASSWORD' --node-name NODE_
 ```
 
 **Bootstrap Windows node with shorthand syntax**
+
 ```bash
 knife bootstrap winrm://username:PASSWORD@123.456.7.8 --run-list 'recipe[cookbook]' -E ENV_NAME
 ```

@@ -12,15 +12,15 @@ aliases = ["/recipes.html", "essentials_cookbook_recipes.html"]
     weight = 10
 +++
 
-{{% cookbooks_recipe %}}
+{{< readfile file="content/reusable/md/cookbooks_recipe.md" >}}
 
 ## Recipe Attributes
 
-{{% cookbooks_attribute %}}
+{{< readfile file="content/reusable/md/cookbooks_attribute.md" >}}
 
 {{< note >}}
 
-{{% notes_see_attributes_overview %}}
+{{< readfile file="content/reusable/md/notes_see_attributes_overview.md" >}}
 
 {{< /note >}}
 
@@ -47,7 +47,7 @@ end
 ```
 
 The only environment being altered is the one being passed to the child
-process that is started by the **bash** resource. This will not affect
+process that's started by the **bash** resource. This won't affect
 the Chef Infra Client environment or any child processes.
 
 ## Work with Recipes
@@ -56,12 +56,12 @@ The following sections show approaches to working with recipes.
 
 ### Use Data Bags
 
-{{% data_bag %}}
+{{< readfile file="content/reusable/md/data_bag.md" >}}
 
 The contents of a data bag can be loaded into a recipe. For example, a
 data bag named `apps` and a data bag item named `my_app`:
 
-```javascript
+```json
 {
   "id": "my_app",
   "repository": "git://github.com/company/my_app.git"
@@ -82,7 +82,7 @@ my_bag['repository'] #=> 'git://github.com/company/my_app.git'
 
 #### Secret Keys
 
-{{% data_bag_encryption_secret_key %}}
+{{< readfile file="content/reusable/md/data_bag_encryption_secret_key.md" >}}
 
 #### Store Keys on Nodes
 
@@ -106,13 +106,13 @@ mysql_creds['pass'] # will be decrypted
 
 ### Assign Dependencies
 
-If a cookbook has a dependency on a recipe that is located in another
+If a cookbook has a dependency on a recipe that's located in another
 cookbook, that dependency must be declared in the metadata.rb file for
 that cookbook using the `depends` keyword.
 
 {{< note >}}
 
-Declaring cookbook dependencies is not required with chef-solo.
+Declaring cookbook dependencies isn't required with chef-solo.
 
 {{< /note >}}
 
@@ -131,11 +131,22 @@ depends 'apache2'
 
 ### Include Recipes
 
-{{% cookbooks_recipe_include_in_recipe %}}
+{{< readfile file="content/reusable/md/cookbooks_recipe_include_in_recipe.md" >}}
 
 ### Reload Attributes
 
-{{% cookbooks_attribute_file_reload_from_recipe %}}
+Attributes sometimes depend on actions taken from within recipes, so it
+may be necessary to reload a given attribute from within a recipe. For
+example:
+
+```ruby
+ruby_block 'some_code' do
+  block do
+    node.from_file(run_context.resolve_attribute('COOKBOOK_NAME', 'ATTR_FILE'))
+  end
+  action :nothing
+end
+```
 
 ### Use Ruby
 
@@ -262,7 +273,7 @@ to a run-list is similar to:
 }
 ```
 
-where `::default_recipe` is implied (and does not need to be specified).
+where `::default_recipe` is implied (and doesn't need to be specified).
 On a node, these recipes can be assigned to a node's run-list similar
 to:
 
@@ -305,7 +316,7 @@ cookbook in which the recipe is located is available to the system on
 which chef-solo is running. For example, a file named `dna.json`
 contains the following details:
 
-```none
+```json
 {
   "run_list": ["recipe[apache2]"]
 }
@@ -319,10 +330,10 @@ sudo chef-solo -j /etc/chef/dna.json
 
 ### Use Search Results
 
-{{% search %}}
+{{< readfile file="content/reusable/md/search.md" >}}
 
 The results of a search query can be loaded into a recipe. For example,
-a very simple search query (in a recipe) might look like this:
+a simple search query (in a recipe) might look like this:
 
 ```ruby
 search(:node, 'attribute:value')
@@ -344,9 +355,9 @@ end
 
 ### Use Tags
 
-{{% chef_tags %}}
+{{< readfile file="content/reusable/md/chef_tags.md" >}}
 
-{{% cookbooks_recipe_tags %}}
+{{< readfile file="content/reusable/md/cookbooks_recipe_tags.md" >}}
 
 ### End Chef Infra Client Run
 
@@ -384,7 +395,7 @@ end
 where `platform?('windows')` is the condition set on the `return`
 keyword. When the condition is met, stop processing the recipe. This
 approach is useful when there is no need to continue processing, such as
-when a package cannot be installed. In this situation, it's OK for a
+when a package can't be installed. In this situation, it's OK for a
 recipe to stop processing.
 
 #### raise Keyword
@@ -424,8 +435,8 @@ unhandled exception during the execute phase. For example:
 ```ruby
 ruby_block "name" do
   block do
-    # Ruby code with a condition, e.g. if ::File.exist?(::File.join(path, "/tmp"))
-    raise "message"  # e.g. "Ordering issue with file path, expected foo"
+    # Ruby code with a condition, for example if ::File.exist?(::File.join(path, "/tmp"))
+    raise "message"  # for example "Ordering issue with file path, expected foo"
   end
 end
 ```
@@ -479,7 +490,7 @@ specify the message to be raised.
 
 Use `node.run_state` to stash transient data during a Chef Infra Client
 run. This data may be passed between resources, and then evaluated
-during the execution phase. `run_state` is an empty Hash that is always
+during the execution phase. `run_state` is an empty Hash that's always
 discarded at the end of a Chef Infra Client run.
 
 For example, the following recipe will install the Apache web server,
@@ -509,7 +520,7 @@ end
 
 where:
 
-- The **ruby_block** resource declares a `block` of Ruby code that is
+- The **ruby_block** resource declares a `block` of Ruby code that's
     run during the execution phase of a Chef Infra Client run
 - The `if` statement randomly chooses PHP or Perl, saving the choice
     to `node.run_state['scripting_language']`

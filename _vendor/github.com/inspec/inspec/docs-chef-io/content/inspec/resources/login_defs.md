@@ -15,9 +15,9 @@ Use the `login_defs` Chef InSpec audit resource to test configuration settings i
 
 ## Availability
 
-### Installation
+### Install
 
-This resource is distributed along with Chef InSpec itself. You can use it automatically.
+{{< readfile file="content/inspec/reusable/md/inspec_installation.md" >}}
 
 ### Version
 
@@ -74,4 +74,4 @@ The `name` matcher tests the value of `name` as read from `login.defs` versus th
 
 ## Matchers
 
-For a full list of available matchers, please visit our [matchers page](/inspec/matchers/).
+{{< readfile file="content/inspec/reusable/md/inspec_matchers_link.md" >}}

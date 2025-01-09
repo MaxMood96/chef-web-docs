@@ -11,6 +11,8 @@ platform = "azure"
     parent = "inspec/resources/azure"
 +++
 
+{{< inspec/azurerm_deprecated resource="azure_aks_clusters" >}}
+
 Use the `azurerm_aks_clusters` InSpec audit resource to enumerate AKS Clusters.
 
 ## Azure REST API version
@@ -25,7 +27,7 @@ version.
 
 ## Availability
 
-### Installation
+### Install
 
 This resource is available in the `inspec-azure` [resource
 pack](/inspec/glossary/#resource-pack). To use it, add the
@@ -67,9 +69,9 @@ The name of the AKS Cluster
 
 ## Matchers
 
-This InSpec audit resource has the following special matchers. For a full list of
-available matchers, please visit our [Universal Matchers
-page](/inspec/matchers/).
+{{< readfile file="content/inspec/reusable/md/inspec_matchers_link.md" >}}
+
+This resource has the following special matchers.
 
 ### exists
 

@@ -8,14 +8,15 @@ autocorrection: true
 target_chef_version: All Versions
 examples: |2-
 
-  #### incorrect
+  ### incorrect
 
   ```ruby
   module MyCookbook
     class MyCookbookService < Chef::Resource
       use_automatic_resource_name
       provides :mycookbook_service
-      ...
+
+      # some additional code
     end
   end
   ```

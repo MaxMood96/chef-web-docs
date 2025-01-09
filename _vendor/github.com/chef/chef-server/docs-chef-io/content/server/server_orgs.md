@@ -13,7 +13,7 @@ product = ["client", "server"]
     weight = 20
 +++
 
-{{% server_rbac %}}
+{{< readfile file="content/server/reusable/md/server_rbac.md" >}}
 
 The Chef Infra Server uses organizations, groups, and users to define
 role-based access control:
@@ -95,11 +95,11 @@ when:
 
 ### Permissions
 
-{{% server_rbac_permissions %}}
+{{< readfile file="content/server/reusable/md/server_rbac_permissions.md" >}}
 
 #### Object Permissions
 
-{{% server_rbac_permissions_object %}}
+{{< readfile file="content/server/reusable/md/server_rbac_permissions_object.md" >}}
 
 #### Global Permissions
 
@@ -180,7 +180,7 @@ a fine-grained approach to modifying permissions, by wrapping API calls
 to the `_acl` endpoint and makes such permission changes easier to
 manage.
 
-{{% EOL_manage %}}
+{{< readfile file="content/reusable/md/EOL_manage.md" >}}
 
 <span class="title-ref">knife-acl</span> and the Chef Manage browser
 interface are incompatible. After engaging <span
@@ -492,10 +492,6 @@ By default, the `public_key_read_access` assigns all members of the
 
 The `users` group is assigned the following:
 
-#### users
-
-The `users` group is assigned the following:
-
 <table>
 <colgroup>
 <col style="width: 28%" />
@@ -596,7 +592,7 @@ The `users` group is assigned the following:
 
 ### chef-validator
 
-{{% security_chef_validator %}}
+{{< readfile file="content/reusable/md/security_chef_validator.md" >}}
 
 The chef-validator is allowed to do the following at the start of a Chef
 Infra Client run. After the Chef Infra Client is registered with Chef
@@ -632,92 +628,92 @@ Infra Server, that Chef Infra Client is added to the `clients` group:
 
 ## Server Admins
 
-{{% server_rbac_server_admins %}}
+{{< readfile file="content/server/reusable/md/server_rbac_server_admins.md" >}}
 
 ### Scenario
 
-{{< readFile_shortcode file="server_rbac_server_admins_scenario.md" >}}
+{{< readfile file="content/server/reusable/md/server_rbac_server_admins_scenario.md" >}}
 
 #### Superuser Accounts
 
-{{< readFile_shortcode file="server_rbac_server_admins_superusers.md" >}}
+{{< readfile file="content/server/reusable/md/server_rbac_server_admins_superusers.md" >}}
 
 ### Manage server-admins Group
 
-{{% ctl_chef_server_server_admin %}}
+{{< readfile file="content/server/reusable/md/ctl_chef_server_server_admin.md" >}}
 
 #### Add Members
 
-{{% ctl_chef_server_server_admin_grant_user %}}
+{{< readfile file="content/server/reusable/md/ctl_chef_server_server_admin_grant_user.md" >}}
 
 #### Remove Members
 
-{{% ctl_chef_server_server_admin_remove_user %}}
+{{< readfile file="content/server/reusable/md/ctl_chef_server_server_admin_remove_user.md" >}}
 
 #### List Membership
 
-{{% ctl_chef_server_server_admin_list %}}
+{{< readfile file="content/server/reusable/md/ctl_chef_server_server_admin_list.md" >}}
 
 ## Manage Organizations
 
-{{% ctl_chef_server_org %}}
+{{< readfile file="content/server/reusable/md/ctl_chef_server_org.md" >}}
 
 ### org-create
 
-{{% ctl_chef_server_org_create %}}
+{{< readfile file="content/server/reusable/md/ctl_chef_server_org_create.md" >}}
 
 **Syntax**
 
-{{% ctl_chef_server_org_create_syntax %}}
+{{< readfile file="content/server/reusable/md/ctl_chef_server_org_create_syntax.md" >}}
 
 **Options**
 
-{{% ctl_chef_server_org_create_options %}}
+{{< readfile file="content/server/reusable/md/ctl_chef_server_org_create_options.md" >}}
 
 ### org-delete
 
-{{% ctl_chef_server_org_delete %}}
+{{< readfile file="content/server/reusable/md/ctl_chef_server_org_delete.md" >}}
 
 **Syntax**
 
-{{% ctl_chef_server_org_delete_syntax %}}
+{{< readfile file="content/server/reusable/md/ctl_chef_server_org_delete_syntax.md" >}}
 
 ### org-list
 
-{{% ctl_chef_server_org_list %}}
+{{< readfile file="content/server/reusable/md/ctl_chef_server_org_list.md" >}}
 
 **Syntax**
 
-{{% ctl_chef_server_org_list_syntax %}}
+{{< readfile file="content/server/reusable/md/ctl_chef_server_org_list_syntax.md" >}}
 
 **Options**
 
-{{% ctl_chef_server_org_list_options %}}
+{{< readfile file="content/server/reusable/md/ctl_chef_server_org_list_options.md" >}}
 
 ### org-show
 
-{{% ctl_chef_server_org_show %}}
+{{< readfile file="content/server/reusable/md/ctl_chef_server_org_show.md" >}}
 
 **Syntax**
 
-{{% ctl_chef_server_org_show_syntax %}}
+{{< readfile file="content/server/reusable/md/ctl_chef_server_org_show_syntax.md" >}}
 
 ### org-user-add
 
-{{% ctl_chef_server_org_user_add %}}
+{{< readfile file="content/server/reusable/md/ctl_chef_server_org_user_add.md" >}}
 
 **Syntax**
 
-{{% ctl_chef_server_org_user_add_syntax %}}
+{{< readfile file="content/server/reusable/md/ctl_chef_server_org_user_add_syntax.md" >}}
 
 **Options**
 
-{{% ctl_chef_server_org_user_add_options %}}
+{{< readfile file="content/server/reusable/md/ctl_chef_server_org_user_add_options.md" >}}
 
 ### org-user-remove
 
-{{% ctl_chef_server_org_user_remove %}}
+{{< readfile file="content/server/reusable/md/ctl_chef_server_org_user_remove.md" >}}
 
 **Syntax**
 
-{{% ctl_chef_server_org_user_remove_syntax %}}
+{{< readfile file="content/server/reusable/md/ctl_chef_server_org_user_remove_syntax.md" >}}

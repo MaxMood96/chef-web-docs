@@ -20,55 +20,55 @@ given time. The supervisor starts two processes per service.
 
 ## Service Subcommands
 
-{{% ctl_common_service_subcommands %}}
+{{< readfile file="content/server/reusable/md/ctl_common_service_subcommands.md" >}}
 
 ### hup
 
-{{% ctl_chef_server_hup %}}
+{{< readfile file="content/server/reusable/md/ctl_chef_server_hup.md" >}}
 
 ### int
 
-{{% ctl_chef_server_int %}}
+{{< readfile file="content/server/reusable/md/ctl_chef_server_int.md" >}}
 
 ### kill
 
-{{% ctl_chef_server_kill %}}
+{{< readfile file="content/server/reusable/md/ctl_chef_server_kill.md" >}}
 
 ### once
 
-{{% ctl_chef_server_once %}}
+{{< readfile file="content/server/reusable/md/ctl_chef_server_once.md" >}}
 
 ### restart
 
-{{% ctl_chef_server_restart %}}
+{{< readfile file="content/server/reusable/md/ctl_chef_server_restart.md" >}}
 
 ### service-list
 
-{{% ctl_chef_server_service_list %}}
+{{< readfile file="content/server/reusable/md/ctl_chef_server_service_list.md" >}}
 
 ### start
 
-{{% ctl_chef_server_start %}}
+{{< readfile file="content/server/reusable/md/ctl_chef_server_start.md" >}}
 
 ### status
 
-{{% ctl_chef_server_status %}}
+{{< readfile file="content/server/reusable/md/ctl_chef_server_status.md" >}}
 
 #### Log Files
 
-{{% ctl_chef_server_status_logs %}}
+{{< readfile file="content/server/reusable/md/ctl_chef_server_status_logs.md" >}}
 
 ### stop
 
-{{% ctl_chef_server_stop %}}
+{{< readfile file="content/server/reusable/md/ctl_chef_server_stop.md" >}}
 
 ### tail
 
-{{% ctl_chef_server_tail %}}
+{{< readfile file="content/server/reusable/md/ctl_chef_server_tail.md" >}}
 
 ### term
 
-{{% ctl_chef_server_term %}}
+{{< readfile file="content/server/reusable/md/ctl_chef_server_term.md" >}}
 
 ## List of Services
 
@@ -80,11 +80,13 @@ The following services are part of the Chef Infra Server:
 - nginx
 - opscode-erchef
 - postgresql
-- redis-lb
+- redis_lb 
+
+{{< note >}} From Chef Infra Server version 15.10.12 onwards, we are using keydb instead of redis underneath. All the functions are supposed to work the same because keydb is a fork of redis. The configuration name and service name will continue to be redis_lb.{{< /note >}}
 
 ### bifrost
 
-{{% server_services_bifrost %}}
+{{< readfile file="content/server/reusable/md/server_services_bifrost.md" >}}
 
 #### status
 
@@ -156,7 +158,7 @@ chef-server-ctl tail bifrost
 
 ### bookshelf
 
-{{% server_services_bookshelf %}}
+{{< readfile file="content/server/reusable/md/server_services_bookshelf.md" >}}
 
 #### status
 
@@ -308,7 +310,7 @@ chef-server-ctl tail elasticsearch
 
 ### nginx
 
-{{% server_services_nginx %}}
+{{< readfile file="content/server/reusable/md/server_services_nginx.md" >}}
 
 #### status
 
@@ -372,11 +374,11 @@ chef-server-ctl once nginx
 
 #### tail
 
-{{% server_services_nginx_tail %}}
+{{< readfile file="content/server/reusable/md/server_services_nginx_tail.md" >}}
 
 ### opscode-erchef
 
-{{% server_services_erchef %}}
+{{< readfile file="content/server/reusable/md/server_services_erchef.md" >}}
 
 #### status
 
@@ -448,7 +450,7 @@ chef-server-ctl tail opscode-erchef
 
 ### postgresql
 
-{{% server_services_postgresql %}}
+{{< readfile file="content/server/reusable/md/server_services_postgresql.md" >}}
 
 #### status
 
@@ -520,7 +522,7 @@ chef-server-ctl tail postgresql
 
 ### redis
 
-{{% server_services_redis %}}
+{{< readfile file="content/server/reusable/md/server_services_redis.md" >}}
 
 #### status
 

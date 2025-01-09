@@ -2,15 +2,8 @@
 title = "Omnitruck API"
 draft = false
 gh_repo = "chef-web-docs"
-aliases = ["/api_omnitruck.html"]
-product = ["automate", "client", "server", "habitat", "inspec", "workstation"]
-
-[menu]
-  [menu.overview]
-    title = "Omnitruck API"
-    identifier = "overview/packages_&_platforms/api_omnitruck.md Omnitruck API"
-    parent = "overview/packages_&_platforms"
-    weight = 50
+product = []
+robots = "noindex"
 +++
 
 Chef's Omnitruck API powers the Chef Software install script as well as
@@ -21,13 +14,13 @@ Chef Software products and to provide direct download URLs.
 
 The URL from which these downloads can be obtained has the following syntax:
 
-```none
+```plain
 https://omnitruck.chef.io/<CHANNEL>/<PRODUCT>/download?p=$PLATFORM&pv=$PLATFORM_VERSION&m=$MACHINE_ARCH&v=latest&prerelease=false&nightlies=false
 ```
 
 or:
 
-```none
+```plain
 https://omnitruck.chef.io/<CHANNEL>/<PRODUCT>/metadata?p=$PLATFORM&pv=$PLATFORM_VERSION&m=$MACHINE_ARCH&v=latest&prerelease=false&nightlies=false
 ```
 
@@ -40,13 +33,13 @@ single step.
 
 The `/metadata` and/or `/download` endpoints can be used to download packages for all products:
 
-```none
+```plain
 https://omnitruck.chef.io/<CHANNEL>/<PRODUCT>/download?p=$PLATFORM&pv=$PLATFORM_VERSION&m=$MACHINE_ARCH&v=latest
 ```
 
 or:
 
-```none
+```plain
 https://omnitruck.chef.io/<CHANNEL>/<PRODUCT>/metadata?p=$PLATFORM&pv=$PLATFORM_VERSION&m=$MACHINE_ARCH&v=latest
 ```
 
@@ -134,10 +127,10 @@ Omnitruck accepts the following platforms:
 <td><code>10.04</code>, <code>10.10</code>, <code>11.04</code>, <code>11.10</code>, <code>12.04</code>, <code>12.10</code>, <code>13.04</code>, <code>13.10</code>, <code>14.04</code>, <code>14.10</code>, <code>16.04</code>, <code>16.10</code>, <code>17.04</code>, <code>17.10</code>, <code>18.04</code>, <code>18.10</code>, <code>19.04</code>, <code>20.04</code>, <code>20.10</code>, <code>21.04</code>, <code>21.10</code></td>
 </tr>
 <tr>
-<td>Microsoft Windows</td>
+<td>Windows</td>
 <td><code>windows</code></td>
 <td><code>x86_64</code>, <code>i386</code></td>
-<td><code>7</code>, <code>8</code>, <code>10</code>, <span class="title-ref">2008r2</span>, <code>2012</code>, <code>2012r2</code>, <code>2016</code>, <code>2019</code>, <code>11</code>, <code>2022</code></td>
+<td><code>10</code>, <span class="title-ref">2016</span>, <code>2019</code>, <code>11</code>, <code>2022</code></td>
 </tr>
 </tbody>
 </table>
@@ -150,7 +143,6 @@ This is a list of currently supported products that you can install with the Omn
 
 | Product | Product Key  |
 | ------- | ------------ |
-| Chef Automate | automate |
 | Chef Infra Client | chef |
 | Chef Backend | chef-backend |
 | Chef Infra Server | chef-server |
@@ -165,13 +157,13 @@ This is a list of currently supported products that you can install with the Omn
 
 To get the latest supported build for Ubuntu 20.04, enter the following:
 
-```none
+```plain
 https://omnitruck.chef.io/stable/chef/metadata?p=ubuntu&pv=20.04&m=x86_64
 ```
 
 to return something like:
 
-```none
+```plain
 sha1 3fe8e8a2f443675f9b82e876cdac8200104451f2
 sha256 9f1c1a2c0b1f4e8494664386437bf32f0cb5cbfbd4cb9d23e327767fc65581dc
 url https://packages.chef.io/files/stable/chef/17.7.29/ubuntu/20.04/chef_17.7.29-1_amd64.deb

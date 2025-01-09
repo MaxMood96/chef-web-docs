@@ -15,9 +15,9 @@ Use the `cpan` Chef InSpec audit resource to test Perl modules that are installe
 
 ## Availability
 
-### Installation
+### Install
 
-This resource is distributed along with Chef InSpec itself. You can use it automatically.
+{{< readfile file="content/inspec/reusable/md/inspec_installation.md" >}}
 
 ### Version
 
@@ -60,7 +60,7 @@ This resource uses package names and perl library paths as resource parameters.
 Hint: You can pass multiple paths separated with a colon
 `/path/to/perl5/lib:/usr/share/perl5/vendor_perl/lib/perl5`
 
-    describe cpan('DBD::Pg', '/home/jdoe/perl5/lib/perl5') do
+    describe cpan('DBD::Pg', '/home/username/perl5/lib/perl5') do
       it { should be_installed }
     end
 
@@ -76,7 +76,9 @@ The `version` property tests if the named package version is on the system:
 
 ## Matchers
 
-For a full list of available matchers, please visit our [matchers page](/inspec/matchers/).
+{{< readfile file="content/inspec/reusable/md/inspec_matchers_link.md" >}}
+
+This resource has the following special matchers.
 
 ### be_installed
 

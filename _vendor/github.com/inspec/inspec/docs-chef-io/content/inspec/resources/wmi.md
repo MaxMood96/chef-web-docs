@@ -15,9 +15,9 @@ Use the `wmi` Chef InSpec audit resource to test WMI settings on the Windows pla
 
 ## Availability
 
-### Installation
+### Install
 
-This resource is distributed along with Chef InSpec itself. You can use it automatically.
+{{< readfile file="content/inspec/reusable/md/inspec_installation.md" >}}
 
 ### Version
 
@@ -88,4 +88,4 @@ The following examples show how to use this Chef InSpec audit resource.
 
 ## Matchers
 
-For a full list of available matchers, please visit our [matchers page](/inspec/matchers/).
+{{< readfile file="content/inspec/reusable/md/inspec_matchers_link.md" >}}

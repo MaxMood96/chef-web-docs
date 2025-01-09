@@ -13,11 +13,25 @@ aliases = ["/ctl_chef.html", "/ctl_chef/"]
     parent = "chef_workstation/chef_workstation_tools/chef_(executable)"
     weight = 10
 +++
+<!-- markdownlint-disable-file MD024 MD036-->
 
 The chef executable is a command-line tool that does the following:
 
 - Generates repositories, cookbooks, recipes, attributes, templates, and custom resources.
 - Installs gems into the Chef development environment's Ruby installation.
+- Helps you manage your [Policyfiles](/policyfile/). Please refer the Policyfile commands [section](#policyfile-commands).
+
+
+{{< note >}}
+
+By default, the cookbook cache is located in `~/.chef-workstation` on macOS and Linux, and in `%LOCALAPPDATA%\chef-workstation` on Windows.
+On macOS or Linux, set the desired location of the cache directory by setting the `CHEF_WORKSTATION_HOME`
+environment variable in your `.bashrc` or `zshrc` file. For example, `CHEF_WORKSTATION_HOME="~/.workstation"`.
+On Windows, use the `setx` [command](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/setx)
+or access the [Advanced](https://support.microsoft.com/en-us/topic/how-to-manage-environment-variables-in-windows-xp-5bf6725b-655e-151c-0b55-9a8c9c7f747d)
+tab in System Properties to set the `CHEF_WORKSTATION_HOME` environment variable.
+
+{{< /note >}}
 
 ## chef capture
 
@@ -169,7 +183,7 @@ RubyGems and is used by Chef to install RubyGems into Chef Workstation
 development environment. All knife plugins, drivers for Kitchen, and
 other Ruby applications that are not packaged within Chef Workstation
 will be installed to the `.Chef Workstation` path in the home directory:
-`~/.Chef Workstation/gem/ruby/ver.si.on/bin` (where `ver.si.on` is the
+`~/.Chef Workstation/gem/ruby/version#/bin` (where `version#` is the
 version of Ruby that is packaged within Chef Workstation).
 
 ### Syntax
@@ -212,7 +226,7 @@ cookstyle (5.20.0)
 
 **List all local gems**
 
-To list all of the installed gems on your development environment, use
+To list the installed gems on your development environment, use
 the `list` command without any arguments:
 
 ``` bash
@@ -222,7 +236,7 @@ chef gem list
 **Search for local gems**
 
 The `list` command can also be used to search for locally installed
-gems. For example, to list all of the gems with `knife` in their title:
+gems. For example, to list the gems with `knife` in their title:
 
 ``` bash
 chef gem list knife
@@ -324,7 +338,7 @@ This subcommand has the following options:
 
 `-g GENERATOR_COOKBOOK_PATH`, `--generator-cookbook GENERATOR_COOKBOOK_PATH`
 
-: The path at which a cookbook named `code_generator` is located. This cookbook is used by the `chef generate` subcommands to generate cookbooks, cookbook files, templates, attribute files, and so on. Default value: `lib/chef-dk/skeletons`, under which is the default `code_generator` cookbook that is included as part of Chef Workstation.
+: The path at which a cookbook named `code_generator` is located. This cookbook is used by the `chef generate` subcommands to generate cookbooks, cookbook files, templates, attribute files, and more. Default value: `lib/chef-dk/skeletons`, under which is the default `code_generator` cookbook that is included as part of Chef Workstation.
 
 `-h`, `--help`
 
@@ -361,7 +375,7 @@ Use the `chef generate cookbook` subcommand to generate a cookbook.
 
 {{< note >}}
 
-{{% ruby_style_patterns_hyphens %}}
+{{< readfile file="content/reusable/md/ruby_style_patterns_hyphens.md" >}}
 
 {{< /note >}}
 
@@ -379,7 +393,7 @@ This subcommand has the following options:
 
 `-g GENERATOR_COOKBOOK_PATH`, `--generator-cookbook GENERATOR_COOKBOOK_PATH`
 
-: The path at which a cookbook named `code_generator` is located. This cookbook is used by the `chef generate` subcommands to generate cookbooks, cookbook files, templates, attribute files, and so on. Default value: `lib/chef-dk/skeletons`, under which is the default `code_generator` cookbook that is included as part of Chef Workstation.
+: The path at which a cookbook named `code_generator` is located. This cookbook is used by the `chef generate` subcommands to generate cookbooks, cookbook files, templates, attribute files, and more. Default value: `lib/chef-dk/skeletons`, under which is the default `code_generator` cookbook that is included as part of Chef Workstation.
 
 `-b`, `--berks`
 
@@ -387,11 +401,11 @@ This subcommand has the following options:
 
 `-C COPYRIGHT`, `--copyright COPYRIGHT`
 
-: Specify the copyright holder for copyright notices in generated files. Default value: `The Authors`
+: Specify the copyright holder for copyright notices in generated files, as well as the `maintainer` in `metadata.rb`. Default value: `The Authors`
 
 `-m EMAIL`, `--email EMAIL`
 
-: Specify the email address of the author. Default value: `you@example.com`.
+: Specify the `maintainer_email` for `metadata.rb`. Default value: `you@example.com`.
 
 `-a KEY=VALUE`, `--generator-arg KEY=VALUE`
 
@@ -460,16 +474,17 @@ Recipe: code_generator::cookbook
 
 and which creates a directory structure similar to:
 
+```txt
     /chefdocs
       /.git
       .gitignore
       kitchen.yml
-      Berksfile
       chefignore
       metadata.rb
       README.md
       /recipes
         default.rb
+```
 
 **Create a cookbook using a custom skeleton cookbook**
 
@@ -539,7 +554,7 @@ This subcommand has the following options:
 
 `-g GENERATOR_COOKBOOK_PATH`, `--generator-cookbook GENERATOR_COOKBOOK_PATH`
 
-: The path at which a cookbook named `code_generator` is located. This cookbook is used by the `chef generate` subcommands to generate cookbooks, cookbook files, templates, attribute files, and so on. Default value: `lib/chef-dk/skeletons`, under which is the default `code_generator` cookbook that is included as part of Chef Workstation.
+: The path at which a cookbook named `code_generator` is located. This cookbook is used by the `chef generate` subcommands to generate cookbooks, cookbook files, templates, attribute files, and more. Default value: `lib/chef-dk/skeletons`, under which is the default `code_generator` cookbook that is included as part of Chef Workstation.
 
 `-h`, `--help`
 
@@ -564,7 +579,7 @@ resource in the `/resources` directory.
 
 {{< note >}}
 
-{{% ruby_style_patterns_hyphens %}}
+{{< readfile file="content/reusable/md/ruby_style_patterns_hyphens.md" >}}
 
 {{< /note >}}
 
@@ -582,7 +597,7 @@ This subcommand has the following options:
 
 `-g GENERATOR_COOKBOOK_PATH`, `--generator-cookbook GENERATOR_COOKBOOK_PATH`
 
-: The path at which a cookbook named `code_generator` is located. This cookbook is used by the `chef generate` subcommands to generate cookbooks, cookbook files, templates, attribute files, and so on. Default value: `lib/chef-dk/skeletons`, under which is the default `code_generator` cookbook that is included as part of Chef Workstation.
+: The path at which a cookbook named `code_generator` is located. This cookbook is used by the `chef generate` subcommands to generate cookbooks, cookbook files, templates, attribute files, and more. Default value: `lib/chef-dk/skeletons`, under which is the default `code_generator` cookbook that is included as part of Chef Workstation.
 
 `-h`, `--help`
 
@@ -615,7 +630,7 @@ This subcommand has the following options:
 
 `-g GENERATOR_COOKBOOK_PATH`, `--generator-cookbook GENERATOR_COOKBOOK_PATH`
 
-: The path at which a cookbook named `code_generator` is located. This cookbook is used by the `chef generate` subcommands to generate cookbooks, cookbook files, templates, attribute files, and so on. Default value: `lib/chef-dk/skeletons`, under which is the default `code_generator` cookbook that is included as part of Chef Workstation.
+: The path at which a cookbook named `code_generator` is located. This cookbook is used by the `chef generate` subcommands to generate cookbooks, cookbook files, templates, attribute files, and more. Default value: `lib/chef-dk/skeletons`, under which is the default `code_generator` cookbook that is included as part of Chef Workstation.
 
 `-h`, `--help`
 
@@ -631,15 +646,15 @@ None.
 
 ## chef generate repo
 
-{{% ctl_chef_generate_repo %}}
+{{< readfile file="content/workstation/reusable/md/ctl_chef_generate_repo.md" >}}
 
 ### Syntax
 
-{{% ctl_chef_generate_repo_syntax %}}
+{{< readfile file="content/workstation/reusable/md/ctl_chef_generate_repo_syntax.md" >}}
 
 ### Options
 
-{{% ctl_chef_generate_repo_options %}}
+{{< readfile file="content/workstation/reusable/md/ctl_chef_generate_repo_options.md" >}}
 
 ### Examples
 
@@ -664,7 +679,7 @@ This subcommand has the following options:
 
 `-g GENERATOR_COOKBOOK_PATH`, `--generator-cookbook GENERATOR_COOKBOOK_PATH`
 
-: The path at which a cookbook named `code_generator` is located. This cookbook is used by the `chef generate` subcommands to generate cookbooks, cookbook files, templates, attribute files, and so on. Default value: `lib/chef-dk/skeletons`, under which is the default `code_generator` cookbook that is included as part of Chef Workstation.
+: The path at which a cookbook named `code_generator` is located. This cookbook is used by the `chef generate` subcommands to generate cookbooks, cookbook files, templates, attribute files, and more. Default value: `lib/chef-dk/skeletons`, under which is the default `code_generator` cookbook that is included as part of Chef Workstation.
 
 `-h`, `--help`
 
@@ -677,6 +692,86 @@ This subcommand has the following options:
 `-v`, `--version`
 
 : The Chef Infra Client version.
+
+### Examples
+
+None.
+
+## chef generate profile
+
+Use the `chef generate profile` subcommand to generate a [profile](/inspec/profiles/) for the Chef Infra Client's Compliance Phase execution.
+
+### Syntax
+
+This subcommand has the following syntax:
+
+```bash
+chef generate profile [path/to/cookbook] NAME
+```
+
+### Options
+
+This subcommand has the following options:
+
+`-h`, `--help`
+
+:   Show help for the command.
+
+`-v`, `--version`
+
+:   The Chef Workstation version.
+
+### Examples
+
+None.
+
+## chef generate input
+
+Use the `chef generate input` subcommand to generate an [input](/inspec/inputs/) file for the Chef Infra Client's Compliance Phase execution.
+
+### Syntax
+
+This subcommand has the following syntax:
+
+```bash
+chef generate input [path/to/cookbook] NAME
+```
+
+### Options
+
+Use the `chef export` subcommand to create a chef-zero-compatible
+chef-repo that contains the cookbooks described by a
+`Policyfile.lock.json` file. After a chef-zero-compatible chef-repo is
+copied to a node, the policy can be applied locally on that machine by
+running `chef-client -z` (local mode).
+
+### Examples
+
+None.
+
+## chef generate waiver
+
+Use the `chef generate waiver` subcommand to generate a [waiver](/inspec/waivers/) file for the Chef Infra Client's Compliance Phase execution.
+
+### Syntax
+
+This subcommand has the following syntax:
+
+```bash
+chef generate waiver [path/to/cookbook] NAME
+```
+
+### Options
+
+This subcommand has the following options:
+
+`-h`, `--help`
+
+:   Show help for the command.
+
+`-v`, `--version`
+
+:   The Chef Workstation version.
 
 ### Examples
 
@@ -751,7 +846,6 @@ This subcommand has the following options:
 
 : Maximum number of parallel workers at once (default 50).
 
-
 ### Examples
 
 **Generate a report**
@@ -790,7 +884,7 @@ information on upgrading Chef Infra Client.
 
 ## chef report nodes
 
-Use the `chef report nodes` subcommand to generate a nodes-oriented report for your chef environment. This report provides details about nodes, applied policies and the cookbooks used during the most recent chef-client run.
+Use the `chef report nodes` subcommand to generate a nodes-oriented report for your chef environment. This report provides details about nodes, applied policies and the cookbooks used during the most recent Chef Infra Client run.
 
 ### Syntax
 
@@ -844,7 +938,6 @@ This subcommand has the following options:
 
 : Chef Infra Server URL.
 
-
 ### Examples
 
 **Generate a report**
@@ -873,10 +966,10 @@ Analyzing nodes...
 Nodes report saved to .chef-workstation/reports/nodes-20200722130502.txt
 
 ```
+
 More details of this summary report can be viewed in the text file, the location for which is given at the end of the summary.
 
 [Upgrade Lab](/workstation/upgrade_lab) provides further details on how this command can be used in Chef Infra Client upgrade process.
-
 
 ## chef shell-init
 
@@ -885,8 +978,6 @@ Workstation as the system Ruby. Chef Workstation is designed to allow
 the isolation of applications used by Chef Workstation from other Ruby
 development tools that may be present on the workstation. This supports
 Bash, fish, Windows PowerShell (posh), and zsh.
-
-bash zsh fish PowerShell (posh)
 
 ### Syntax
 
@@ -961,19 +1052,19 @@ if(Test-Path $PROFILE){ chef shell-init powershell | Add-Content $PROFILE } else
 
 ## Policyfile Commands
 
-{{% policyfile_chef_commands %}}
+{{< readfile file="content/reusable/md/policyfile_chef_commands.md" >}}
 
 ### chef clean-policy-cookbooks
 
-{{% ctl_chef_clean_policy_cookbooks %}}
+{{< readfile file="content/workstation/reusable/md/ctl_chef_clean_policy_cookbooks.md" >}}
 
 #### Syntax
 
-{{% ctl_chef_clean_policy_cookbooks_syntax %}}
+{{< readfile file="content/workstation/reusable/md/ctl_chef_clean_policy_cookbooks_syntax.md" >}}
 
 #### Options
 
-{{% ctl_chef_clean_policy_cookbooks_options %}}
+{{< readfile file="content/workstation/reusable/md/ctl_chef_clean_policy_cookbooks_options.md" >}}
 
 #### Examples
 
@@ -981,15 +1072,15 @@ None.
 
 ### chef clean-policy-revisions
 
-{{% ctl_chef_clean_policy_revisions %}}
+{{< readfile file="content/workstation/reusable/md/ctl_chef_clean_policy_revisions.md" >}}
 
 #### Syntax
 
-{{% ctl_chef_clean_policy_revisions_syntax %}}
+{{< readfile file="content/workstation/reusable/md/ctl_chef_clean_policy_revisions_syntax.md" >}}
 
 #### Options
 
-{{% ctl_chef_clean_policy_revisions_options %}}
+{{< readfile file="content/workstation/reusable/md/ctl_chef_clean_policy_revisions_options.md" >}}
 
 #### Examples
 
@@ -997,15 +1088,15 @@ None.
 
 ### chef delete-policy
 
-{{% ctl_chef_delete_policy %}}
+{{< readfile file="content/workstation/reusable/md/ctl_chef_delete_policy.md" >}}
 
 #### Syntax
 
-{{% ctl_chef_delete_policy_syntax %}}
+{{< readfile file="content/workstation/reusable/md/ctl_chef_delete_policy_syntax.md" >}}
 
 #### Options
 
-{{% ctl_chef_delete_policy_options %}}
+{{< readfile file="content/workstation/reusable/md/ctl_chef_delete_policy_options.md" >}}
 
 #### Examples
 
@@ -1013,15 +1104,15 @@ None.
 
 ### chef delete-policy-group
 
-{{% ctl_chef_delete_policy_group %}}
+{{< readfile file="content/workstation/reusable/md/ctl_chef_delete_policy_group.md" >}}
 
 #### Syntax
 
-{{% ctl_chef_delete_policy_group_syntax %}}
+{{< readfile file="content/workstation/reusable/md/ctl_chef_delete_policy_group_syntax.md" >}}
 
 #### Options
 
-{{% ctl_chef_delete_policy_group_options %}}
+{{< readfile file="content/workstation/reusable/md/ctl_chef_delete_policy_group_options.md" >}}
 
 #### Examples
 
@@ -1029,57 +1120,57 @@ None.
 
 ### chef diff
 
-{{% ctl_chef_diff %}}
+{{< readfile file="content/workstation/reusable/md/ctl_chef_diff.md" >}}
 
 #### Syntax
 
-{{% ctl_chef_diff_syntax %}}
+{{< readfile file="content/workstation/reusable/md/ctl_chef_diff_syntax.md" >}}
 
 #### Options
 
-{{% ctl_chef_diff_options %}}
+{{< readfile file="content/workstation/reusable/md/ctl_chef_diff_options.md" >}}
 
 #### Examples
 
 **Compare current lock to latest commit on latest branch**
 
-{{% ctl_chef_diff_current_lock_latest_branch %}}
+{{< readfile file="content/workstation/reusable/md/ctl_chef_diff_current_lock_latest_branch.md" >}}
 
 **Compare current lock with latest commit on master branch**
 
-{{% ctl_chef_diff_current_lock_master_branch %}}
+{{< readfile file="content/workstation/reusable/md/ctl_chef_diff_current_lock_master_branch.md" >}}
 
 **Compare current lock to specified revision**
 
-{{% ctl_chef_diff_current_lock_specified_revision %}}
+{{< readfile file="content/workstation/reusable/md/ctl_chef_diff_current_lock_specified_revision.md" >}}
 
 **Compare lock on master branch to lock on revision**
 
-{{% ctl_chef_diff_master_lock_revision_lock %}}
+{{< readfile file="content/workstation/reusable/md/ctl_chef_diff_master_lock_revision_lock.md" >}}
 
 **Compare lock for version with latest commit on master branch**
 
-{{% ctl_chef_diff_version_lock_master_branch %}}
+{{< readfile file="content/workstation/reusable/md/ctl_chef_diff_version_lock_master_branch.md" >}}
 
 **Compare current lock with latest lock for policy group**
 
-{{% ctl_chef_diff_current_lock_policy_group %}}
+{{< readfile file="content/workstation/reusable/md/ctl_chef_diff_current_lock_policy_group.md" >}}
 
 **Compare locks for two policy groups**
 
-{{% ctl_chef_diff_two_policy_groups %}}
+{{< readfile file="content/workstation/reusable/md/ctl_chef_diff_two_policy_groups.md" >}}
 
 ### chef export
 
-{{% ctl_chef_export %}}
+{{< readfile file="content/workstation/reusable/md/ctl_chef_export.md" >}}
 
 #### Syntax
 
-{{% ctl_chef_export_syntax %}}
+{{< readfile file="content/workstation/reusable/md/ctl_chef_export_syntax.md" >}}
 
 #### Options
 
-{{% ctl_chef_export_options %}}
+{{< readfile file="content/workstation/reusable/md/ctl_chef_export_options.md" >}}
 
 #### Examples
 
@@ -1087,15 +1178,15 @@ None.
 
 ### chef generate policyfile
 
-{{% ctl_chef_generate_policyfile %}}
+{{< readfile file="content/workstation/reusable/md/ctl_chef_generate_policyfile.md" >}}
 
 #### Syntax
 
-{{% ctl_chef_generate_policyfile_syntax %}}
+{{< readfile file="content/workstation/reusable/md/ctl_chef_generate_policyfile_syntax.md" >}}
 
 #### Options
 
-{{% ctl_chef_generate_policyfile_options %}}
+{{< readfile file="content/workstation/reusable/md/ctl_chef_generate_policyfile_options.md" >}}
 
 #### Examples
 
@@ -1103,21 +1194,21 @@ None.
 
 ### chef install
 
-{{% ctl_chef_install %}}
+{{< readfile file="content/workstation/reusable/md/ctl_chef_install.md" >}}
 
 #### Syntax
 
-{{% ctl_chef_install_syntax %}}
+{{< readfile file="content/workstation/reusable/md/ctl_chef_install_syntax.md" >}}
 
 #### Options
 
-{{% ctl_chef_install_options %}}
+{{< readfile file="content/workstation/reusable/md/ctl_chef_install_options.md" >}}
 
 #### Policyfile.lock.json
 
-{{% policyfile_lock_json %}}
+{{< readfile file="content/reusable/md/policyfile_lock_json.md" >}}
 
-{{% policyfile_lock_json_example %}}
+{{< readfile file="content/reusable/md/policyfile_lock_json_example.md" >}}
 
 #### Examples
 
@@ -1125,15 +1216,15 @@ None.
 
 ### chef push
 
-{{% ctl_chef_push %}}
+{{< readfile file="content/workstation/reusable/md/ctl_chef_push.md" >}}
 
 #### Syntax
 
-{{% ctl_chef_push_syntax %}}
+{{< readfile file="content/workstation/reusable/md/ctl_chef_push_syntax.md" >}}
 
 #### Options
 
-{{% ctl_chef_push_options %}}
+{{< readfile file="content/workstation/reusable/md/ctl_chef_push_options.md" >}}
 
 #### Examples
 
@@ -1141,15 +1232,15 @@ None.
 
 ### chef push-archive
 
-{{% ctl_chef_push_archive %}}
+{{< readfile file="content/workstation/reusable/md/ctl_chef_push_archive.md" >}}
 
 #### Syntax
 
-{{% ctl_chef_push_archive_syntax %}}
+{{< readfile file="content/workstation/reusable/md/ctl_chef_push_archive_syntax.md" >}}
 
 #### Options
 
-{{% ctl_chef_push_archive_options %}}
+{{< readfile file="content/workstation/reusable/md/ctl_chef_push_archive_options.md" >}}
 
 #### Examples
 
@@ -1157,15 +1248,15 @@ None.
 
 ### chef show-policy
 
-{{% ctl_chef_show_policy %}}
+{{< readfile file="content/workstation/reusable/md/ctl_chef_show_policy.md" >}}
 
 #### Syntax
 
-{{% ctl_chef_show_policy_syntax %}}
+{{< readfile file="content/workstation/reusable/md/ctl_chef_show_policy_syntax.md" >}}
 
 #### Options
 
-{{% ctl_chef_show_policy_options %}}
+{{< readfile file="content/workstation/reusable/md/ctl_chef_show_policy_options.md" >}}
 
 #### Examples
 
@@ -1173,15 +1264,15 @@ None.
 
 ### chef undelete
 
-{{% ctl_chef_undelete %}}
+{{< readfile file="content/workstation/reusable/md/ctl_chef_undelete.md" >}}
 
 #### Syntax
 
-{{% ctl_chef_undelete_syntax %}}
+{{< readfile file="content/workstation/reusable/md/ctl_chef_undelete_syntax.md" >}}
 
 #### Options
 
-{{% ctl_chef_undelete_options %}}
+{{< readfile file="content/workstation/reusable/md/ctl_chef_undelete_options.md" >}}
 
 #### Examples
 
@@ -1189,15 +1280,15 @@ None.
 
 ### chef update
 
-{{% ctl_chef_update %}}
+{{< readfile file="content/workstation/reusable/md/ctl_chef_update.md" >}}
 
 #### Syntax
 
-{{% ctl_chef_update_syntax %}}
+{{< readfile file="content/workstation/reusable/md/ctl_chef_update_syntax.md" >}}
 
 #### Options
 
-{{% ctl_chef_update_options %}}
+{{< readfile file="content/workstation/reusable/md/ctl_chef_update_options.md" >}}
 
 #### Examples
 

@@ -12,7 +12,7 @@ product = ["client", "server"]
     parent = "legacy/manage"
 +++
 <!-- markdownlint-disable-file MD033 MD024-->
-{{% server_rbac %}}
+{{< readfile file="content/server/reusable/md/server_rbac.md" >}}
 
 The Chef Infra Server uses organizations, groups, and users to define
 role-based access control:
@@ -30,21 +30,21 @@ role-based access control:
 </thead>
 <tbody>
 <tr>
-<td><p><img src="/images/icon_server_organization.svg" class="align-center" width="130" alt="image" /></p></td>
-<td>An organization is the top-level entity for role-based access control in the Chef Infra Server. Each organization contains the default groups (<code>admins</code>, <code>clients</code>, and <code>users</code>, plus <code>billing_admins</code> for the hosted Chef Infra Server), at least one user and at least one node (on which the Chef Infra Client is installed). The Chef Infra Server supports multiple organizations. The Chef Infra Server includes a single default organization that is defined during setup. Additional organizations can be created after the initial setup and configuration of the Chef Infra Server.</td>
+<td><p><img src="/images/icon_server_organization.svg" class="align-center" width="130" alt="" /></p></td>
+<td>An organization is the top-level entity for role-based access control in the Chef Infra Server. Each organization contains the default groups (<code>admins</code>, <code>clients</code>, and <code>users</code>), at least one user and at least one node (on which the Chef Infra Client is installed). The Chef Infra Server supports multiple organizations. The Chef Infra Server includes a single default organization that's defined during setup. Additional organizations can be created after the initial setup and configuration of the Chef Infra Server.</td>
 </tr>
 <tr>
-<td><p><img src="/images/icon_server_groups.svg" class="align-center" width="130" alt="image" /></p></td>
-<td><p>A group is used to define access to object types and objects in the Chef Infra Server and also to assign permissions that determine what types of tasks are available to members of that group who are authorized to perform them. Groups are configured per-organization.</p>
-<p>Individual users who are members of a group will inherit the permissions assigned to the group. The Chef Infra Server includes the following default groups: <code>admins</code>, <code>clients</code>, and <code>users</code>. For users of the hosted Chef Infra Server, an additional default group is provided: <code>billing_admins</code>.</p></td>
+<td><p><img src="/images/icon_server_groups.svg" class="align-center" width="130" alt="" /></p></td>
+<td><p>A group is used to define access to object types and objects in the Chef Infra Server and also to assign permissions that determine what types of tasks are available to members of that group who are authorized to perform them. Groups are configured by organization.</p>
+<p>Individual users who are members of a group will inherit the permissions assigned to the group. The Chef Infra Server includes the following default groups: <code>admins</code>, <code>clients</code>, and <code>users</code>.</p></td>
 </tr>
 <tr>
-<td><p><img src="/images/icon_server_users.svg" class="align-center" width="130" alt="image" /></p></td>
-<td>A user is any non-administrator human being who will manage data that is uploaded to the Chef Infra Server from a workstation or who will log on to the Chef management console web user interface. The Chef Infra Server includes a single default user that is defined during setup and is automatically assigned to the <code>admins</code> group.</td>
+<td><p><img src="/images/icon_server_users.svg" class="align-center" width="130" alt="" /></p></td>
+<td>A user is any non-administrator human being who will manage data that's uploaded to the Chef Infra Server from a workstation or who will log on to the Chef management console web user interface. The Chef Infra Server includes a single default user that's defined during setup and is automatically assigned to the <code>admins</code> group.</td>
 </tr>
 <tr>
-<td><p><img src="/images/icon_chef_client.svg" class="align-center" width="130" alt="image" /></p></td>
-<td>A client is an actor that has permission to access the Chef Infra Server. A client is most often a node (on which the Chef Infra Client runs), but is also a workstation (on which knife runs), or some other machine that is configured to use the Chef Infra Server API. Each request to the Chef Infra Server that is made by a client uses a private key for authentication that must be authorized by the public key on the Chef Infra Server.</td>
+<td><p><img src="/images/icon_chef_client.svg" class="align-center" width="130" alt="" /></p></td>
+<td>A client is an actor that has permission to access the Chef Infra Server. A client is most often a node (on which the Chef Infra Client runs), but is also a workstation (on which knife runs), or some other machine that's configured to use the Chef Infra Server API. Each request to the Chef Infra Server that's made by a client uses a private key for authentication that must be authorized by the public key on the Chef Infra Server.</td>
 </tr>
 </tbody>
 </table>
@@ -74,10 +74,8 @@ organization on the Chef Infra Server.
 A user may belong to multiple organizations under the following
 conditions:
 
-- Role-based access control is configured per-organization
-- For a single user to interact with the Chef Infra Server using knife
-    from the same chef-repo, that user may need to edit their config.rb
-    file prior to that interaction
+- Role-based access control is configured for each organization
+- For a single user to interact with the Chef Infra Server using knife from the same chef-repo, that user may need to edit their `config.rb` file before that interaction
 
 Using multiple organizations within the Chef Infra Server ensures that
 the same toolset, coding patterns and practices, physical hardware, and
@@ -94,11 +92,11 @@ when:
 
 ### Permissions
 
-{{% server_rbac_permissions %}}
+{{< readfile file="content/server/reusable/md/server_rbac_permissions.md" >}}
 
 #### Object Permissions
 
-{{% server_rbac_permissions_object %}}
+{{< readfile file="content/server/reusable/md/server_rbac_permissions_object.md" >}}
 
 #### Global Permissions
 
@@ -179,7 +177,13 @@ a fine-grained approach to modifying permissions, by wrapping API calls
 to the `_acl` endpoint and makes such permission changes easier to
 manage.
 
-{{% EOL_manage %}}
+{{< warning >}}
+
+{{< readfile file="content/reusable/md/EOL_manage.md" >}}
+
+This document is no longer maintained.
+
+{{< /warning >}}
 
 <span class="title-ref">knife-acl</span> and the Chef Manage browser
 interface are incompatible. After engaging <span
@@ -208,12 +212,8 @@ The Chef Infra Server includes the following default groups:
 <td>The <code>admins</code> group defines the list of users who have administrative rights to all objects and object types for a single organization.</td>
 </tr>
 <tr>
-<td><code>billing_admins</code></td>
-<td>The <code>billing_admins</code> group defines the list of users who have permission to manage billing information. This permission exists only for the hosted Chef Infra Server.</td>
-</tr>
-<tr>
 <td><code>clients</code></td>
-<td>The <code>clients</code> group defines the list of nodes on which a Chef Infra Client is installed and under management by Chef. In general, think of this permission as "all of the non-human actors---Chef Infra Client, in nearly every case---that get data from, and/or upload data to, the Chef server". Newly-created Chef Infra Client instances are added to this group automatically.</td>
+<td>The <code>clients</code> group defines the list of nodes on which a Chef Infra Client is installed and under management by Chef. In general, think of this permission as "all of the non-human actors---Chef Infra Client, in almost every case---that get data from, and/or upload data to, Chef Infra Server." Newly-created Chef Infra Client instances are added to this group automatically.</td>
 </tr>
 <tr>
 <td><code>public_key_read_access</code></td>
@@ -221,7 +221,7 @@ The Chef Infra Server includes the following default groups:
 </tr>
 <tr>
 <td><code>users</code></td>
-<td>The <code>users</code> group defines the list of users who use knife and the Chef management console to interact with objects and object types. In general, think of this permission as "all of the non-admin human actors who work with data that is uploaded to and/or downloaded from the Chef server".</td>
+<td>The <code>users</code> group defines the list of users who use knife and the Chef management console to interact with objects and object types. In general, think of this permission as "all of the non-admin human actors who work with data that's uploaded to and/or downloaded from Chef Infra Server."</td>
 </tr>
 </tbody>
 </table>
@@ -596,7 +596,7 @@ The `users` group is assigned the following:
 
 ### chef-validator
 
-{{% security_chef_validator %}}
+{{< readfile file="content/reusable/md/security_chef_validator.md" >}}
 
 The chef-validator is allowed to do the following at the start of a Chef
 Infra Client run. After the Chef Infra Client is registered with Chef
@@ -632,92 +632,92 @@ Infra Server, that Chef Infra Client is added to the `clients` group:
 
 ## Server Admins
 
-{{% server_rbac_server_admins %}}
+{{< readfile file="content/server/reusable/md/server_rbac_server_admins.md" >}}
 
 ### Scenario
 
-{{< readFile_shortcode file="server_rbac_server_admins_scenario.md" >}}
+{{< readfile file="content/server/reusable/md/server_rbac_server_admins_scenario.md" >}}
 
 #### Superuser Accounts
 
-{{< readFile_shortcode file="server_rbac_server_admins_superusers.md" >}}
+{{< readfile file="content/server/reusable/md/server_rbac_server_admins_superusers.md" >}}
 
 ### Manage server-admins Group
 
-{{% ctl_chef_server_server_admin %}}
+{{< readfile file="content/server/reusable/md/ctl_chef_server_server_admin.md" >}}
 
 #### Add Members
 
-{{% ctl_chef_server_server_admin_grant_user %}}
+{{< readfile file="content/server/reusable/md/ctl_chef_server_server_admin_grant_user.md" >}}
 
 #### Remove Members
 
-{{% ctl_chef_server_server_admin_remove_user %}}
+{{< readfile file="content/server/reusable/md/ctl_chef_server_server_admin_remove_user.md" >}}
 
 #### List Membership
 
-{{% ctl_chef_server_server_admin_list %}}
+{{< readfile file="content/server/reusable/md/ctl_chef_server_server_admin_list.md" >}}
 
 ## Manage Organizations
 
-{{% ctl_chef_server_org %}}
+{{< readfile file="content/server/reusable/md/ctl_chef_server_org.md" >}}
 
 ### org-create
 
-{{% ctl_chef_server_org_create %}}
+{{< readfile file="content/server/reusable/md/ctl_chef_server_org_create.md" >}}
 
 #### Syntax
 
-{{% ctl_chef_server_org_create_syntax %}}
+{{< readfile file="content/server/reusable/md/ctl_chef_server_org_create_syntax.md" >}}
 
 #### Options
 
-{{% ctl_chef_server_org_create_options %}}
+{{< readfile file="content/server/reusable/md/ctl_chef_server_org_create_options.md" >}}
 
 ### org-delete
 
-{{% ctl_chef_server_org_delete %}}
+{{< readfile file="content/server/reusable/md/ctl_chef_server_org_delete.md" >}}
 
 #### Syntax
 
-{{% ctl_chef_server_org_delete_syntax %}}
+{{< readfile file="content/server/reusable/md/ctl_chef_server_org_delete_syntax.md" >}}
 
 ### org-list
 
-{{% ctl_chef_server_org_list %}}
+{{< readfile file="content/server/reusable/md/ctl_chef_server_org_list.md" >}}
 
 #### Syntax
 
-{{% ctl_chef_server_org_list_syntax %}}
+{{< readfile file="content/server/reusable/md/ctl_chef_server_org_list_syntax.md" >}}
 
 #### Options
 
-{{% ctl_chef_server_org_list_options %}}
+{{< readfile file="content/server/reusable/md/ctl_chef_server_org_list_options.md" >}}
 
 ### org-show
 
-{{% ctl_chef_server_org_show %}}
+{{< readfile file="content/server/reusable/md/ctl_chef_server_org_show.md" >}}
 
 #### Syntax
 
-{{% ctl_chef_server_org_show_syntax %}}
+{{< readfile file="content/server/reusable/md/ctl_chef_server_org_show_syntax.md" >}}
 
 ### org-user-add
 
-{{% ctl_chef_server_org_user_add %}}
+{{< readfile file="content/server/reusable/md/ctl_chef_server_org_user_add.md" >}}
 
 #### Syntax
 
-{{% ctl_chef_server_org_user_add_syntax %}}
+{{< readfile file="content/server/reusable/md/ctl_chef_server_org_user_add_syntax.md" >}}
 
 #### Options
 
-{{% ctl_chef_server_org_user_add_options %}}
+{{< readfile file="content/server/reusable/md/ctl_chef_server_org_user_add_options.md" >}}
 
 ### org-user-remove
 
-{{% ctl_chef_server_org_user_remove %}}
+{{< readfile file="content/server/reusable/md/ctl_chef_server_org_user_remove.md" >}}
 
 #### Syntax
 
-{{% ctl_chef_server_org_user_remove_syntax %}}
+{{< readfile file="content/server/reusable/md/ctl_chef_server_org_user_remove_syntax.md" >}}

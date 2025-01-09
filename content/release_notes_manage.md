@@ -13,23 +13,30 @@ toc_layout = "release_notes_toc"
     title = "Chef Manage"
     identifier = "release_notes/release_notes_manage.md Chef Manage"
     parent = "release_notes"
-    weight = 70
+    weight = 95
 +++
 
-Chef Manage provides a web-based user interface that manages Chef Infra nodes and other policy objects, such as data bags and roles, on the instance of Chef Infra Server that it is installed on.
+Chef Manage provides a web-based user interface that manages Chef Infra nodes and other policy objects, such as data bags and roles, on the instance of Chef Infra Server that it's installed on.
 
 Chef Manage is [deprecated](/versions/#deprecated) and users should plan to migrate to [Chef Automate](/automate/) as the replacement.
 
 ## Upgrading
 
-Download the latest version of the chef-manage package for your platform from [Chef Downloads](https://www.chef.io/downloads/tools/manage) to your Chef Infra Server, then run:
+Download the latest version of the chef-manage package for your platform from [Chef Downloads](https://www.chef.io/downloads) to your Chef Infra Server, then run:
 
 ```bash
-# rpm -Uvh /path/to/chef-manage-*.rpm
-or
-# dpkg -i /path/to/chef-manage-*.deb
+rpm -Uvh /path/to/chef-manage-*.rpm
+```
 
-then
-# chef-manage-ctl reconfigure
-# chef-server-ctl reconfigure
+or
+
+```bash
+dpkg -i /path/to/chef-manage-*.deb
+```
+
+then:
+
+```bash
+chef-manage-ctl reconfigure
+chef-server-ctl reconfigure
 ```

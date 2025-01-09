@@ -12,8 +12,9 @@ aliases = ["/knife_recipe_list.html", "/knife_recipe_list/"]
     identifier = "chef_workstation/chef_workstation_tools/knife/knife_recipe_list.md knife recipe list"
     parent = "chef_workstation/chef_workstation_tools/knife"
 +++
+<!-- markdownlint-disable-file MD036 -->
 
-{{% knife_recipe_list_summary %}}
+{{< readfile file="content/workstation/reusable/md/knife_recipe_list_summary.md" >}}
 
 ## Syntax
 
@@ -27,7 +28,7 @@ knife recipe list REGEX
 
 {{< note >}}
 
-{{% knife_common_see_common_options_link %}}
+{{< readfile file="content/workstation/reusable/md/knife_common_see_common_options_link.md" >}}
 
 {{< /note >}}
 

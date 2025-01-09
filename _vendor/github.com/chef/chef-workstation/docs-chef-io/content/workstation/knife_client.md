@@ -12,12 +12,13 @@ aliases = ["/knife_client.html", "/knife_client/"]
     identifier = "chef_workstation/chef_workstation_tools/knife/knife_client.md knife client"
     parent = "chef_workstation/chef_workstation_tools/knife"
 +++
+<!-- markdownlint-disable-file MD024 MD033 MD036 MD046-->
 
-{{% knife_client_summary %}}
+{{< readfile file="content/workstation/reusable/md/knife_client_summary.md" >}}
 
 {{< note >}}
 
-{{% knife_common_see_common_options_link %}}
+{{< readfile file="content/workstation/reusable/md/knife_common_see_common_options_link.md" >}}
 
 {{< /note >}}
 
@@ -54,8 +55,8 @@ generate an RSA key pair for the named API client. The public key will
 be stored on the Chef Infra Server and the private key will be displayed
 on `STDOUT` or written to a named file.
 
-. For Chef Infra Client, the private key should be copied to the system as `/etc/chef/client.pem`.
-. For knife, the private key is typically copied to `~/.chef/client_name.pem` and referenced in the config.rb configuration file.
+For Chef Infra Client, the private key should be copied to the system as `/etc/chef/client.pem`.
+For knife, the private key is typically copied to `~/.chef/client_name.pem` and referenced in the config.rb configuration file.
 
 ### Syntax
 
@@ -75,11 +76,11 @@ This argument has the following options:
 
 `-k`, `--prevent-keygen`
 
-: Create a user without a public key. This key may be managed later by using the `knife user key` subcommands.
+: Create a client without a keypair. This key may be managed later by using the `knife client key create` subcommand.
 
     {{< note spaces=4 >}}
 
-    This option is valid only with Chef Infra Server API, version 1.0, which was released with Chef Server 12.1. If this option or the `--user-key` option are not passed in the command, the Chef Infra Server will create a user with a public key named `default` and will return the private key. For the Chef Server versions earlier than 12.1, this option will not work; a public key is always generated unless `--user-key` is passed in the command.
+    This option is valid only with Chef Infra Server API version 1.0, which was released with Chef Server 12.1. It cannot be passed with the `--public-key` option.
 
     {{< /note >}}
 
@@ -93,7 +94,7 @@ This argument has the following options:
 
 {{< note >}}
 
-{{% knife_common_see_all_config_options %}}
+{{< readfile file="content/workstation/reusable/md/knife_common_see_all_config_options.md" >}}
 
 {{< /note >}}
 
@@ -400,7 +401,7 @@ This argument has the following options:
 
 {{< note >}}
 
-{{% knife_common_see_all_config_options %}}
+{{< readfile file="content/workstation/reusable/md/knife_common_see_all_config_options.md" >}}
 
 {{< /note >}}
 

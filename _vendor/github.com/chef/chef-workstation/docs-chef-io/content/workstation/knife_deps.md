@@ -12,8 +12,9 @@ aliases = ["/knife_deps.html", "/knife_deps/"]
     identifier = "chef_workstation/chef_workstation_tools/knife/knife_deps.md knife deps"
     parent = "chef_workstation/chef_workstation_tools/knife"
 +++
+<!-- markdownlint-disable-file MD024 MD036 -->
 
-{{% knife_deps_summary %}}
+{{< readfile file="content/workstation/reusable/md/knife_deps_summary.md" >}}
 
 ## Syntax
 
@@ -27,7 +28,7 @@ knife deps (options)
 
 {{< note >}}
 
-{{% knife_common_see_common_options_link %}}
+{{< readfile file="content/workstation/reusable/md/knife_common_see_common_options_link.md" >}}
 
 {{< /note >}}
 
@@ -59,7 +60,7 @@ This subcommand has the following options:
 
 {{< note >}}
 
-{{% knife_common_see_all_config_options %}}
+{{< readfile file="content/workstation/reusable/md/knife_common_see_all_config_options.md" >}}
 
 {{< /note >}}
 
@@ -91,7 +92,7 @@ knife deps cookbooks/cookbook_name.json
 knife deps environments/environment_name.json
 ```
 
-**Find dependencies for a combination of nodes, roles, and so on**
+**Find dependencies for a combination of nodes, roles, and more**
 
 To find the dependencies for a combination of nodes, cookbooks, roles,
 and/or environments:
@@ -102,8 +103,8 @@ knife deps cookbooks/git.json cookbooks/github.json roles/base.json environments
 
 **Use a wildcard**
 
-A wildcard can be used to return all of the child nodes. For example,
-all of the environments:
+A wildcard can be used to return the child nodes. For example,
+the environments:
 
 ``` bash
 knife deps environments/*.json
