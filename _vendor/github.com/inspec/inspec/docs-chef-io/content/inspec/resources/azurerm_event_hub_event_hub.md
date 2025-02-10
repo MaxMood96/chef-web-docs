@@ -11,13 +11,15 @@ platform = "azure"
     parent = "inspec/resources/azure"
 +++
 
+{{< inspec/azurerm_deprecated resource="azure_event_hub_event_hub" >}}
+
 Use the `azurerm_event_hub_event_hub` InSpec audit resource to test properties and configuration of
 an Azure Event Hub Event Hub within a Resource Group.
 
 ## Azure REST API version
 
 This resource interacts with version `2017-04-01` of the Azure Management API. For more
-information see the [Official Azure Documentation](https://docs.microsoft.com/en-us/rest/api/eventhub/eventhubs/get).
+information see the [Official Azure Documentation](https://docs.microsoft.com/en-us/dotnet/api/eventhub?view=bts-2020).
 
 At the moment, there doesn't appear to be a way to select the version of the
 Azure API docs. If you notice a newer version being referenced in the official
@@ -26,7 +28,7 @@ version.
 
 ## Availability
 
-### Installation
+### Install
 
 This resource is available in the `inspec-azure` [resource
 pack](/inspec/glossary/#resource-pack). To use it, add the
@@ -47,7 +49,7 @@ This resource first became available in 1.11.0 of the inspec-azure resource pack
 
 The `resource_group`, `namespace_name` and `event_hub_name` must be given as a parameter.
 
-    describe azurerm_event_hub_event_hub(resource_group: 'my-rg', namespace_name 'my-event-hub-ns', event_hub_name 'myeventhub') do
+    describe azurerm_event_hub_event_hub(resource_group: 'my-rg', namespace_name 'my-event-hub-ns', event_hub_name 'event-hub') do
       it { should exist }
     end
 
@@ -55,13 +57,13 @@ The `resource_group`, `namespace_name` and `event_hub_name` must be given as a p
 
 If an Event Hub Event Hub is referenced with a valid `Resource Group`, `Namespace Name` and `Event Hub Name`
 
-    describe azurerm_event_hub_event_hub(resource_group: 'my-rg', namespace_name: 'my-event-hub-ns', event_hub_name 'myeventhub') do
+    describe azurerm_event_hub_event_hub(resource_group: 'my-rg', namespace_name: 'my-event-hub-ns', event_hub_name 'event-hub') do
       it { should exist }
     end
 
 If a Event Hub Event Hub is referenced with an invalid `Resource Group`, `Namespace Name` and `Event Hub Name`
 
-    describe azurerm_event_hub_event_hub(resource_group: 'invalid-rg', namespace_name: 'i-dont-exist', event_hub_name 'i-dont-exist') do
+    describe azurerm_event_hub_event_hub(resource_group: 'invalid-rg', namespace_name: 'i-do-not-exist', event_hub_name 'i-do-not-exist') do
       it { should_not exist }
     end
 
@@ -84,7 +86,7 @@ Azure resource ID.
 
 ### name
 
-Event Hub name, e.g. `myeventhub`.
+Event Hub name, e.g. `event-hub`.
 
 ### type
 
@@ -110,13 +112,13 @@ requests are always welcome.
 
 ## Matchers
 
-This InSpec audit resource has the following special matchers. For a full list of
-available matchers, please visit our [Universal Matchers
-page](/inspec/matchers/).
+{{< readfile file="content/inspec/reusable/md/inspec_matchers_link.md" >}}
+
+This resource has the following special matchers.
 
 ### exists
 
-    describe azurerm_event_hub_event_hub(resource_group: 'my-rg', namespace_name: 'my-event-hub-ns', event_hub_name: 'myeventhub') do
+    describe azurerm_event_hub_event_hub(resource_group: 'my-rg', namespace_name: 'my-event-hub-ns', event_hub_name: 'event-hub') do
       it { should exist }
     end
 

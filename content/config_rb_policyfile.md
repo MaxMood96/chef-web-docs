@@ -13,25 +13,24 @@ product = ["client", "server"]
     weight = 30
 +++
 
-{{% policyfile_summary %}}
+{{< readfile file="content/reusable/md/policyfile_summary.md" >}}
 
-{{% policyfile_rb %}}
+{{< readfile file="content/reusable/md/policyfile_rb.md" >}}
 
 {{< note >}}
 
-For more information about Policyfile, see [About
-Policyfile](/policyfile/)
+For more information, see the [Policyfile documentation](/policyfile/).
 
 {{< /note >}}
 
 ## Syntax
 
-{{% policyfile_rb_syntax %}}
+{{< readfile file="content/reusable/md/policyfile_rb_syntax.md" >}}
 
 ## Settings
 
-{{% policyfile_rb_settings %}}
+{{< readfile file="content/reusable/md/policyfile_rb_settings.md" >}}
 
 ## Example
 
-{{% policyfile_rb_example %}}
+{{< readfile file="content/reusable/md/policyfile_rb_example.md" >}}

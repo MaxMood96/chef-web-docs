@@ -11,12 +11,14 @@ platform = "azure"
     parent = "inspec/resources/azure"
 +++
 
+{{< inspec/azurerm_deprecated resource="azure_mysql_databases" >}}
+
 Use the `azurerm_mysql_databases` InSpec audit resource to test properties and configuration of Azure MySQL Databases.
 
 ## Azure REST API version
 
 This resource interacts with version `2017-12-01` of the Azure Management API. For more
-information see the [Official Azure Documentation](https://docs.microsoft.com/en-us/rest/api/mysql/databases/listbyserver).
+information see the [Official Azure Documentation](https://docs.microsoft.com/en-us/rest/api/mysql/flexibleserver/databases/list-by-server).
 
 At the moment, there doesn't appear to be a way to select the version of the
 Azure API docs. If you notice a newer version being referenced in the official
@@ -25,7 +27,7 @@ version.
 
 ## Availability
 
-### Installation
+### Install
 
 This resource is available in the `inspec-azure` [resource
 pack](/inspec/glossary/#resource-pack). To use it, add the
@@ -44,7 +46,7 @@ This resource first became available in 1.6.0 of the inspec-azure resource pack.
 
 ## Syntax
 
-An `azurerm_mysql_databases` resource block returns all MySQL Databases on a MySQL Server, within a Rsource Group.
+An `azurerm_mysql_databases` resource block returns all MySQL Databases on a MySQL Server, within a resource group.
 
     describe azurerm_mysql_databases(resource_group: ..., server_name: ...) do
       ...
@@ -109,8 +111,9 @@ A collection of additional configuration properties related to the MySQL Databas
 
 ## Matchers
 
-This InSpec audit resource has the following special matchers. For a full list of available matchers,
-please visit our [Universal Matchers page](/inspec/matchers/).
+{{< readfile file="content/inspec/reusable/md/inspec_matchers_link.md" >}}
+
+This resource has the following special matchers.
 
 ### exists
 

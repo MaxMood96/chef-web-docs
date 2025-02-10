@@ -14,6 +14,8 @@ aliases = ["/knife.html", "/knife_using.html", "/knife/"]
     weight = 10
 +++
 
+<!-- markdownlint-disable-file MD033 -->
+
 knife is a command-line tool that provides an interface between a local
 chef-repo and the Chef Infra Server. knife helps users to manage:
 
@@ -58,7 +60,7 @@ chef-repo and the Chef Infra Server. knife helps users to manage:
 ## Knife Subcommands
 
 knife includes a collection of built in subcommands that work together
-to provide all of the functionality required to take specific actions
+to provide the functionality required to take specific actions
 against any object in an organization, including cookbooks, nodes,
 roles, data bags, environments, and users.
 
@@ -99,103 +101,103 @@ organization.
 <tbody>
 <tr class="odd">
 <td><a href="/knife_bootstrap/">knife_bootstrap</a></td>
-<td>{{% knife_bootstrap_summary %}}</td>
+<td>{{< readfile file="content/workstation/reusable/md/knife_bootstrap_summary.md" >}}</td>
 </tr>
 <tr class="even">
 <td><a href="/knife_client/">knife_client</a></td>
-<td>{{% knife_client_summary %}}</td>
+<td>{{< readfile file="content/workstation/reusable/md/knife_client_summary.md" >}}</td>
 </tr>
 <tr class="odd">
 <td><a href="/knife_configure/">knife configure</a></td>
-<td>{{% knife_configure_summary %}}</td>
+<td>{{< readfile file="content/workstation/reusable/md/knife_configure_summary.md" >}}</td>
 </tr>
 <tr class="even">
 <td><a href="/knife_cookbook/">knife cookbook</a></td>
-<td>{{% knife_cookbook_summary %}}</td>
+<td>{{< readfile file="content/workstation/reusable/md/knife_cookbook_summary.md" >}}</td>
 </tr>
 <tr class="odd">
 <td><a href="/knife_data_bag/">knife data bag</a></td>
-<td>{{% knife_data_bag_summary %}}</td>
+<td>{{< readfile file="content/workstation/reusable/md/knife_data_bag_summary.md" >}}</td>
 </tr>
 <tr class="even">
 <td><a href="/knife_delete/">knife delete</a></td>
-<td>{{% knife_delete_summary %}}</td>
+<td>{{< readfile file="content/workstation/reusable/md/knife_delete_summary.md" >}}</td>
 </tr>
 <tr class="odd">
 <td><a href="/knife_deps/">knife deps</a></td>
-<td>{{% knife_deps_summary %}}</td>
+<td>{{< readfile file="content/workstation/reusable/md/knife_deps_summary.md" >}}</td>
 </tr>
 <tr class="even">
 <td><a href="/knife_diff/">knife diff</a></td>
-<td>{{% knife_diff_summary %}}</td>
+<td>{{< readfile file="content/workstation/reusable/md/knife_diff_summary.md" >}}</td>
 </tr>
 <tr class="odd">
 <td><a href="/knife_download/">knife download</a></td>
-<td>{{% knife_download_summary %}}</td>
+<td>{{< readfile file="content/workstation/reusable/md/knife_download_summary.md" >}}</td>
 </tr>
 <tr class="even">
 <td><a href="/knife_edit/">knife edit</a></td>
-<td>{{% knife_edit_summary %}}</td>
+<td>{{< readfile file="content/workstation/reusable/md/knife_edit_summary.md" >}}</td>
 </tr>
 <tr class="odd">
 <td><a href="/knife_environment/">knife environment</a></td>
-<td>{{% knife_environment_summary %}}</td>
+<td>{{< readfile file="content/workstation/reusable/md/knife_environment_summary.md" >}}</td>
 </tr>
 <tr class="even">
 <td><a href="/knife_exec/">knife exec</a></td>
-<td>{{% knife_exec_summary %}}</td>
+<td>{{< readfile file="content/workstation/reusable/md/knife_exec_summary.md" >}}</td>
 </tr>
 <tr class="odd">
 <td><a href="/knife_list/">knife list</a></td>
-<td>{{% knife_list_summary %}}</td>
+<td>{{< readfile file="content/workstation/reusable/md/knife_list_summary.md" >}}</td>
 </tr>
 <tr class="even">
 <td><a href="/knife_node/">knife node</a></td>
-<td>{{% knife_node_summary %}}</td>
+<td>{{< readfile file="content/workstation/reusable/md/knife_node_summary.md" >}}</td>
 </tr>
 <tr class="odd">
 <td><a href="/knife_raw/">knife raw</a></td>
-<td>{{% knife_raw_summary %}}</td>
+<td>{{< readfile file="content/workstation/reusable/md/knife_raw_summary.md" >}}</td>
 </tr>
 <tr class="even">
 <td><a href="/knife_recipe_list/">knife recipe list</a></td>
-<td>{{% knife_recipe_list_summary %}}</td>
+<td>{{< readfile file="content/workstation/reusable/md/knife_recipe_list_summary.md" >}}</td>
 </tr>
 <tr class="odd">
 <td><a href="/knife_role/">knife role</a></td>
-<td>{{% knife_role_summary %}}</td>
+<td>{{< readfile file="content/workstation/reusable/md/knife_role_summary.md" >}}</td>
 </tr>
 <tr class="even">
 <td><a href="/knife_search/">knife search</a></td>
-<td>{{% knife_search_summary %}}</td>
+<td>{{< readfile file="content/workstation/reusable/md/knife_search_summary.md" >}}</td>
 </tr>
 <tr class="odd">
 <td><a href="/knife_serve/">knife serve</a></td>
-<td>{{% knife_serve_summary %}}</td>
+<td>{{< readfile file="content/workstation/reusable/md/knife_serve_summary.md" >}}</td>
 </tr>
 <tr class="even">
 <td><a href="/knife_show/">knife show</a></td>
-<td>{{% knife_show_summary %}}</td>
+<td>{{< readfile file="content/workstation/reusable/md/knife_show_summary.md" >}}</td>
 </tr>
 <tr class="odd">
 <td><a href="/knife_ssh/">knife ssh</a></td>
-<td>{{% knife_ssh_summary %}}</td>
+<td>{{< readfile file="content/workstation/reusable/md/knife_ssh_summary.md" >}}</td>
 </tr>
 <tr class="even">
 <td><a href="/knife_ssl_check/">knife ssl check</a></td>
-<td>{{% knife_ssl_check_summary %}}</td>
+<td>{{< readfile file="content/workstation/reusable/md/knife_ssl_check_summary.md" >}}</td>
 </tr>
 <tr class="odd">
 <td><a href="/knife_ssl_fetch/">knife ssl fetch</a></td>
-<td>{{% knife_ssl_fetch_summary %}}</td>
+<td>{{< readfile file="content/workstation/reusable/md/knife_ssl_fetch_summary.md" >}}</td>
 </tr>
 <tr class="even">
 <td><a href="/knife_status/">knife status</a></td>
-<td>{{% knife_status_summary %}}</td>
+<td>{{< readfile file="content/workstation/reusable/md/knife_status_summary.md" >}}</td>
 </tr>
 <tr class="odd">
 <td><a href="/knife_tag/">knife tag</a></td>
-<td>{{% knife_tag_summary %}}</td>
+<td>{{< readfile file="content/workstation/reusable/md/knife_tag_summary.md" >}}</td>
 </tr>
 <tr class="even">
 <td><a href="/knife_supermarket/">knife supermarket</a></td>
@@ -203,15 +205,15 @@ organization.
 </tr>
 <tr class="odd">
 <td><a href="/knife_upload/">knife upload</a></td>
-<td>{{% knife_upload_summary %}}</td>
+<td>{{< readfile file="content/workstation/reusable/md/knife_upload_summary.md" >}}</td>
 </tr>
 <tr class="even">
 <td><a href="/knife_user/">knife user</a></td>
-<td>{{% knife_user_summary %}}</td>
+<td>{{< readfile file="content/workstation/reusable/md/knife_user_summary.md" >}}</td>
 </tr>
 <tr class="odd">
 <td><a href="/knife_xargs/">knife xargs</a></td>
-<td>{{% knife_xargs_summary %}}</td>
+<td>{{< readfile file="content/workstation/reusable/md/knife_xargs_summary.md" >}}</td>
 </tr>
 </tbody>
 </table>

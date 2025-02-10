@@ -15,7 +15,13 @@ product = []
 
 {{< chef_automate_mark >}}
 
-{{% EOL_manage %}}
+{{< warning >}}
+
+{{< readfile file="content/reusable/md/EOL_manage.md" >}}
+
+This document is no longer maintained.
+
+{{< /warning >}}
 
 {{< note >}}
 
@@ -24,7 +30,7 @@ bags.
 
 {{< /note >}}
 
-{{% data_bag %}}
+{{< readfile file="content/reusable/md/data_bag.md" >}}
 
 ## Manage
 
@@ -36,84 +42,77 @@ interface.
 To add a data bag:
 
 1. Open the Chef management console.
-
-2. Click **Policy**.
-
-3. Click **Data Bags**.
-
-4. Click **Create**.
-
-5. In the **Create a Data Bag** dialog box, enter the name of the data
-    bag.
+1. Click **Policy**.
+1. Click **Data Bags**.
+1. Click **Create**.
+1. In the **Create a Data Bag** dialog box, enter the name of the data
+   bag.
 
     ![image](/images/step_manage_webui_policy_data_bag_add.png)
 
-6. Click **Create Data Bag**.
+1. Click **Create Data Bag**.
 
 ### Delete Data Bag
 
 To delete a data bag:
 
 1. Open the Chef management console.
-
-2. Click **Policy**.
-
-3. Click **Data Bags**.
-
-4. Select a data bag.
-
-5. Click **Delete**.
+1. Click **Policy**.
+1. Click **Data Bags**.
+1. Select a data bag.
+1. Click **Delete**.
 
     ![image](/images/step_manage_webui_policy_data_bag_delete.png)
 
 ## Manage Items
 
-{{% data_bag_item %}}
+{{< readfile file="content/reusable/md/data_bag_item.md" >}}
 
 ### Add Item
 
 To add a data bag item:
 
 1. Open the Chef management console.
-
-2. Click **Policy**.
-
-3. Click **Data Bags**.
-
-4. Select a data bag.
-
-5. Click **Create Item**.
-
-6. In the **Create a Data Bag Item** dialog box, enter the data bag
+1. Click **Policy**.
+1. Click **Data Bags**.
+1. Select a data bag.
+1. Click **Create Item**.
+1. In the **Create a Data Bag Item** dialog box, enter the data bag
     identifier, and then JSON data that defines the data bag item.
 
     ![image](/images/step_manage_webui_policy_data_bag_add_item.png)
 
-7. Click **Create Data Bag Item**.
+1. Click **Create Data Bag Item**.
 
 ### Delete Item
 
 To delete a data bag item:
 
 1. Open the Chef management console.
-
-2. Click **Policy**.
-
-3. Click **Data Bags**.
-
-4. Select a data bag.
-
-5. Select the **Items** tab.
-
-6. Select an item.
-
-7. Click **Delete**.
+1. Click **Policy**.
+1. Click **Data Bags**.
+1. Select a data bag.
+1. Select the **Items** tab.
+1. Select an item.
+1. Click **Delete**.
 
     ![image](/images/step_manage_webui_policy_data_bag_delete_item.png)
 
 ### Edit Item
 
-{{% manage_webui_policy_data_bag_edit_item %}}
+To edit a data bag item:
+
+1. Open the Chef management console.
+1. Click **Policy**.
+1. Click **Data Bags**.
+1. Select a data bag.
+1. Select the **Items** tab.
+1. Select an item.
+1. Click **Edit**.
+    ![image](/images/step_manage_webui_policy_data_bag_edit_item.png)
+
+1. Make your changes.
+1. Click **Save Item**.
 
 ### View Item
 
@@ -127,9 +126,9 @@ To view data bag items for a data bag:
 
 ## Manage Permissions
 
-{{% server_rbac_permissions %}}
+{{< readfile file="content/server/reusable/md/server_rbac_permissions.md" >}}
 
-{{% server_rbac_permissions_object %}}
+{{< readfile file="content/server/reusable/md/server_rbac_permissions_object.md" >}}
 
 ### Set
 

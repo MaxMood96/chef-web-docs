@@ -15,7 +15,13 @@ product = []
 
 {{< chef_automate_mark >}}
 
-{{% EOL_manage %}}
+{{< warning >}}
+
+{{< readfile file="content/reusable/md/EOL_manage.md" >}}
+
+This document is no longer maintained.
+
+{{< /warning >}}
 
 {{< note >}}
 
@@ -30,7 +36,7 @@ Chef Manage in all versions can only display 20 Environment items from the Chef 
 
 {{< /note >}}
 
-{{% environment %}}
+{{< readfile file="content/reusable/md/environment.md" >}}
 
 ## Manage
 
@@ -134,7 +140,7 @@ To view environment details:
 
 ## Default Attributes
 
-{{% node_attribute_type_default %}}
+{{< readfile file="content/reusable/md/node_attribute_type_default.md" >}}
 
 ### Edit
 
@@ -171,7 +177,7 @@ To view default attributes for an environment:
 
 ## Override Attributes
 
-{{% node_attribute_type_override %}}
+{{< readfile file="content/reusable/md/node_attribute_type_override.md" >}}
 
 ### Edit
 
@@ -208,9 +214,9 @@ To view override attributes for an environment:
 
 ## Permissions
 
-{{% server_rbac_permissions %}}
+{{< readfile file="content/server/reusable/md/server_rbac_permissions.md" >}}
 
-{{% server_rbac_permissions_object %}}
+{{< readfile file="content/server/reusable/md/server_rbac_permissions_object.md" >}}
 
 ### Set
 

@@ -12,8 +12,9 @@ product = ["workstation"]
     parent = "chef_workstation/extension_apis/knife_plugins"
     weight = 20
 +++
+<!-- markdownlint-disable-file MD033 MD037-->
 
-{{% plugin_knife_summary %}}
+{{< readfile file="content/reusable/md/plugin_knife_summary.md" >}}
 
 The Chef Infra Client will load knife plugins from the following
 locations:
@@ -151,7 +152,7 @@ class Chef
 end
 ```
 
-Take a look at all of the code for this plugin on GitHub:
+Take a look at the code for this plugin on GitHub:
 <https://github.com/chef/knife-windows/blob/main/lib/chef/knife/winrm.rb>.
 
 ### Namespace
@@ -181,10 +182,7 @@ class SubclassName < Chef::Knife
 ```
 
 where `SubclassName` is the class name used by this plugin. The
-capitalization of this name is important. For example, `OMG` would have
-a knife command of `knife o m g`, whereas `Omg` would have a knife
-command of `knife omg`. Use the capitalization pattern to define the
-word grouping that best makes sense for the plugin.
+capitalization of this name is important. For example, `SubclassName` would have a knife command of `knife subclass name`, but `Subclassname` would have a knife command of `knife subclassname` Use the capitalization pattern to define the word grouping that best makes sense for the plugin.
 
 A plugin can override an existing knife subcommand by using the same
 class name as the existing subcommand. For example, to override the
@@ -385,11 +383,11 @@ def run
 end
 ```
 
-For a knife plugin with the `--omg` option, run `knife example --omg` to
+For a knife plugin with the `--subclassname` option, run `knife example --subclassname` to
 return something like:
 
 ```bash
-OMG HELLO WORLD!!!1!!11
+HELLO WORLD!!!1!!11
 ```
 
 or just `knife example` to return:
@@ -492,9 +490,9 @@ knife[:setting_name]
 This approach can be useful when a particular setting is used a lot. The
 order of precedence for a knife option is:
 
-1.  A value passed via the command line
-2.  A value saved in the config.rb file
-3.  A default value
+1. A value passed via the command line
+2. A value saved in the config.rb file
+3. A default value
 
 The following example shows how the `knife bootstrap` subcommand checks
 for a value in the config.rb file by using the `:proc` attribute:
@@ -777,7 +775,7 @@ knife hello world
 
 ## Exceptions
 
-In most cases, the exception handling available within knife is enough
+The exception handling available in knife is usually enough
 to ensure that exception handling for a plugin is consistent with how
 knife ordinarily behaves. That said, exceptions can also be handled
 within a knife plugin in the same way they are handled in any Ruby

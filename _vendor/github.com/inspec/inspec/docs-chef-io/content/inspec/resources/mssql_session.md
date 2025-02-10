@@ -15,9 +15,9 @@ Use the `mssql_session` Chef InSpec audit resource to test SQL commands run agai
 
 ## Availability
 
-### Installation
+### Install
 
-This resource is distributed along with Chef InSpec itself. You can use it automatically.
+{{< readfile file="content/inspec/reusable/md/inspec_installation.md" >}}
 
 ### Version
 
@@ -59,7 +59,7 @@ The following examples show how to use this Chef InSpec audit resource.
 
 ### Test a specific host and instance
 
-    sql = mssql_session(user: 'my_user', password: 'password', host: 'mssqlserver', instance: 'foo')
+    sql = mssql_session(user: 'my_user', password: 'password', host: 'ms-sql-server', instance: 'foo')
 
     describe sql.query("SELECT SERVERPROPERTY('ProductVersion') as result").row(0).column('result') do
       its("value") { should cmp > '12.00.4457' }
@@ -75,4 +75,4 @@ The following examples show how to use this Chef InSpec audit resource.
 
 ## Matchers
 
-For a full list of available matchers, please visit our [matchers page](/inspec/matchers/).
+{{< readfile file="content/inspec/reusable/md/inspec_matchers_link.md" >}}

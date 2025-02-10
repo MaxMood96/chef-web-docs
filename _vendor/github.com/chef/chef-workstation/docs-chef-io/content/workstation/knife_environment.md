@@ -12,14 +12,15 @@ aliases = ["/knife_environment.html", "/knife_environment/"]
     identifier = "chef_workstation/chef_workstation_tools/knife/knife_environment.md knife environment"
     parent = "chef_workstation/chef_workstation_tools/knife"
 +++
+<!-- markdownlint-disable-file MD024 MD036 -->
 
-{{% environment %}}
+{{< readfile file="content/reusable/md/environment.md" >}}
 
-{{% knife_environment_summary %}}
+{{< readfile file="content/workstation/reusable/md/knife_environment_summary.md" >}}
 
 {{< note >}}
 
-{{% knife_common_see_common_options_link %}}
+{{< readfile file="content/workstation/reusable/md/knife_common_see_common_options_link.md" >}}
 
 {{< /note >}}
 
@@ -67,8 +68,6 @@ to return something similar to:
 apache  2.3.1
 windows 4.1.2
 ```
-
-
 
 **Compare cookbook versions for multiple environments**
 
@@ -154,7 +153,7 @@ This argument has the following options:
 
 {{< note >}}
 
-{{% knife_common_see_all_config_options %}}
+{{< readfile file="content/workstation/reusable/md/knife_common_see_all_config_options.md" >}}
 
 {{< /note >}}
 
@@ -256,7 +255,7 @@ This argument has the following options:
 
 {{< note >}}
 
-{{% knife_common_see_all_config_options %}}
+{{< readfile file="content/workstation/reusable/md/knife_common_see_all_config_options.md" >}}
 
 {{< /note >}}
 
@@ -274,7 +273,7 @@ knife environment from file "path to JSON file"
 
 ## list
 
-Use the `list` argument to list all of the environments that are
+Use the `list` argument to list the environments that are
 currently available on the Chef Infra Server.
 
 ### Syntax

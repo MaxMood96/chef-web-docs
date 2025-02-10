@@ -12,16 +12,17 @@ aliases = ["/knife_data_bag.html", "/knife_data_bag/"]
     identifier = "chef_workstation/chef_workstation_tools/knife/knife_data_bag.md knife data bag"
     parent = "chef_workstation/chef_workstation_tools/knife"
 +++
+<!-- markdownlint-disable-file MD024 MD036 -->
 
-{{% data_bag %}}
+{{< readfile file="content/reusable/md/data_bag.md" >}}
 
-{{% data_bag_encryption %}}
+{{< readfile file="content/reusable/md/data_bag_encryption.md" >}}
 
-{{% knife_data_bag_summary %}}
+{{< readfile file="content/workstation/reusable/md/knife_data_bag_summary.md" >}}
 
 {{< note >}}
 
-{{% knife_common_see_common_options_link %}}
+{{< readfile file="content/workstation/reusable/md/knife_common_see_common_options_link.md" >}}
 
 {{< /note >}}
 
@@ -55,7 +56,7 @@ This argument has the following options:
 
 {{< note >}}
 
-{{% knife_common_see_all_config_options %}}
+{{< readfile file="content/workstation/reusable/md/knife_common_see_all_config_options.md" >}}
 
 {{< /note >}}
 
@@ -120,7 +121,7 @@ Type `Y` to confirm a deletion.
 
 ## edit
 
-{{% knife_data_bag_edit %}}
+{{< readfile file="content/workstation/reusable/md/knife_data_bag_edit.md" >}}
 
 ### Syntax
 
@@ -155,7 +156,7 @@ For encrypted data bag items, use *either* `--secret` or
 
 {{< note >}}
 
-{{% knife_common_see_all_config_options %}}
+{{< readfile file="content/workstation/reusable/md/knife_common_see_all_config_options.md" >}}
 
 {{< /note >}}
 
@@ -194,7 +195,7 @@ save them.
 
 **Edit a data bag item**
 
-{{% knife_data_bag_edit_item %}}
+{{< readfile file="content/workstation/reusable/md/knife_data_bag_edit_item.md" >}}
 
 ## from file
 
@@ -243,7 +244,7 @@ For encrypted data bag items, use *either* `--secret` or
 
 {{< note >}}
 
-{{% knife_common_see_all_config_options %}}
+{{< readfile file="content/workstation/reusable/md/knife_common_see_all_config_options.md" >}}
 
 {{< /note >}}
 
@@ -271,7 +272,7 @@ knife data bag from file devops_data --secret-file "path to decryption file"
 **Create an encrypted data bag for use with Chef Infra Client local
 mode**
 
-{{% knife_data_bag_from_file_create_encrypted_local_mode %}}
+{{< readfile file="content/workstation/reusable/md/knife_data_bag_from_file_create_encrypted_local_mode.md" >}}
 
 ## list
 
@@ -341,7 +342,7 @@ For encrypted data bag items, use *either* `--secret` or
 
 {{< note >}}
 
-{{% knife_common_see_all_config_options %}}
+{{< readfile file="content/workstation/reusable/md/knife_common_see_all_config_options.md" >}}
 
 {{< /note >}}
 

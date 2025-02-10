@@ -18,35 +18,30 @@ jobs:
   cspell-action:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+      - uses: streetsidesoftware/cspell-action@v2.1.1
         with:
-          token: "${{ secrets.GITHUB_TOKEN }}"
-      - uses: carlosperate/download-file-action@v1.0.3
-        id: download-chef-dictionary
-        with:
-          file-url: 'https://raw.githubusercontent.com/chef/chef_dictionary/main/chef.txt'
-          file-name: 'chef_dictionary.txt'
-      - uses: carlosperate/download-file-action@v1.0.3
-        id: download-docs-dictionary
-        with:
-          file-url: 'https://raw.githubusercontent.com/chef/chef_dictionary/main/docs.txt'
-          file-name: 'docs_dictionary.txt'
-      - uses: streetsidesoftware/cspell-action@v1.3.4
-        with:
-          files: '*.md'
-          root: './content'
+          files: '**/*.md'
+          root: '.'
           github_token: "${{ secrets.GITHUB_TOKEN }}"
-          incremental_files_only: false
+          incremental_files_only: true
           inline: error
           strict: true
+          # Path to CSpell config file
+          config: 'cspell.yaml'
   markdownlint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           token: "${{ secrets.GITHUB_TOKEN }}"
-      - uses: DavidAnson/markdownlint-cli2-action@v4
-        with: 
+      - uses: carlosperate/download-file-action@v1.1.2
+        id: download-mdl-config
+        with:
+          file-url: 'https://raw.githubusercontent.com/chef/chef-web-docs/main/.markdownlint.yaml'
+          file-name: 'markdownlint.yaml'
+      - uses: DavidAnson/markdownlint-cli2-action@v5
+        with:
           globs: |
             *.md
             content/**/*.md
@@ -54,4 +49,14 @@ jobs:
             !content/resources/_index.md
             !content/habitat/
             !infra_resources_readme.md
- 
+  vale:
+    name: runner / vale
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: errata-ai/vale-action@reviewdog
+        with:
+          files: '["archetypes", "assets", "content", "data", "layouts", "static"]'
+          vale_flags: "--config=tools/vale/.vale-github-action.ini"
+          filter_mode: diff_context
+          fail_on_error: true

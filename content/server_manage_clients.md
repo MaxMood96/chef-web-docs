@@ -15,7 +15,13 @@ product = []
 
 {{< chef_automate_mark >}}
 
-{{% EOL_manage %}}
+{{< warning >}}
+
+{{< readfile file="content/reusable/md/EOL_manage.md" >}}
+
+This document is no longer maintained.
+
+{{< /warning >}}
 
 {{< note >}}
 
@@ -26,8 +32,8 @@ This topic is about using the Chef management console to manage keys.
 A client is an actor that has permission to access the Chef Infra
 Server. A client is most often a node (on which the Chef Infra Client
 runs), but is also a workstation (on which knife runs), or some other
-machine that is configured to use the Chef Infra Server API. Each
-request to the Chef Infra Server that is made by a client uses a private
+machine that's configured to use the Chef Infra Server API. Each
+request to the Chef Infra Server that's made by a client uses a private
 key for authentication that must be authorized by the public key on the
 Chef Infra Server.
 
@@ -129,9 +135,9 @@ To view client key details:
 
 ### Permissions
 
-{{% server_rbac_permissions %}}
+{{< readfile file="content/server/reusable/md/server_rbac_permissions.md" >}}
 
-{{% server_rbac_permissions_object %}}
+{{< readfile file="content/server/reusable/md/server_rbac_permissions_object.md" >}}
 
 #### Set
 
@@ -147,7 +153,7 @@ To set permissions list for a client key:
 
 #### Update
 
-{{% manage_webui_policy_client_permissions_add %}}
+{{< readfile file="content/reusable/md/manage_webui_policy_client_permissions_add.md" >}}
 
 #### View
 
@@ -163,9 +169,9 @@ To view permissions for a client key:
 
 ## chef-validator Keys
 
-{{% security_chef_validator %}}
+{{< readfile file="content/reusable/md/security_chef_validator.md" >}}
 
-{{% security_chef_validator_context %}}
+{{< readfile file="content/reusable/md/security_chef_validator_context.md" >}}
 
 ### Add
 
@@ -212,7 +218,7 @@ To delete a chef-validator key:
 
 ### Reset Key
 
-{{% manage_webui_policy_validation_reset_key %}}
+{{< readfile file="content/reusable/md/manage_webui_policy_validation_reset_key.md" >}}
 
 ### View Details
 
@@ -232,9 +238,9 @@ To view details for a chef-validator key:
 
 ### Permissions
 
-{{% server_rbac_permissions %}}
+{{< readfile file="content/server/reusable/md/server_rbac_permissions.md" >}}
 
-{{% server_rbac_permissions_object %}}
+{{< readfile file="content/server/reusable/md/server_rbac_permissions_object.md" >}}
 
 #### Set
 
@@ -252,7 +258,7 @@ To update the permissions list for a chef-validator key:
 
 #### Update
 
-{{% manage_webui_policy_client_permissions_add %}}
+{{< readfile file="content/reusable/md/manage_webui_policy_client_permissions_add.md" >}}
 
 #### View
 

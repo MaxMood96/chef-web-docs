@@ -13,14 +13,15 @@ aliases = ["/chef_shell.html", "/chef_shell/"]
     parent = "chef_workstation/chef_workstation_tools"
     weight = 40
 +++
+<!-- markdownlint-disable-file MD024 -->
 
-{{% chef_shell_summary %}}
+{{< readfile file="content/reusable/md/chef_shell_summary.md" >}}
 
 The chef-shell executable is run as a command-line tool.
 
 ## Modes
 
-{{% chef_shell_modes %}}
+{{< readfile file="content/reusable/md/chef_shell_modes.md" >}}
 
 ## Options
 
@@ -63,7 +64,41 @@ This command has the following options:
 
   {{< warning >}}
 
-  {{% node_ctl_attribute %}}
+  Any other attribute type that is contained in this JSON file will be
+  treated as a `normal` attribute. Setting attributes at other precedence
+  levels is not possible. For example, attempting to update `override`
+  attributes using the `-j` option:
+
+  ```javascript
+  {
+    "name": "dev-99",
+    "description": "Install some stuff",
+    "override_attributes": {
+      "apptastic": {
+        "enable_apptastic": "false",
+        "apptastic_tier_name": "dev-99.bomb.com"
+      }
+    }
+  }
+  ```
+
+  will result in a node object similar to:
+
+  ```javascript
+  {
+    "name": "maybe-dev-99",
+    "normal": {
+      "name": "dev-99",
+      "description": "Install some stuff",
+      "override_attributes": {
+        "apptastic": {
+          "enable_apptastic": "false",
+          "apptastic_tier_name": "dev-99.bomb.com"
+        }
+      }
+    }
+  }
+  ```
 
   {{< /warning >}}
 
@@ -81,7 +116,7 @@ This command has the following options:
 
 `-S CHEF_SERVER_URL`, `--server CHEF_SERVER_URL`
 
-: The URL for the Chef Infra Server.
+: The URL of the Chef Infra Server.
 
 `-v`, `--version`
 
@@ -93,35 +128,35 @@ This command has the following options:
 
 ## Configure
 
-{{% chef_shell_config %}}
+{{< readfile file="content/reusable/md/chef_shell_config.md" >}}
 
 ### chef-shell.rb
 
-{{% chef_shell_config_rb %}}
+{{< readfile file="content/reusable/md/chef_shell_config_rb.md" >}}
 
 ### Run as a Chef Infra Client
 
-{{% chef_shell_run_as_chef_client %}}
+{{< readfile file="content/reusable/md/chef_shell_run_as_chef_client.md" >}}
 
 ## Debugging Cookbooks
 
-{{% chef_shell_breakpoints %}}
+{{< readfile file="content/reusable/md/chef_shell_breakpoints.md" >}}
 
 ### Step Through Run-list
 
-{{% chef_shell_step_through_run_list %}}
+{{< readfile file="content/reusable/md/chef_shell_step_through_run_list.md" >}}
 
 ### Debug Existing Recipe
 
-{{< readFile_shortcode file="chef_shell_debug_existing_recipe.md" >}}
+{{< readfile file="content/reusable/md/chef_shell_debug_existing_recipe.md" >}}
 
 ### Advanced Debugging
 
-{{< readFile_shortcode file="chef_shell_advanced_debug.md" >}}
+{{< readfile file="content/reusable/md/chef_shell_advanced_debug.md" >}}
 
 ## Manipulating Chef Infra Server Data
 
-{{% chef_shell_manage %}}
+{{< readfile file="content/reusable/md/chef_shell_manage.md" >}}
 
 ## Examples
 
@@ -129,8 +164,8 @@ The following examples show how to use chef-shell.
 
 ### "Hello World"
 
-{{< readFile_shortcode file="chef_shell_example_hello_world.md" >}}
+{{< readfile file="content/reusable/md/chef_shell_example_hello_world.md" >}}
 
 ### Get Specific Nodes
 
-{{% chef_shell_example_get_specific_nodes %}}
+{{< readfile file="content/reusable/md/chef_shell_example_get_specific_nodes.md" >}}

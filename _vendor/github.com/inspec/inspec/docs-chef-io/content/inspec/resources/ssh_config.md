@@ -15,13 +15,13 @@ Use the `ssh_config` Chef InSpec audit resource to test OpenSSH client configura
 
 ## Availability
 
-### Installation
+### Install
 
-This resource is distributed along with Chef InSpec itself. You can use it automatically.
+{{< readfile file="content/inspec/reusable/md/inspec_installation.md" >}}
 
 ### Version
 
-This resource first became available in v1.0.0 of InSpec.
+This resource first became available in v6.8.0 of InSpec.
 
 ## Syntax
 
@@ -70,7 +70,9 @@ The following examples show how to use this Chef InSpec audit resource.
 
 ## Matchers
 
-For a full list of available matchers, please visit our [matchers page](/inspec/matchers/).
+{{< readfile file="content/inspec/reusable/md/inspec_matchers_link.md" >}}
+
+This resource has the following special matchers.
 
 ### name
 

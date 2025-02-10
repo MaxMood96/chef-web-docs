@@ -2,23 +2,12 @@
 ####
 ## Main Menu ##
 ####
-# [[main]]
-# title = "ChefConf '22"
-# identifier = "chefconf"
-# url = "https://www.chef.io/chefconf"
-# weight = 5
 
 [[main]]
-title = "Chef.io"
+title = "chef.io"
 identifier = "chef"
 url = "https://www.chef.io/"
 weight = 10
-
-[[main]]
-title = "Learn Chef"
-identifier = "learn chef"
-url = "https://learn.chef.io/"
-weight = 20
 
 [[main]]
 title = "Blog"
@@ -58,31 +47,87 @@ identifier = "overview"
 weight = 20
 
   [[overview]]
+  title = "Licensing"
+  identifier = "overview/licensing"
+  parent = "overview"
+  weight = 20
+
+    [[overview]]
+    title = "Chef Local License Service"
+    identifier = "overview/licensing/local"
+    parent = "overview/licensing"
+    weight = 999
+
+    [[overview]]
+    title = "Enterprise Chef"
+    identifier = "overview/enterprise"
+    parent = "overview"
+    weight = 30
+
+  [[overview]]
   title = "Community"
   identifier = "overview/community"
   parent = "overview"
-  weight = 20
+  weight = 40
 
   [[overview]]
   title = "Packages & Platforms"
   identifier = "overview/packages_&_platforms"
   parent = "overview"
-  weight = 30
+  weight = 50
 
     [[overview]]
-    title = "Licensing"
-    identifier = "overview/packages_&_platforms/licensing"
+    title = "Download"
+    identifier = "overview/packages_&_platforms/download"
     parent = "overview/packages_&_platforms"
-    weight = 60
+    weight = 50
 
   [[overview]]
   title = "Style Guide"
   identifier = "overview/style"
   parent = "overview"
-  weight = 80
+  weight = 100
+
+    [[overview]]
+    title = "Formatting"
+    identifier = "overview/style/formatting"
+    parent = "overview/style"
+    weight = 980
+
+    [[overview]]
+    title = "Hugo"
+    identifier = "overview/style/hugo"
+    parent = "overview/style"
+    weight = 999
 
 ####
 # End Overview Menu
+####
+
+####
+# Chef 360 Menu
+####
+
+[[360]]
+title = "Chef 360 Platform"
+identifier = "360"
+
+[[360]]
+title = "version 1.1"
+parent = "360"
+identifier = "360/1.1"
+url = "/360/1.1/"
+weight = 10
+
+[[360]]
+title = "version 1.0"
+parent = "360"
+identifier = "360/1.0"
+url = "/360/1.0/"
+weight = 20
+
+####
+# End Chef 360 Menu
 ####
 
 ####
@@ -106,6 +151,66 @@ identifier = "automate"
   weight = 20
 
   [[automate]]
+  title = "High Availability"
+  identifier = "automate/deploy_high_availability"
+  parent = "automate"
+  weight = 25
+
+    [[automate]]
+    title = "Prerequisites"
+    identifier = "automate/deploy_high_availability/ha_prerequisites"
+    parent = "automate/deploy_high_availability"
+    weight = 20
+
+    [[automate]]
+    title = "Deployment"
+    identifier = "automate/deploy_high_availability/deployment"
+    parent = "automate/deploy_high_availability"
+    weight = 40
+
+    [[automate]]
+    title = "Backup and Restore"
+    identifier = "automate/deploy_high_availability/backup_and_restore"
+    parent = "automate/deploy_high_availability"
+    weight = 60
+
+    [[automate]]
+    title = "Migration"
+    identifier = "automate/deploy_high_availability/migration"
+    parent = "automate/deploy_high_availability"
+    weight = 80
+
+    [[automate]]
+    title = "Manage HA Cluster"
+    identifier = "automate/deploy_high_availability/manage_ha_cluster"
+    parent = "automate/deploy_high_availability"
+    weight = 100
+
+    [[automate]]
+    title = "Configuration"
+    identifier = "automate/deploy_high_availability/configuration"
+    parent = "automate/deploy_high_availability"
+    weight = 120
+
+    [[automate]]
+    title = "Disaster Recovery"
+    identifier = "automate/deploy_high_availability/disaster_recovery"
+    parent = "automate/deploy_high_availability"
+    weight = 124
+
+    [[automate]]
+    title = "Certificates"
+    identifier = "automate/deploy_high_availability/certificates"
+    parent = "automate/deploy_high_availability"
+    weight = 125
+
+    [[automate]]
+    title = "Reference"
+    identifier = "automate/deploy_high_availability/reference"
+    parent = "automate/deploy_high_availability"
+    weight = 180
+
+  [[automate]]
   title = "Configure"
   identifier = "automate/configure"
   parent = "automate"
@@ -125,6 +230,11 @@ identifier = "automate"
     [[automate]]
     title = "Elasticsearch"
     identifier = "automate/configuring_automate/elasticsearch"
+    parent = "automate/configuring_automate"
+
+    [[automate]]
+    title = "OpenSearch"
+    identifier = "automate/configuring_automate/opensearch"
     parent = "automate/configuring_automate"
 
   [[automate]]
@@ -187,12 +297,14 @@ identifier = "automate"
   identifier = "automate/reference"
   parent = "automate"
 
-####
-# End Chef Automate Menu
-####
+  [[automate]]
+  name = "Upgrade"
+  weight = 260
+  identifier = "automate/upgrade"
+  parent = "automate"
 
 ####
-# End Compliance Menu
+# End Chef Automate Menu
 ####
 
 ####
@@ -214,12 +326,6 @@ identifier = "desktop"
   identifier = "desktop/install"
   parent = "desktop"
   weight = 30
-
-  [[desktop]]
-  title = "Configure"
-  identifier = "desktop/configure"
-  parent = "desktop"
-  weight = 40
 
  [[desktop]]
   title = "Zero Touch Deployment"
@@ -249,83 +355,6 @@ identifier = "desktop"
 # End Chef Desktop Menu
 ####
 
-####
-# Chef Habitat Menu
-####
-
-[[habitat]]
-title = "Chef Habitat"
-identifier = "habitat"
-
-  [[habitat]]
-  title = "Install Habitat"
-  identifier = "habitat/get_started"
-  parent = "habitat"
-  weight = 10
-
-  [[habitat]]
-  title = "Builder"
-  identifier = "habitat/builder"
-  parent = "habitat"
-  weight = 20
-
-  [[habitat]]
-  title = "Origins"
-  identifier = "habitat/origins"
-  parent = "habitat"
-  weight = 30
-
-  [[habitat]]
-  title = "Packages"
-  identifier = "habitat/packages"
-  parent = "habitat"
-  weight = 40
-
-  [[habitat]]
-  title = "Plans"
-  identifier = "habitat/plans"
-  parent = "habitat"
-  weight = 50
-
-  [[habitat]]
-  title = "Services"
-  identifier = "habitat/services"
-  parent = "habitat"
-  weight = 60
-
-  [[habitat]]
-  title = "Supervisors"
-  identifier = "habitat/supervisors"
-  parent = "habitat"
-  weight = 70
-
-  [[habitat]]
-  title = "Reference"
-  identifier = "habitat/reference"
-  parent = "habitat"
-  weight = 90
-
-  [[habitat]]
-  title = "API"
-  identifier = "habitat/reference/api"
-  parent = "habitat/reference"
-
-  [[habitat]]
-  title = "Containers"
-  identifier = "habitat/containers"
-  parent = "habitat"
-  weight = 200
-
-  [[habitat]]
-  title = "Diagrams"
-  identifier = "habitat/diagrams"
-  parent = "habitat"
-  weight = 500
-
-####
-# End Chef Habitat Menu
-####
-
 
 ####
 # Chef Infra Server Menu
@@ -340,13 +369,6 @@ identifier = "server"
   identifier = "server/overview"
   parent = "server"
   weight = 10
-
-    [[server]]
-    title = "Hosted Chef Server"
-    identifier = "server/overview/Hosted Chef Server"
-    parent = "server/overview"
-    url = "https://manage.chef.io/signup"
-    weight = 70
 
   [[server]]
   title = "Plan"
@@ -366,13 +388,6 @@ identifier = "server"
     parent = "server/installation"
     URL = "/install_chef_air_gap/#chef-infra-server"
     weight = 30
-
-    [[server]]
-    title = "Hosted Chef Server"
-    identifier = "server/installation/Hosted Chef Server"
-    parent = "server/installation"
-    URL = "https://manage.chef.io/signup"
-    weight = 40
 
   [[server]]
   title = "Configure"
@@ -427,7 +442,6 @@ identifier = "server"
 # Chef Infra Menu
 ####
 
-
 [[infra]]
 title = "Chef Infra"
 identifier = "chef_infra"
@@ -462,6 +476,14 @@ identifier = "chef_infra"
     parent = "chef_infra/features"
     weight = 20
 
+    [[infra]]
+    title = "Target Mode"
+    identifier = "chef_infra/features/Target Mode"
+    parent = "chef_infra/features"
+    url = "/target_mode/"
+    weight = 80
+
+
   [[infra]]
   title = "Integrations"
   identifier = "chef_infra/integrations"
@@ -474,7 +496,7 @@ identifier = "chef_infra"
     parent = "chef_infra/integrations"
 
     [[infra]]
-    title = "Microsoft Windows"
+    title = "Windows"
     identifier = "chef_infra/integrations/windows"
     parent = "chef_infra/integrations"
 
@@ -627,13 +649,6 @@ identifier = "chef_infra"
     parent = "chef_infra/extension_apis"
     weight = 40
 
-      [[infra]]
-      title = "Community Plugins"
-      identifier = "chef_infra/extension_apis/ohai_plugins/plugin_community.md#ohai Community Plugins"
-      parent = "chef_infra/extension_apis/ohai_plugins"
-      url = "/plugin_community/#ohai"
-      weight = 20
-
   [[infra]]
   title = "Integrations"
   identifier = "chef_infra/integrations"
@@ -646,7 +661,7 @@ identifier = "chef_infra"
     parent = "chef_infra/integrations"
 
     [[infra]]
-    title = "Microsoft Windows"
+    title = "Windows"
     identifier = "chef_infra/integrations/windows"
     parent = "chef_infra/integrations"
 
@@ -655,57 +670,15 @@ identifier = "chef_infra"
 ####
 
 ####
-# Chef InSpec Menu
+# Chef SaaS Menu
 ####
 
-[[inspec]]
-title = "Chef InSpec"
-identifier = "inspec"
-
-  [[inspec]]
-  title = "Chef InSpec Reference"
-  identifier = "inspec/reference"
-  parent = "inspec"
-  weight = 500
-
-  [[inspec]]
-  title = "Chef InSpec Resources"
-  identifier = "inspec/resources"
-  parent = "inspec"
-  weight = 999
-
-    [[inspec]]
-    title = "OS Resources"
-    identifier = "inspec/resources/os"
-    parent = "inspec/resources"
-    weight = 20
-
-    [[inspec]]
-    title = "AWS Resources"
-    identifier = "inspec/resources/aws"
-    parent = "inspec/resources"
-    weight = 30
-
-    [[inspec]]
-    title = "Azure Resources"
-    identifier = "inspec/resources/azure"
-    parent = "inspec/resources"
-    weight = 40
-
-    [[inspec]]
-    title = "GCP Resources"
-    identifier = "inspec/resources/gcp"
-    parent = "inspec/resources"
-    weight = 50
-
-    [[inspec]]
-    title = "Habitat Resources"
-    identifier = "inspec/resources/habitat"
-    parent = "inspec/resources"
-    weight = 60
+[[saas]]
+title = "Chef SaaS"
+identifier = "chef_saas"
 
 ####
-# End Chef InSpec Menu
+# End Chef SaaS Menu
 ####
 
 ####
@@ -771,6 +744,18 @@ identifier = "chef_workstation"
       url = "/workstation/ctl_chef/#chef-generate-file"
 
       [[workstation]]
+      title = "chef generate input"
+      identifier = "chef_workstation/chef_workstation_tools/chef_(executable)/ctl_chef.md#chef-generate-input chef generate input"
+      parent = "chef_workstation/chef_workstation_tools/chef_(executable)"
+      url = "/workstation/ctl_chef/#chef-generate-input"
+
+      [[workstation]]
+      title = "chef generate profile"
+      identifier = "chef_workstation/chef_workstation_tools/chef_(executable)/ctl_chef.md#chef-generate-profile chef generate profile"
+      parent = "chef_workstation/chef_workstation_tools/chef_(executable)"
+      url = "/workstation/ctl_chef/#chef-generate-profile"
+
+      [[workstation]]
       title = "chef generate recipe"
       identifier = "chef_workstation/chef_workstation_tools/chef_(executable)/ctl_chef.md#chef-generate-recipe chef generate recipe"
       parent = "chef_workstation/chef_workstation_tools/chef_(executable)"
@@ -793,6 +778,12 @@ identifier = "chef_workstation"
       identifier = "chef_workstation/chef_workstation_tools/chef_(executable)/ctl_chef.md#chef-generate-template chef generate template"
       parent = "chef_workstation/chef_workstation_tools/chef_(executable)"
       url = "/workstation/ctl_chef/#chef-generate-template"
+
+      [[workstation]]
+      title = "chef generate waiver"
+      identifier = "chef_workstation/chef_workstation_tools/chef_(executable)/ctl_chef.md#chef-generate-waiver chef generate waiver"
+      parent = "chef_workstation/chef_workstation_tools/chef_(executable)"
+      url = "/workstation/ctl_chef/#chef-generate-waiver"
 
       [[workstation]]
       title = "chef report cookbooks"
@@ -957,6 +948,11 @@ weight = 10
   identifier = "release_notes/inspec"
   parent = "release_notes"
 
+  [[release_notes]]
+  title = "Chef Compliance"
+  identifier = "release_notes/compliance"
+  parent = "release_notes"
+
 ####
 # End Release Notes Menu
 ####
@@ -968,12 +964,12 @@ weight = 10
 [[legacy]]
 title = "Legacy"
 identifier = "legacy"
-weight = 10
 
   [[legacy]]
   title = "Chef Manage"
   identifier = "legacy/manage"
   parent = "legacy"
+  weight = 10
 
 ####
 # End Legacy Menu
@@ -1006,13 +1002,6 @@ title = "Support"
 identifier = "support"
 url = "https://www.chef.io/support"
 weight = 120
-
-[[extra]]
-title = "Archive"
-identifier = "archive"
-url = "https://docs-archive.chef.io/"
-weight = 130
-
 
 ####
 # End Extra Menu

@@ -14,15 +14,25 @@ product = []
 +++
 {{< chef_automate_mark >}}
 
-{{% EOL_manage %}}
+{{< warning >}}
 
-{{% manage_A2_server_warning %}}
+{{< readfile file="content/reusable/md/EOL_manage.md" >}}
+
+This document is no longer maintained.
+
+{{< /warning >}}
+
+{{< note >}}
+
+Chef Automate 2 doesn't deploy Chef Manage alongside Chef Infra Server.
+
+{{< /note >}}
 
 The Chef management console enables the management of nodes, data bags, roles, environments, and cookbooks by using a web user interface. In addition, access to nodes, data bags, roles, environments, and cookbooks is configurable using role-based access control (RBAC).
 
 ## Nodes
 
-{{% node %}}
+{{< readfile file="content/reusable/md/node.md" >}}
 
 The Chef management console provides ways for users to [delete nodes and reset their private keys](/server_manage_nodes/#manage), [edit node attributes](/server_manage_nodes/#node-attributes), [manage the run-lists](/server_manage_nodes/#run-lists), [configure user and group permissions](/server_manage_nodes/#permissions), and [manage tags](/server_manage_nodes/#manage-tags).
 
@@ -30,7 +40,7 @@ The Chef management console provides ways for users to [delete nodes and reset t
 
 ### Search
 
-{{% search %}}
+{{< readfile file="content/reusable/md/search.md" >}}
 
 {{< note >}}
 
@@ -40,49 +50,49 @@ The syntax for search queries in the Chef management console is identical to the
 
 #### Query Syntax
 
-{{% search_query_syntax %}}
+{{< readfile file="content/reusable/md/search_query_syntax.md" >}}
 
 #### Keys
 
-{{% search_key %}}
+{{< readfile file="content/reusable/md/search_key.md" >}}
 
 ##### Nested Fields
 
-{{% search_key_nested %}}
+{{< readfile file="content/reusable/md/search_key_nested.md" >}}
 
 #### About Patterns
 
-{{% search_pattern %}}
+{{< readfile file="content/reusable/md/search_pattern.md" >}}
 
 ##### Exact Matching
 
-{{% search_pattern_exact %}}
+{{< readfile file="content/reusable/md/search_pattern_exact.md" >}}
 
 ##### Wildcard Matching
 
-{{% search_pattern_wildcard %}}
+{{< readfile file="content/reusable/md/search_pattern_wildcard.md" >}}
 
 ##### Range Matching
 
-{{% search_pattern_range %}}
+{{< readfile file="content/reusable/md/search_pattern_range.md" >}}
 
 ##### Fuzzy Matching
 
-{{% search_pattern_fuzzy %}}
+{{< readfile file="content/reusable/md/search_pattern_fuzzy.md" >}}
 
 #### About Operators
 
-{{% search_boolean_operators %}}
+{{< readfile file="content/reusable/md/search_boolean_operators.md" >}}
 
-{{% search_boolean_operators_andnot %}}
+{{< readfile file="content/reusable/md/search_boolean_operators_andnot.md" >}}
 
 #### Special Characters
 
-{{% search_special_characters %}}
+{{< readfile file="content/reusable/md/search_special_characters.md" >}}
 
 ## Policy
 
-{{% policy_summary %}}
+{{< readfile file="content/reusable/md/policy_summary.md" >}}
 
 The Chef management console provides ways for users to manage [data bags](/server_manage_data_bags/), [environments](/server_manage_environments/), [roles](/server_manage_roles/), [cookbooks](/server_manage_cookbooks/), [clients](/server_manage_clients/), and [managing tags](/server_manage_nodes/#manage-tags.html).
 
@@ -92,14 +102,14 @@ The Chef management console provides ways for users to manage [data bags](/serve
 
 Organizations, users, and groups can be managed from the Chef management console, including role-based access control for any user and group to any of the objects saved to the Chef Infra Server.
 
-{{% server_rbac %}}
+{{< readfile file="content/server/reusable/md/server_rbac.md" >}}
 
 ![image](/images/step_manage_webui_admin.png)
 
 ## Install Chef Manage
 
-{{% ctl_chef_server_install_features_download %}}
+{{< readfile file="content/server/reusable/md/ctl_chef_server_install_features_download.md" >}}
 
 ### Chef Manage Local Installation
 
-{{% ctl_chef_server_install_features_manual %}}
+{{< readfile file="content/server/reusable/md/ctl_chef_server_install_features_manual.md" >}}

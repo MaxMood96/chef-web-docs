@@ -12,12 +12,13 @@ aliases = ["/knife_user.html", "/knife_user/"]
     identifier = "chef_workstation/chef_workstation_tools/knife/knife_user.md knife user"
     parent = "chef_workstation/chef_workstation_tools/knife"
 +++
+<!-- markdownlint-disable-file MD024 MD036 -->
 
-{{% knife_user_summary %}}
+{{< readfile file="content/workstation/reusable/md/knife_user_summary.md" >}}
 
 {{< note >}}
 
-{{% knife_common_see_common_options_link %}}
+{{< readfile file="content/workstation/reusable/md/knife_common_see_common_options_link.md" >}}
 
 {{< /note >}}
 
@@ -81,7 +82,7 @@ This argument has the following options:
 
 {{< note >}}
 
-{{% knife_common_see_all_config_options %}}
+{{< readfile file="content/workstation/reusable/md/knife_common_see_all_config_options.md" >}}
 
 {{< /note >}}
 
@@ -123,7 +124,6 @@ knife user delete USER_NAME
 `"--remove-from-admin-groups`, `-R`
 
 :If the user is a member of any org admin groups, attempt to remove from those groups. Ignored if --no-disassociate-user is set.
-
 
 ### Examples
 
@@ -247,7 +247,6 @@ knife user password USER_NAME [PASSWORD | ]
 
 :Enable external authentication for this user (such as LDAP).
 
-
 ### Examples
 
 The following examples show how to use this knife subcommand:
@@ -257,7 +256,6 @@ knife user password arno newpassword
 {"username"=>"arno", "email"=>"arno@opscode.com", "display_name"=>"arno schmidt", "first_name"=>"arno", "last_name"=>"schmidt", "middle_name"=>"", "public_key"=>"-----BEGIN PUBLIC KEY-----\n[...]\n-----END PUBLIC KEY-----\n\n", "password"=>"newpassword", "recovery_authentication_enabled"=>true}
 Authentication info updated for arno.
 ```
-
 
 ## key create
 
@@ -455,7 +453,7 @@ This argument has the following options:
 
 {{< note >}}
 
-{{% knife_common_see_all_config_options %}}
+{{< readfile file="content/workstation/reusable/md/knife_common_see_all_config_options.md" >}}
 
 {{< /note >}}
 

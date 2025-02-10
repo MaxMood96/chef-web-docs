@@ -15,7 +15,13 @@ product = []
 
 {{< chef_automate_mark >}}
 
-{{% EOL_manage %}}
+{{< warning >}}
+
+{{< readfile file="content/reusable/md/EOL_manage.md" >}}
+
+This document is no longer maintained.
+
+{{< /warning >}}
 
 {{< note >}}
 
@@ -24,7 +30,7 @@ cookbooks.
 
 {{< /note >}}
 
-{{% cookbooks_summary %}}
+{{< readfile file="content/reusable/md/cookbooks_summary.md" >}}
 
 ## Manage
 
@@ -65,27 +71,27 @@ A cookbook can contain the following types of files:
 <tbody>
 <tr>
 <td>Attributes</td>
-<td>{{< readFile_shortcode file="cookbooks_attribute.md" >}}</td>
+<td>{{< readfile file="content/reusable/md/cookbooks_attribute.md" >}}</td>
 </tr>
 <tr>
 <td>Files</td>
-<td>{{< readFile_shortcode file="resource_cookbook_file_summary.md" >}}</td>
+<td>{{< readfile file="content/reusable/md/resource_cookbook_file_summary.md" >}}</td>
 </tr>
 <tr>
 <td>Libraries</td>
-<td>{{< readFile_shortcode file="libraries_summary.md" >}}</td>
+<td>{{< readfile file="content/reusable/md/libraries_summary.md" >}}</td>
 </tr>
 <tr>
 <td>Recipes</td>
-<td>{{< readFile_shortcode file="cookbooks_recipe.md" >}}</td>
+<td>{{< readfile file="content/reusable/md/cookbooks_recipe.md" >}}</td>
 </tr>
 <tr>
 <td>Resources</td>
-<td>{{< readFile_shortcode file="resources_common.md" >}}</td>
+<td>{{< readfile file="content/reusable/md/resources_common.md" >}}</td>
 </tr>
 <tr>
 <td>Templates</td>
-<td>{{< readFile_shortcode file="template.md" >}}</td>
+<td>{{< readfile file="content/reusable/md/template.md" >}}</td>
 </tr>
 </tbody>
 </table>
@@ -95,7 +101,7 @@ Infra Server are visible from the Chef management console.
 
 ### Download File
 
-To download a file that is located in a cookbook:
+To download a file that's located in a cookbook:
 
 1. Open the Chef management console.
 
@@ -137,9 +143,9 @@ To view a cookbook file:
 
 ## Permissions
 
-{{% server_rbac_permissions %}}
+{{< readfile file="content/server/reusable/md/server_rbac_permissions.md" >}}
 
-{{% server_rbac_permissions_object %}}
+{{< readfile file="content/server/reusable/md/server_rbac_permissions_object.md" >}}
 
 ### Set
 

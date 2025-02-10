@@ -12,14 +12,15 @@ aliases = ["/knife_tag.html", "/knife_tag/"]
     identifier = "chef_workstation/chef_workstation_tools/knife/knife_tag.md knife tag"
     parent = "chef_workstation/chef_workstation_tools/knife"
 +++
+<!-- markdownlint-disable-file MD024 MD036 -->
 
-{{% chef_tags %}}
+{{< readfile file="content/reusable/md/chef_tags.md" >}}
 
-{{% knife_tag_summary %}}
+{{< readfile file="content/workstation/reusable/md/knife_tag_summary.md" >}}
 
 {{< note >}}
 
-{{% knife_common_see_common_options_link %}}
+{{< readfile file="content/workstation/reusable/md/knife_common_see_common_options_link.md" >}}
 
 {{< /note >}}
 
@@ -83,7 +84,7 @@ Type `Y` to confirm a deletion.
 
 ## list
 
-Use the `list` argument to list all of the tags that have been applied
+Use the `list` argument to list the tags that have been applied
 to a node.
 
 ### Syntax

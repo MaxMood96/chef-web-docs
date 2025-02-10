@@ -1,5 +1,5 @@
 +++
-title = "Custom Resources Glossary"
+title = "Custom resources glossary"
 gh_repo = "chef-web-docs"
 aliases = ["/custom_resource_glossary.html"]
 
@@ -13,9 +13,7 @@ product = ["client", "workstation"]
     weight = 200
 +++
 
-## Chef Infra Client Custom Resources Glossary
-
-The following __Domain Specific Language (DSL)__ methods are available when writing Custom Resources.
+The following domain-specific language (DSL) methods are available when writing custom resources.
 
 For further information about how to write custom resources please see [about custom resources]({{< relref "custom_resources.md" >}})
 
@@ -23,9 +21,8 @@ For further information about how to write custom resources please see [about cu
 
 `action_class` makes methods available to all actions within a single custom resource.
 
-### Example
-
-You have a template that requires `'yes'` or `'no'` written as a `String`, but you would like the user to use `true` or `false` for convenience. To allow both the `:add` and `:remove` actions to have access to this method, place the method in the `action_class` block.
+For example, a template requires `'yes'` or `'no'` written as a string, but you would like the user to use `true` or `false` for convenience.
+To allow both the `:add` and `:remove` actions to have access to this method, place the method in the `action_class` block.
 
 ```ruby
 property :example, [true, false], default: true
@@ -57,18 +54,39 @@ action_class do
 end
 ```
 
+## coerce
+
+`coerce` is used to transform user input into a canonical form. The
+value is passed in, and the transformed value returned as output. Lazy
+values will __not__ be passed to this method until after they're
+evaluated.
+
+`coerce` is run in the context of the instance, which gives it access to
+other properties.
+
+Here we transform,`true`/`false` in to `yes`, `no` for a template later on.
+
+```ruby
+property :browseable,
+        [true, false, String],
+        default: true,
+        coerce: proc { |p| p ? 'yes' : 'no' },
+```
+
+If you are modifying the properties type, you will also need to accept that Ruby type as an input.
+
 ## converge_if_changed
 
 Use the `converge_if_changed` method inside an `action` block in a
 custom resource to compare the desired property values against the
 current property values (as loaded by the `load_current_value` method).
 Use the `converge_if_changed` method to ensure that updates only occur
-when property values on the system are not the desired property values
+when property values on the system aren't the desired property values
 and to otherwise prevent a resource from being converged.
 
 To use the `converge_if_changed` method, wrap it around the part of a
 recipe or custom resource that should only be converged when the current
-state is not the desired state:
+state isn't the desired state:
 
 ```ruby
 action :some_action do
@@ -112,8 +130,29 @@ end
 ```
 
 Chef Infra Client will only update the property values that require
-updates and will not make changes when the property values are already
+updates and won't make changes when the property values are already
 in the desired state.
+
+<!-- markdownlint-disable MD026 -->
+
+## current_value_does_not_exist!
+
+<!-- markdownlint-enable MD026 -->
+
+When using the `load_current_value` block, use `current_value_does_not_exist!` to indicate that the value doesn't exist and that `current_resource` should therefore be `nil`.
+
+```ruby
+load_current_value do |new_resource|
+    port_data = powershell_exec(%Q{Get-WmiObject -Class Win32_TCPIPPrinterPort -Filter "Name='#{new_resource.port_name}'"}).result
+
+    if port_data.empty?
+      current_value_does_not_exist!
+    else
+      ipv4_address port_data["HostAddress"]
+    end
+  endo
+end
+```
 
 ## default_action
 
@@ -153,6 +192,80 @@ action :bbbbb do
 end
 ```
 
+## deprecated
+
+### Deprecating a resource
+
+Deprecate resources that you no longer wish to maintain.
+This allows you make breaking changes to enterprise or community cookbooks with friendly notifications to downstream cookbook consumers directly in the Chef Infra Client run.
+
+Use the `deprecated` method to deprecate a resource in a cookbook. For example:
+
+```ruby
+deprecated 'The foo_bar resource has been deprecated and will be removed in the next major release of this cookbook scheduled for 25/01/2021!'
+
+property :thing, String, name_property: true
+
+action :create do
+  # Chef resource code
+end
+```
+
+### Deprecating a property
+
+Deprecate the `badly_named` property in a resource:
+
+```ruby
+property :badly_named, String, deprecated: 'The badly_named property has been deprecated and will be removed in the next major release of this cookbook scheduled for 12/25/2021!'
+```
+
+## deprecated_property_alias
+
+To rename a property with a deprecation warning for users of the old property name, use `deprecated_property_alias`:
+
+```ruby
+deprecated_property_alias 'badly_named', 'really_well_named', 'The badly_named property was renamed really_well_named in the 2.0 release of this cookbook. Please update your cookbooks to use the new property name.'
+```
+
+## desired_state
+
+Add `desired_state:` to set the desired state property for a resource.
+
+| Allowed values | Default |
+| -------------- | ------- |
+| `true` `false` | `true`  |
+
+- When `true`, the state of the property is determined by the state of
+  the system
+- When `false`, the value of the property impacts how the resource
+  executes, but it's not determined by the state of the system.
+
+For example, if you were to write a resource to create volumes on a
+cloud provider you would need define properties such as `volume_name`,
+`volume_size`, and `volume_region`. The state of these properties would
+determine if your resource needed to converge or not. For the resource
+to function you would also need to define properties such as
+`cloud_login` and `cloud_password`. These are necessary properties for
+interacting with the cloud provider, but their state has no impact on
+decision to converge the resource or not, so you would set
+`desired_state` to `false` for these properties.
+
+```ruby
+property :volume_name, String
+property :volume_size, Integer
+property :volume_region, String
+property :cloud_login, String, desired_state: false
+property :cloud_password, String, desired_state: false
+```
+
+## lazy
+
+When setting a node attribute as the default value for a custom resource property, wrap the node attribute in `lazy {}` so that its value is available when the resource executes.
+
+```ruby
+property :thing, String, default: lazy { node['thingy'] }
+```
+
 ## load_current_value
 
 Use the `load_current_value` method to load the specified property
@@ -189,26 +302,9 @@ load_current_value do
 end
 ```
 
-This ensures the values for `homepage` and `page_not_found` are not
+This ensures the values for `homepage` and `page_not_found` aren't
 changed to the default values when Chef Infra Client configures the
 node.
-
-## `current_value_does_not_exist!`
-
-When using the `load_current_value` block, use `current_value_does_not_exist!` to indicate that the value does not exist and that `current_resource` should therefore be `nil`.
-
-```ruby
-load_current_value do |new_resource|
-    port_data = powershell_exec(%Q{Get-WmiObject -Class Win32_TCPIPPrinterPort -Filter "Name='#{new_resource.port_name}'"}).result
-
-    if port_data.empty?
-      current_value_does_not_exist!
-    else
-      ipv4_address port_data["HostAddress"]
-    end
-  endo
-end
-```
 
 ## new_resource.property
 
@@ -248,14 +344,14 @@ action :run do
 end
 ```
 
-The following properties are identical to the properties in the execute resource, which we are embedding in the custom resource.
+The following properties are identical to the properties in the execute resource, which we're embedding in the custom resource.
 
 - `property :cwd`
 - `property :environment`
 - `property :user`
 - `property :sensitive`
 
-Because both the custom properties and the **execute** properties are identical, this
+Because both the custom properties and the __execute__ properties are identical, this
 will result in an error message similar to:
 
 ```ruby
@@ -306,7 +402,48 @@ where:
 - `user new_resource.user`
 - `sensitive new_resource.sensitive`
 
-Correctly use the properties of the **execute** resource and not the identically-named override properties of the custom resource.
+Correctly use the properties of the __execute__ resource and not the identically-named override properties of the custom resource.
+
+## partial
+
+To DRY (don't repeat yourself) up code, custom resources can include partials from common files.
+
+For example, if all of your resources need the `version` property, you can add this to a `partial/_common.rb` file and include that Ruby code in your resource using the `use` directive.
+
+In `resources/partial/_common.rb`, define the `version` property:
+
+```ruby
+# resources/partial/_common.rb
+property :version, String,
+          name_property: true,
+          description: 'Java version to install'
+```
+
+And then in your custom resources, include that code with the `use` directive:
+
+```ruby
+# resources/install_type_a.rb
+provides :adoptopenjdk_install
+unified_mode true
+use 'partial/_common'
+
+property :variant,
+          String,
+          description: 'Install flavour', default: 'openj9'
+```
+
+```ruby
+# resources/openjdk_install.rb
+provides :openjdk_install
+unified_mode true
+use 'partial/_common'
+
+property :install_type,
+          String,
+          default: lazy { default_openjdk_install_method(version) },
+          equal_to: %w( package source ),
+          description: 'Installation type'
+```
 
 ## property
 
@@ -332,6 +469,119 @@ properties with no default values specified:
 ```ruby
 property :username, String
 property :password, String
+```
+
+## property_is_set?
+
+Use the `property_is_set?` method to check if the value for a property has been passed into the resource.
+
+The syntax is:
+
+```ruby
+property_is_set?(:property_name)
+```
+
+The `property_is_set?` method will return `true` if the property is set.
+
+For example, the following custom resource creates and/or updates user
+properties, but not their password. The `property_is_set?` method checks
+if the user has specified a password and then tells Chef Infra Client
+what to do if the password isn't identical:
+
+```ruby
+action :create do
+  converge_if_changed do
+    shell_out!("rabbitmqctl create_or_update_user #{username} --prop1 #{prop1} ... ")
+  end
+
+  if property_is_set?(:password)
+    if shell_out("rabbitmqctl authenticate_user #{username} #{password}").error?
+      converge_by "Updating password for user #{username} ..." do
+        shell_out!("rabbitmqctl update_user #{username} --password #{password}")
+      end
+    end
+  end
+end
+```
+
+## provides
+
+Use the `provides` method to associate multiple custom resource files with the same resources name.
+For example:
+
+```ruby
+# Provide custom_resource_name to Red Hat 7 and above
+provides :custom_resource_name, platform: 'redhat' do |node|
+  node['platform_version'].to_i >= 7
+end
+
+# Provide custom_resource_name to all Red Hat platforms
+provides :custom_resource_name, platform: 'redhat'
+
+# Provide custom_resource_name to the Red Hat platform family
+provides :custom_resource_name, platform_family: 'rhel'
+
+# Provide custom_resource_name to all linux machines
+provides :custom_resource_name, os: 'linux'
+
+# Provide custom_resource_name, useful if your resource file isn't named the same as the resource you want to provide
+provides :custom_resource_name
+```
+
+This allows you to use multiple custom resources files that provide the
+same resource to the user, but for different operating systems or
+operation system versions. With this you can eliminate the need for
+platform or platform version logic within your resources.
+
+### Precedence
+
+Use the `provides` method to associate a custom resource with the recipe
+DSL on different operating systems. When multiple custom resources use
+the same DSL, specificity rules are applied to determine the priority,
+from highest to lowest:
+
+1. `provides :custom_resource_name, platform_version: '0.1.2'`
+2. `provides :custom_resource_name, platform: 'platform_name'`
+3. `provides :custom_resource_name, platform_family: 'platform_family'`
+4. `provides :custom_resource_name, os: 'operating_system'`
+5. `provides :custom_resource_name`
+
+## reset_property
+
+Use the `reset_property` method to clear the value for a property as if
+it had never been set, and then use the default value. For example, to
+clear the value for a property named `password`:
+
+```ruby
+reset_property(:password)
+```
+
+## resource_name
+
+{{< note >}}
+
+`resource_name` was deprecated in Chef Infra Client 15 and became EOL in 16.2.44.
+Use the [`provides`](#provides) method instead of `resource_name`.
+
+For resources running on Chef Infra Client from 12.5 through 15, use `resource_name`:
+
+```ruby
+resource_name :foo
+```
+
+For resources running on Chef Infra Client 15.13.8 to 16.1.16, use both methods to maintain backwards compatibility:
+
+```ruby
+resource_name :foo
+provides :foo
+```
+
+{{< /note >}}
+
+Use the `resource_name` method at the top of a custom resource to declare a custom name for that resource. For example:
+
+```ruby
+resource_name :my_resource_name
 ```
 
 ## ruby_type
@@ -361,6 +611,12 @@ property :ffff, [Class, String, Symbol]
 property :gggg, [Array, Hash]
 ```
 
+## run_context
+
+Chef loads and tracks the current run in the run context object.
+
+root_context
+
 ## sensitive
 
 A property can be marked sensitive by specifying `sensitive: true` on
@@ -368,212 +624,95 @@ the property. This prevents the contents of the property from being
 exported to data collection and sent to an Automate server or shown in the
 logs of the Chef Infra Client run.
 
-## validators
+## target_mode
 
-{{ dsl/property_validation_parameter }}
+{{< readfile file="content/reusable/md/target_mode_summary.md" >}}
 
-## desired_state
+{{< readfile file="/reusable/md/target_mode_custom_resource.md" >}}
 
-Add `desired_state:` to set the desired state property for a resource.
+For more information on Target Mode, see the [Target Mode documentation]({{< relref "/target_mode.md" >}}).
 
-| Allowed values | Default |
-| -------------- | ------- |
-| `true` `false` | `true`  |
+## unified_mode
 
-- When `true`, the state of the property is determined by the state of
-  the system
-- When `false`, the value of the property impacts how the resource
-  executes, but it is not determined by the state of the system.
+{{< readfile file="content/reusable/md/unified_mode_overview.md" >}}
 
-For example, if you were to write a resource to create volumes on a
-cloud provider you would need define properties such as `volume_name`,
-`volume_size`, and `volume_region`. The state of these properties would
-determine if your resource needed to converge or not. For the resource
-to function you would also need to define properties such as
-`cloud_login` and `cloud_password`. These are necessary properties for
-interacting with the cloud provider, but their state has no impact on
-decision to converge the resource or not, so you would set
-`desired_state` to `false` for these properties.
+To enable Unified Mode in a resource, declare it at the top of the resource. For example:
 
 ```ruby
-property :volume_name, String
-property :volume_size, Integer
-property :volume_region, String
-property :cloud_login, String, desired_state: false
-property :cloud_password, String, desired_state: false
+unified_mode true
+
+provides :resource_name
+
 ```
 
-## run_context
+For information, see the [Unified Mode documentation]({{< relref "unified_mode" >}}).
 
-Chef loads and tracks the current run in the run context object.
+## Validation parameters
 
-root_context
+Use a validation parameter to add zero (or more) validation parameters to a property.
 
-## property_is_set?
+<!-- markdownlint-disable MD033 -->
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 75%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><p><code>:callbacks</code></p></td>
+<td><p>Use to define a collection of unique keys and values (a ruby hash) for which the key is the error message and the value is a lambda to validate the parameter. For example:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode ruby"><code class="sourceCode ruby"><span id="cb1-1"><a href="#cb1-1"></a><span class="st">callbacks: </span>{</span>
+<span id="cb1-2"><a href="#cb1-2"></a>             <span class="st">&#39;should be a valid non-system port&#39;</span> =&gt; lambda {</span>
+<span id="cb1-3"><a href="#cb1-3"></a>               |p| p &gt; <span class="dv">1024</span> &amp;&amp; p &lt; <span class="dv">65535</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a>             }</span>
+<span id="cb1-5"><a href="#cb1-5"></a>           }</span></code></pre></div></td>
+</tr>
+<tr>
+<td><p><code>:default</code></p></td>
+<td><p>Use to specify the default value for a property. For example:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode ruby"><code class="sourceCode ruby"><span id="cb2-1"><a href="#cb2-1"></a><span class="st">default: &#39;a_string_value&#39;</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode ruby"><code class="sourceCode ruby"><span id="cb3-1"><a href="#cb3-1"></a><span class="st">default: </span><span class="dv">123456789</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode ruby"><code class="sourceCode ruby"><span id="cb4-1"><a href="#cb4-1"></a><span class="st">default: </span>[]</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode ruby"><code class="sourceCode ruby"><span id="cb5-1"><a href="#cb5-1"></a><span class="st">default: </span>()</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode ruby"><code class="sourceCode ruby"><span id="cb6-1"><a href="#cb6-1"></a><span class="st">default: </span>{}</span></code></pre></div></td>
+</tr>
+<tr>
+<td><p><code>:equal_to</code></p></td>
+<td><p>Use to match a value with <code>==</code>. Use an array of values to match any of those values with <code>==</code>. For example:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode ruby"><code class="sourceCode ruby"><span id="cb7-1"><a href="#cb7-1"></a><span class="st">equal_to: </span>[<span class="dv">true</span>, <span class="dv">false</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode ruby"><code class="sourceCode ruby"><span id="cb8-1"><a href="#cb8-1"></a><span class="st">equal_to: </span>[<span class="st">&#39;php&#39;</span>, <span class="st">&#39;perl&#39;</span>]</span></code></pre></div></td>
+</tr>
+<tr>
+<td><p><code>:regex</code></p></td>
+<td><p>Use to match a value to a regular expression. For example:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode ruby"><code class="sourceCode ruby"><span id="cb9-1"><a href="#cb9-1"></a><span class="st">regex: </span>[ <span class="ot">/^([a-z]|[A-Z]|[0-9]|_|-)+$/</span>, <span class="ot">/^\d+$/</span> ]</span></code></pre></div></td>
+</tr>
+<tr>
+<td><p><code>:required</code></p></td>
+<td><p>Indicates that a property is required. For example:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode ruby"><code class="sourceCode ruby"><span id="cb10-1"><a href="#cb10-1"></a><span class="st">required: </span><span class="dv">true</span></span></code></pre></div></td>
+</tr>
+<tr>
+<td><p><code>:respond_to</code></p></td>
+<td><p>Use to ensure that a value has a given method. This can be a single method name or an array of method names. For example:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode ruby"><code class="sourceCode ruby"><span id="cb11-1"><a href="#cb11-1"></a><span class="st">respond_to: </span>valid_encoding?</span></code></pre></div></td>
+</tr>
+</tbody>
+</table>
+<!-- markdownlint-enable MD033 -->
 
-Use the `property_is_set?` method to check if the value for a property has been passed into the resource.
-
-The syntax is:
+Some examples of combining validation parameters:
 
 ```ruby
-property_is_set?(:property_name)
+property :spool_name, String, regex: /$\w+/
 ```
-
-The `property_is_set?` method will return `true` if the property is set.
-
-For example, the following custom resource creates and/or updates user
-properties, but not their password. The `property_is_set?` method checks
-if the user has specified a password and then tells Chef Infra Client
-what to do if the password is not identical:
 
 ```ruby
-action :create do
-  converge_if_changed do
-    shell_out!("rabbitmqctl create_or_update_user #{username} --prop1 #{prop1} ... ")
-  end
-
-  if property_is_set?(:password)
-    if shell_out("rabbitmqctl authenticate_user #{username} #{password}").error?
-      converge_by "Updating password for user #{username} ..." do
-        shell_out!("rabbitmqctl update_user #{username} --password #{password}")
-      end
-    end
-  end
-end
+property :enabled, equal_to: [true, false, 'true', 'false'], default: true
 ```
-
-## provides
-
-### Introduced
-
-Use the `provides` method to associate multiple custom resource files with the same resources name
-For example:
-
-```ruby
-# Provide my_custom_resource to Redhat 7 and above
-provides :my_custom_resource, platform: 'redhat' do |node|
-  node['platform_version'].to_i >= 7
-end
-
-# Provide my_custom_resource to all Redhat platforms
-provides :my_custom_resource, platform: 'redhat'
-
-# Provide my_custom_resource to the RedHat platform family
-provides :my_custom_resource, platform_family: 'rhel'
-
-# Provide my_custom_resource to all linux machines
-provides :my_custom_resource, os: 'linux'
-
-# Provide my_custom_resource, useful if your resource file is not named the same as the resource you want to provide
-provides :my_custom_resource
-```
-
-This allows you to use multiple custom resources files that provide the
-same resource to the user, but for different operating systems or
-operation system versions. With this you can eliminate the need for
-platform or platform version logic within your resources.
-
-### Precedent
-
-Use the `provides` method to associate a custom resource with the Recipe
-DSL on different operating systems. When multiple custom resources use
-the same DSL, specificity rules are applied to determine the priority,
-from highest to lowest:
-
-1. provides :my_custom_resource, platform_version: '0.1.2'
-2. provides :my_custom_resource, platform: 'platform_name'
-3. provides :my_custom_resource, platform_family: 'platform_family'
-4. provides :my_custom_resource, os: 'operating_system'
-5. provides :my_custom_resource
-
-## reset_property
-
-Use the `reset_property` method to clear the value for a property as if
-it had never been set, and then use the default value. For example, to
-clear the value for a property named `password`:
-
-```ruby
-reset_property(:password)
-```
-
-## coerce
-
-`coerce` is used to transform user input into a canonical form. The
-value is passed in, and the transformed value returned as output. Lazy
-values will **not** be passed to this method until after they are
-evaluated.
-
-`coerce` is run in the context of the instance, which gives it access to
-other properties.
-
-Here we transform,`true`/`false` in to `yes`, `no` for a template later on.
-
-```ruby
-property :browseable,
-        [true, false, String],
-        default: true,
-        coerce: proc { |p| p ? 'yes' : 'no' },
-```
-
-If you are modifying the properties type, you will also need to accept that Ruby type as an input.
-
-## resource_name
-
-{{< note >}}
-
-The `resource_name` setting is necessary for backwards compatibility with Chef Infra Client 12 through 15. It's use is no longer recommended, please use the [`provides`]({{< relref "#provides" >}}) method instead.
-
-{{< /note >}}
-
-Introduced: 12.5
-Updated: 16.0
-
-Use the `resource_name` method at the top of a custom resource to
-declare a custom name for that resource. For example:
-
-```ruby
-resource_name :my_resource_name
-```
-
-The `resource_name` is only used as a fallback name for display purposes.
-
-The `provides` statement is the preferred method of specifying the resources name.
-
-In Chef Infra Client 16 and later, the first `provides` in a resource declaration also sets the fallback `resource_name`, so we do not recommend that users set the `resource_name` at all.
-
-## Deprecating entire resources
-
-Deprecate resources that you no longer wish to maintain.
-This allows you make breaking changes to enterprise or community cookbooks with friendly notifications to downstream cookbook consumers directly in the Chef Infra Client run.
-
-Deprecate the `foo_bar` resource in a cookbook
-
-```ruby
-deprecated 'The foo_bar resource has been deprecated and will be removed in the next major release of this cookbook scheduled for 25/01/2021!'
-
-property :thing, String, name_property: true
-
-action :create do
- # Chef resource code
-end
-```
-
-## Deprecating a property
-
-Deprecate the `badly_named` property in a resource:
-
-```ruby
-property :badly_named, String, deprecated: 'The badly_named property has been deprecated and will be removed in the next major release of this cookbook scheduled for 12/25/2021!'
-```
-
-## Deprecate and alias
-
-Rename a property with a deprecation warning for users of the old property name:
-
-```ruby
-deprecated_property_alias 'badly_named', 'really_well_named', 'The badly_named property was renamed really_well_named in the 2.0 release of this cookbook. Please update your cookbooks to use the new property name.'
-```
-
-## Unified Mode
-
-See the [unified mode documentation]({{< relref "unified_mode" >}}) for information about unified mode.

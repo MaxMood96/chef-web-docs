@@ -23,7 +23,11 @@ Determine if the current node supports running guests under any virtualization e
 
 ## physical?
 
-Determine if the current node is NOT running under any virtualization environment (bare-metal or hypervisor on metal).
+Determine if the current node isn't running under any virtualization environment (bare-metal or hypervisor on metal).
+
+## hyperv?
+
+Determine if the current node is a Hyper-V guest.
 
 ## kvm?
 
@@ -65,6 +69,14 @@ Determine if the current node is a VMWare guest.
 
 Determine if the current node is VMware host.
 
+## vmware_desktop?
+
+Determine if the current node is a guest on VMware desktop products (Fusion, Player, Workstation).
+
+## vmware_vsphere?
+
+Determine if the current node is a guest on VMware vSphere (aka ESXi).
+
 ## openvz?
 
 Determine if the current node is an openvz guest.
@@ -79,7 +91,7 @@ Determine if the current node is running as a vagrant guest.
 
 ## vagrant_key?
 
-Check if the `vagrant` key exists on the +node+ object. Note: This key is no longer populated by vagrant, but it is kept around for legacy purposes.
+Check if the `vagrant` key exists on the +node+ object. Note: This key is no longer populated by vagrant, but it's kept around for legacy purposes.
 
 ## vagrant_domain?
 

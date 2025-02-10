@@ -15,9 +15,9 @@ Use the `filesystem` Chef InSpec resource to audit filesystem disk space usage.
 
 ## Availability
 
-### Installation
+### Install
 
-This resource is distributed along with Chef InSpec itself. You can use it automatically.
+{{< readfile file="content/inspec/reusable/md/inspec_installation.md" >}}
 
 ### Version
 
@@ -61,7 +61,7 @@ The `free_kb` property returns the size of available space on the partition in k
 
     its('size_kb') { should be >= 32000 }
 
-## percent_free (Integrer)
+## percent_free (Integer)
 
 The `percent_free` property returns the available free space on the partition, ranges from 0 to 100.
 
@@ -103,4 +103,4 @@ Note that Windows filesystems (drives) are referred to without any slashes:
 
 ## Matchers
 
-For a full list of available matchers, please visit our [matchers page](/inspec/matchers/).
+{{< readfile file="content/inspec/reusable/md/inspec_matchers_link.md" >}}

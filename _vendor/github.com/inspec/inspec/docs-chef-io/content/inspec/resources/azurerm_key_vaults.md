@@ -11,6 +11,8 @@ platform = "azure"
     parent = "inspec/resources/azure"
 +++
 
+{{< inspec/azurerm_deprecated resource="azure_key_vaults" >}}
+
 Use the `azurerm_key_vaults` InSpec audit resource to test properties and configuration of Azure Key Vaults.
 
 ## Azure REST API version
@@ -25,7 +27,7 @@ version.
 
 ## Availability
 
-### Installation
+### Install
 
 This resource is available in the `inspec-azure` [resource
 pack](/inspec/glossary/#resource-pack). To use it, add the
@@ -119,8 +121,9 @@ A collection of additional configuration properties related to the Key Vault, e.
 
 ## Matchers
 
-This InSpec audit resource has the following special matchers. For a full list of available matchers,
-please visit our [Universal Matchers page](/inspec/matchers/).
+{{< readfile file="content/inspec/reusable/md/inspec_matchers_link.md" >}}
+
+This resource has the following special matchers.
 
 ### exists
 

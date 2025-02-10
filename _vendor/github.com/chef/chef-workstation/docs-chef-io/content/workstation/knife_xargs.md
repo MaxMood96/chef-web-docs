@@ -12,8 +12,9 @@ aliases = ["/knife_xargs.html", "/knife_xargs/"]
     identifier = "chef_workstation/chef_workstation_tools/knife/knife_xargs.md knife xargs"
     parent = "chef_workstation/chef_workstation_tools/knife"
 +++
+<!-- markdownlint-disable-file MD036 -->
 
-{{% knife_xargs_summary %}}
+{{< readfile file="content/workstation/reusable/md/knife_xargs_summary.md" >}}
 
 ## Syntax
 
@@ -27,7 +28,7 @@ knife xargs [PATTERN...] (options)
 
 {{< note >}}
 
-{{% knife_common_see_common_options_link %}}
+{{< readfile file="content/workstation/reusable/md/knife_common_see_common_options_link.md" >}}
 
 {{< /note >}}
 
@@ -91,7 +92,7 @@ This subcommand has the following options:
 
 {{< note >}}
 
-{{% knife_common_see_all_config_options %}}
+{{< readfile file="content/workstation/reusable/md/knife_common_see_all_config_options.md" >}}
 
 {{< /note >}}
 

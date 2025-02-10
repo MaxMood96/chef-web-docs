@@ -15,9 +15,9 @@ Use the `command` Chef InSpec audit resource to test an arbitrary command that i
 
 ## Availability
 
-### Installation
+### Install
 
-This resource is distributed along with Chef InSpec itself. You can use it automatically.
+{{< readfile file="content/inspec/reusable/md/inspec_installation.md" >}}
 
 ### Version
 
@@ -147,7 +147,6 @@ end
 ```
 
 This example would run the `find` command for up to 300 seconds, then give up and fail the control if it exceeded that time.
-On supported target platforms, the default timeout is 3600 seconds (one hour).
 
 Aside from setting the value on a per-resource basis, you may also use the `--command-timeout` CLI option to globally set a command timeout. The CLI option takes precedence over any per-resource `timeout:` options.
 
@@ -167,7 +166,7 @@ By default the command that is ran is shown in the Chef InSpec output. This can 
 The following examples show how to use `redact_regex`:
 
     # Example without capture groups
-    describe command('myapp -p secretpassword -d no_redact', redact_regex: /-p .* -d/) do
+    describe command('myapp -p secret_password -d no_redact', redact_regex: /-p .* -d/) do
       its('exit_status') { should cmp 0 }
     end
 
@@ -178,7 +177,7 @@ The following examples show how to use `redact_regex`:
     # Example with capture groups
     # Each set of parenthesis is a capture group.
     # Anything in the two capture groups will not be 'REDACTED'
-    describe command('myapp -p secretpassword -d no_redact', redact_regex: /(-p ).*( -d)/) do
+    describe command('myapp -p secret_password -d no_redact', redact_regex: /(-p ).*( -d)/) do
       its('exit_status') { should cmp 0 }
     end
 
@@ -190,7 +189,9 @@ For more info/help on regular expressions, we recommend [RegExr](https://regexr.
 
 ## Matchers
 
-For a full list of available matchers, please visit our [matchers page](/inspec/matchers/).
+{{< readfile file="content/inspec/reusable/md/inspec_matchers_link.md" >}}
+
+This resource has the following special matchers.
 
 ### exist
 

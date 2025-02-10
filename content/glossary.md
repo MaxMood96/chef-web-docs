@@ -34,23 +34,19 @@ Chef Automate
 
 Chef Infra Client
 
-: A command-line tool that that runs Chef. Also, the name of Chef as it is installed on a node.
+: A command-line tool that that runs Chef. Also, the name of Chef as it's installed on a node.
 
 Chef Infra Server
 
-: The Chef Infra Server acts as a hub for configuration data. The Chef Infra Server stores cookbooks, the policies that are applied to nodes, and metadata that describes each registered node that is being managed by Chef Infra Client. Nodes use Chef Infra Client to ask the Chef Infra Server for configuration details, such as recipes, templates, and file distributions.
+: The Chef Infra Server acts as a hub for configuration data. The Chef Infra Server stores cookbooks, the policies that are applied to nodes, and metadata that describes each registered node that's being managed by Chef Infra Client. Nodes use Chef Infra Client to ask the Chef Infra Server for configuration details, such as recipes, templates, and file distributions.
 
 Chef Workstation
 
-: A collection of tools to aide in development of Chef Infra cookbooks. It uses the full stack installer to give you everything you need to get going in one package. You can download it at [Chef Workstation](https://www.chef.io/downloads/tools/workstation).
+: A collection of tools to aide in development of Chef Infra cookbooks. It uses the full stack installer to give you everything you need to get going in one package. You can download it at [Chef Downloads](https://www.chef.io/downloads).
 
 chef-client
 
 : The `chef-client` is the name for both the command line tool that runs on your local computer and the program that runs on nodes. The `chef-client` allows you to ensure the configuration compliance of your systems through policy code. You use the chef-client command line tool from your local computer to send instructions to the program on the node. You install the chef-client on nodes with the bootstrap process from your computer and then you configure it to run on an interval to ensure continuous configuration compliance.
-
-chef-apply
-
-: A command-line tool that allows a single recipe to be run from the command line.
 
 chef-repo
 
@@ -74,7 +70,7 @@ custom resource
 
 data bag
 
-: A data_bag is a global variable that is stored as JSON data and is accessible from a Chef Infra Server.
+: A data_bag is a global variable that's stored as JSON data and is accessible from a Chef Infra Server.
 
 environment
 
@@ -94,15 +90,15 @@ library
 
 node
 
-: A node is any physical, virtual, or cloud device that is configured and maintained by an instance of Chef Infra Client.
+: A node is any physical, virtual, or cloud device that's configured and maintained by an instance of Chef Infra Client.
 
 node object
 
-: A node object is a history of the attributes, run-lists, and roles that were used to configure a node that is under management by Chef Infra.
+: A node object is a history of the attributes, run-lists, and roles that were used to configure a node that's under management by Chef Infra.
 
 ohai
 
-: Ohai is a tool that is used to detect attributes on a node, and then provide these attributes to Chef Infra Client at the start of every run.
+: Ohai is a tool that's used to detect attributes on a node, and then provide these attributes to Chef Infra Client at the start of every run.
 
 organization
 
@@ -122,16 +118,16 @@ resource
 
 role
 
-A role is a way to define certain patterns and processes that exist across nodes in an organization as belonging to a single job function.
+: A role is a way to define certain patterns and processes that exist across nodes in an organization as belonging to a single job function.
 
 run-list
 
-: A run-list defines all of the configuration settings that are necessary for a node that is under management by Chef to be put into the desired state and the order in which these configuration settings are applied.
+: A run-list defines all of the configuration settings that are necessary for a node that's under management by Chef to be put into the desired state and the order in which these configuration settings are applied.
 
 Test Kitchen
 
-: Test Kitchen is an integration framework that is used to automatically test cookbook data across any combination of platforms and test suites. Test Kitchen is packaged in Chef Workstation.
+: Test Kitchen is an integration framework that's used to automatically test cookbook data across any combination of platforms and test suites. Test Kitchen is packaged in Chef Workstation.
 
 Unified Mode
 
-: Unified mode combines the compile and converge stages of the Chef Infra Client run into one phase. Unified mode means that the Chef Infra Client compiles and applies a custom resource in order, from top to bottom. Unified mode works only on custom resources and does not affect other resources or recipes.
+: Unified mode combines the compile and converge stages of the Chef Infra Client run into one phase. Unified mode means that the Chef Infra Client compiles and applies a custom resource in order, from top to bottom. Unified mode works only on custom resources and doesn't affect other resources or recipes.

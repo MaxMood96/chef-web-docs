@@ -12,7 +12,13 @@ aliases = ["/config_rb_supermarket.html", "/config_rb_supermarket/"]
     weight = 30
 +++
 
-{{% config_rb_supermarket_summary %}}
+The supermarket.rb file contains all of the non-default configuration
+settings used by the Chef Supermarket. The default settings are built-in
+to the Chef Supermarket configuration, and should only be added to the
+supermarket.rb file to apply non-default values. These configuration
+settings are processed when the `supermarket-ctl reconfigure` command is
+run. The supermarket.rb file is a Ruby file, which means that
+conditional statements can be used in the configuration file.
 
 ## Settings
 
@@ -53,6 +59,17 @@ This configuration file has the following general settings:
 `default['supermarket']['fqdn']`
 
 : The fully qualified domain name for the Supermarket server. Defaults to using the current FQDN for the machine.
+
+`default['supermarket']['disable_host_header_attack']`
+
+: This flag is to allow/restrict injection of arbitrary host headers in the API calls to supermarket. The scenarios in which this flag will be useful is e.g. if supermarket runs behind an AWS ELB (load balancer), the internal health-check API calls to supermarket invoked by the load balancer get responded with status code: 403 (forbidden) if this flag is set to `true`. So to unblock the health-check API calls invoked by the ELB we need to set this flag as `false`
+
+`default['supermarket']['allowed_hosts']`
+
+: This attribute is to set the list of Allowed Hosts for supermarket to block arbitrary [Host header injection](https://crashtest-security.com/invalid-host-header/) in the API calls to supermarket. This is by default set as the value of the FQDN(`default['supermarket']['fqdn']`). You can also set this attribute explicitly as the the domain name of your supermarket website e.g. <https://supermarket.chef.io>. You also need to keep the flag: `disable_host_header_attack` as `true` to make this attribute effective. If `disable_host_header_attack` is set to `false` then this attribute will be ignored.
+: For allowing multiple hostnames in `default['supermarket']['allowed_hosts']`,
+specify the values separated by comma e.g. below:
+`'https://www.example1.com, https://www.example2.com'`
 
 `default['supermarket']['from_email']`
 
@@ -235,11 +252,37 @@ Use these settings to integrate Supermarket with GitHub Enterprise.
 
 ### Google Analytics
 
-Use this setting to set up [Google Analytics](https://analytics.google.com) tracking for Supermarket:
+Use these settings to set up [Google Analytics](https://analytics.google.com) tracking for Supermarket.
+
+`default['supermarket']['enable_gtag']`
+
+: Whether to enable Google Analytics tracking.
+
+  Allowed values: `"true"`, `"false"`.
+
+  Default value: `"false"`.
 
 `default['supermarket']['google_analytics_id']`
 
-: The Google Analytics [tracking ID](https://support.google.com/analytics/answer/7372977?hl=en) for Supermarket. Default value: `nil`.
+: The Google Analytics [tracking ID](https://support.google.com/analytics/answer/9539598?hl=en) for Supermarket.
+
+  Default value: `nil`.
+
+### OneTrust
+
+`default['supermarket']['enable_onetrust']`
+
+: Whether to enable [OneTrust](https://www.onetrust.com) cookie consent verification for Supermarket.
+
+  Allowed values: `"true"`, `"false"`.
+
+  Default value: `"false"`.
+
+`default['supermarket']['onetrust_id']`
+
+: The Onetrust ID for Supermarket.
+
+  Default value: `nil`.
 
 ### Nginx
 

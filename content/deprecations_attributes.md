@@ -3,14 +3,14 @@ title = "Deprecation: Some Attribute Methods (CHEF-4)"
 draft = false
 
 gh_repo = "chef-web-docs"
-sitemapExclude = true 
+sitemapExclude = true
 robots = "noindex"
 
 aliases = "/deprecations_attributes.html"
 
 +++
 
-We are continuously improving and streamlining the way attributes work
+We're continuously improving and streamlining the way attributes work
 in Chef, to make it easier for users to reason about and safely
 configure their servers.
 
@@ -21,9 +21,9 @@ releases.
 
 Setting and accessing node attributes has been standardized on "bracket"
 syntax. The older "method" syntax is deprecated and will be removed in
-Chef Client 13.
+Chef Infra Client 13.
 
-Removal: Chef Client 13
+Removal: Chef Infra Client 13
 
 ### Example
 
@@ -49,9 +49,9 @@ chef_server = node['chef']['server']
 
 Setting node attributes with `set` or `set_unless` has been deprecated
 in favor of explicitly setting the precedence level. These methods will
-be removed in Chef Client 14.
+be removed in Chef Infra Client 14.
 
-Removal: Chef Client 14
+Removal: Chef Infra Client 14
 
 ### Example
 

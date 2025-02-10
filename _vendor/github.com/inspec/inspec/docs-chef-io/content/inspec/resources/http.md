@@ -15,9 +15,9 @@ Use the `http` Chef InSpec audit resource to test an http endpoint.
 
 ## Availability
 
-### Installation
+### Install
 
-This resource is distributed along with Chef InSpec itself. You can use it automatically.
+{{< readfile file="content/inspec/reusable/md/inspec_installation.md" >}}
 
 ### Version
 
@@ -180,7 +180,7 @@ You can include the username and password in the `proxy` parameter:
 
 The `proxy` parameter also accepts proxy options in hash format:
 
-    describe http('http://localhost:8080/ping', proxy: { uri: 'http://www.example.com:3128', user: 'username', password: 'proxypassword'}) do
+    describe http('http://localhost:8080/ping', proxy: { uri: 'http://www.example.com:3128', user: 'username', password: 'proxy-password'}) do
       ...
     end
 
@@ -271,4 +271,4 @@ In Chef InSpec 2.0, the HTTP test will automatically execute remotely whenever C
 
 ## Matchers
 
-For a full list of available matchers, please visit our [matchers page](/inspec/matchers/).
+{{< readfile file="content/inspec/reusable/md/inspec_matchers_link.md" >}}

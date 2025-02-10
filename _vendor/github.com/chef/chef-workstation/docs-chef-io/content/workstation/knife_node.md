@@ -12,14 +12,15 @@ aliases = ["/knife_node.html", "/knife_node/"]
     identifier = "chef_workstation/chef_workstation_tools/knife/knife_node.md knife node"
     parent = "chef_workstation/chef_workstation_tools/knife"
 +++
+<!-- markdownlint-disable-file MD024 MD036 -->
 
-{{% node %}}
+{{< readfile file="content/reusable/md/node.md" >}}
 
-{{% knife_node_summary %}}
+{{< readfile file="content/workstation/reusable/md/knife_node_summary.md" >}}
 
 {{< note >}}
 
-{{% knife_common_see_common_options_link %}}
+{{< readfile file="content/workstation/reusable/md/knife_common_see_common_options_link.md" >}}
 
 {{< /note >}}
 
@@ -112,7 +113,7 @@ When finished, save it.
 ## delete
 
 Use the `delete` argument to delete a node from the Chef Infra Server.
-If using Chef Client 12.17 or later, you can delete multiple nodes using
+If using Chef Infra Client 12.17 or later, you can delete multiple nodes using
 this subcommand.
 
 {{< note >}}
@@ -255,7 +256,7 @@ knife node from file "PATH_TO_JSON_FILE"
 
 ## list
 
-Use the `list` argument to view all of the nodes that exist on a Chef
+Use the `list` argument to view the nodes that exist on a Chef
 Infra Server.
 
 ### Syntax
@@ -276,7 +277,7 @@ This argument has the following options:
 
 {{< note >}}
 
-{{% knife_common_see_all_config_options %}}
+{{< readfile file="content/workstation/reusable/md/knife_common_see_all_config_options.md" >}}
 
 {{< /note >}}
 
@@ -323,35 +324,35 @@ knife node policy set test-node 'test-group' 'test-name'
 
 ## run_list add
 
-{{% node_run_list %}}
+{{< readfile file="content/reusable/md/node_run_list.md" >}}
 
-{{% knife_node_run_list_add %}}
+{{< readfile file="content/workstation/reusable/md/knife_node_run_list_add.md" >}}
 
-{{% node_run_list_format %}}
+{{< readfile file="content/reusable/md/node_run_list_format.md" >}}
 
 ### Syntax
 
-{{% knife_node_run_list_add_syntax %}}
+{{< readfile file="content/workstation/reusable/md/knife_node_run_list_add_syntax.md" >}}
 
 {{< warning >}}
 
-{{% knife_common_windows_quotes %}}
+{{< readfile file="content/workstation/reusable/md/knife_common_windows_quotes.md" >}}
 
 {{< /warning >}}
 
 {{< note >}}
 
-{{% knife_common_windows_quotes_module %}}
+{{< readfile file="content/workstation/reusable/md/knife_common_windows_quotes_module.md" >}}
 
 {{< /note >}}
 
 ### Options
 
-{{% knife_node_run_list_add_options %}}
+{{< readfile file="content/workstation/reusable/md/knife_node_run_list_add_options.md" >}}
 
 {{< note >}}
 
-{{% knife_common_see_all_config_options %}}
+{{< readfile file="content/workstation/reusable/md/knife_common_see_all_config_options.md" >}}
 
 {{< /note >}}
 
@@ -361,31 +362,31 @@ The following examples show how to use this knife subcommand:
 
 **Add a role**
 
-{{% knife_node_run_list_add_role %}}
+{{< readfile file="content/workstation/reusable/md/knife_node_run_list_add_role.md" >}}
 
 **Add roles and recipes**
 
-{{% knife_node_run_list_add_roles_and_recipes %}}
+{{< readfile file="content/workstation/reusable/md/knife_node_run_list_add_roles_and_recipes.md" >}}
 
 **Add a recipe with a FQDN**
 
-{{% knife_node_run_list_add_recipe_with_fqdn %}}
+{{< readfile file="content/workstation/reusable/md/knife_node_run_list_add_recipe_with_fqdn.md" >}}
 
 **Add a recipe with a cookbook**
 
-{{% knife_node_run_list_add_recipe_with_cookbook %}}
+{{< readfile file="content/workstation/reusable/md/knife_node_run_list_add_recipe_with_cookbook.md" >}}
 
 **Add the default recipe**
 
-{{% knife_node_run_list_add_default_recipe %}}
+{{< readfile file="content/workstation/reusable/md/knife_node_run_list_add_default_recipe.md" >}}
 
 ## run_list remove
 
-{{% knife_node_run_list_remove %}}
+{{< readfile file="content/workstation/reusable/md/knife_node_run_list_remove.md" >}}
 
 ### Syntax
 
-{{% knife_node_run_list_remove_syntax %}}
+{{< readfile file="content/workstation/reusable/md/knife_node_run_list_remove_syntax.md" >}}
 
 ### Options
 
@@ -393,7 +394,7 @@ This command does not have any specific options.
 
 {{< note >}}
 
-{{% knife_common_see_all_config_options %}}
+{{< readfile file="content/workstation/reusable/md/knife_common_see_all_config_options.md" >}}
 
 {{< /note >}}
 
@@ -403,29 +404,29 @@ The following examples show how to use this knife subcommand:
 
 **Remove a role**
 
-{{% knife_node_run_list_remove_role %}}
+{{< readfile file="content/workstation/reusable/md/knife_node_run_list_remove_role.md" >}}
 
 **Remove a run-list**
 
-{{% knife_node_run_list_remove_run_list %}}
+{{< readfile file="content/workstation/reusable/md/knife_node_run_list_remove_run_list.md" >}}
 
 ## run_list set
 
-{{% knife_node_run_list_set %}}
+{{< readfile file="content/workstation/reusable/md/knife_node_run_list_set.md" >}}
 
 ### Syntax
 
-{{% knife_node_run_list_set_syntax %}}
+{{< readfile file="content/workstation/reusable/md/knife_node_run_list_set_syntax.md" >}}
 
 {{< warning >}}
 
-{{% knife_common_windows_quotes %}}
+{{< readfile file="content/workstation/reusable/md/knife_common_windows_quotes.md" >}}
 
 {{< /warning >}}
 
 {{< note >}}
 
-{{% knife_common_windows_quotes_module %}}
+{{< readfile file="content/workstation/reusable/md/knife_common_windows_quotes_module.md" >}}
 
 {{< /note >}}
 
@@ -500,7 +501,7 @@ Platform:
 
 **Show basic information about nodes**
 
-To show basic information about a node, truncated and nicely formatted:
+To show basic information about a node, that is truncated and formatted:
 
 ``` bash
 knife node show NODE_NAME
@@ -508,7 +509,7 @@ knife node show NODE_NAME
 
 **Show all data about nodes, truncated**
 
-To show all information about a node, nicely formatted:
+To show all information about a node, formatted:
 
 ``` bash
 knife node show -l NODE_NAME

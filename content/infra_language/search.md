@@ -13,7 +13,7 @@ gh_repo = "chef-web-docs"
 
 ## search
 
-{{% search %}}
+{{< readfile file="content/reusable/md/search.md" >}}
 
 Use the `search` method to perform a search query against the Chef Infra Server from within a recipe.
 
@@ -45,47 +45,47 @@ end
 
 ### :filter_result
 
-{{% infra_lang_method_search_filter_result %}}
+{{< readfile file="content/reusable/md/infra_lang_method_search_filter_result.md" >}}
 
 ### Query Syntax
 
-{{% search_query_syntax %}}
+{{< readfile file="content/reusable/md/search_query_syntax.md" >}}
 
 #### Keys
 
-{{% search_key %}}
+{{< readfile file="content/reusable/md/search_key.md" >}}
 
 #### Nested Fields
 
-{{% search_key_nested %}}
+{{< readfile file="content/reusable/md/search_key_nested.md" >}}
 
 #### Patterns
 
-{{% search_pattern %}}
+{{< readfile file="content/reusable/md/search_pattern.md" >}}
 
 #### Exact Match
 
-{{% search_pattern_exact %}}
+{{< readfile file="content/reusable/md/search_pattern_exact.md" >}}
 
 #### Wildcard Match
 
-{{% search_pattern_wildcard %}}
+{{< readfile file="content/reusable/md/search_pattern_wildcard.md" >}}
 
 #### Range Match
 
-{{% search_pattern_range %}}
+{{< readfile file="content/reusable/md/search_pattern_range.md" >}}
 
 #### Fuzzy Match
 
-{{% search_pattern_fuzzy %}}
+{{< readfile file="content/reusable/md/search_pattern_fuzzy.md" >}}
 
 #### Operators
 
-{{% search_boolean_operators %}}
+{{< readfile file="content/reusable/md/search_boolean_operators.md" >}}
 
 #### Special Characters
 
-{{% search_special_characters %}}
+{{< readfile file="content/reusable/md/search_special_characters.md" >}}
 
 ### Examples
 
@@ -93,4 +93,57 @@ The following examples show how the `search` method can be used in a recipe.
 
 #### Use the search helper to find users
 
-{{< readFile_shortcode file="resource_execute_use_search_dsl_method.md" >}}
+The following example shows how to use the `search` method in the Recipe
+DSL to search for users:
+
+```ruby
+#  the following code sample comes from the openvpn cookbook: https://github.com/chef-cookbooks/openvpn
+
+search("users", "*:*") do |u|
+  execute "generate-openvpn-#{u['id']}" do
+    command "./pkitool #{u['id']}"
+    cwd '/etc/openvpn/easy-rsa'
+    environment(
+      'EASY_RSA' => '/etc/openvpn/easy-rsa',
+      'KEY_CONFIG' => '/etc/openvpn/easy-rsa/openssl.cnf',
+      'KEY_DIR' => node['openvpn']['key_dir'],
+      'CA_EXPIRE' => node['openvpn']['key']['ca_expire'].to_s,
+      'KEY_EXPIRE' => node['openvpn']['key']['expire'].to_s,
+      'KEY_SIZE' => node['openvpn']['key']['size'].to_s,
+      'KEY_COUNTRY' => node['openvpn']['key']['country'],
+      'KEY_PROVINCE' => node['openvpn']['key']['province'],
+      'KEY_CITY' => node['openvpn']['key']['city'],
+      'KEY_ORG' => node['openvpn']['key']['org'],
+      'KEY_EMAIL' => node['openvpn']['key']['email']
+    )
+    not_if { File.exist?("#{node['openvpn']['key_dir']}/#{u['id']}.crt") }
+  end
+
+  %w{ conf ovpn }.each do |ext|
+    template "#{node['openvpn']['key_dir']}/#{u['id']}.#{ext}" do
+      source 'client.conf.erb'
+      variables :username => u['id']
+    end
+  end
+
+  execute "create-openvpn-tar-#{u['id']}" do
+    cwd node['openvpn']['key_dir']
+    command <<-EOH
+      tar zcf #{u['id']}.tar.gz \
+      ca.crt #{u['id']}.crt #{u['id']}.key \
+      #{u['id']}.conf #{u['id']}.ovpn \
+    EOH
+    not_if { File.exist?("#{node['openvpn']['key_dir']}/#{u['id']}.tar.gz") }
+  end
+end
+```
+
+where
+
+- the search will use both of the **execute** resources, unless the
+    condition specified by the `not_if` commands are met
+- the `environments` property in the first **execute** resource is
+    being used to define values that appear as variables in the OpenVPN
+    configuration
+- the **template** resource tells Chef Infra Client which template to
+    use

@@ -11,12 +11,14 @@ platform = "azure"
     parent = "inspec/resources/azure"
 +++
 
+{{< inspec/azurerm_deprecated resource="azure_network_interfaces" >}}
+
 Use the `azurerm_network_interfaces` InSpec audit resource to test properties and configuration of Azure Network interfaces.
 
 ## Azure REST API version
 
 This resource interacts with version `2018-11-01` of the Azure Management API. For more
-information see the [Official Azure Documentation](<https://docs.microsoft.com/en-us/rest/api/virtualnetwork/networkinterface(preview)/list>).
+information see the [Official Azure Documentation](https://docs.microsoft.com/en-us/rest/api/virtualnetwork/network-interfaces-in-cloud-service).
 
 At the moment, there doesn't appear to be a way to select the version of the
 Azure API docs. If you notice a newer version being referenced in the official
@@ -25,7 +27,7 @@ version.
 
 ## Availability
 
-### Installation
+### Install
 
 This resource is available in the `inspec-azure` [resource
 pack](/inspec/glossary/#resource-pack). To use it, add the
@@ -125,8 +127,9 @@ The type of Resource, typically `Microsoft.Network/networkInterfaces`.
 
 ## Matchers
 
-This InSpec audit resource has the following special matchers. For a full list of available matchers,
-please visit our [Universal Matchers page](/inspec/matchers/).
+{{< readfile file="content/inspec/reusable/md/inspec_matchers_link.md" >}}
+
+This resource has the following special matchers.
 
 ### exists
 

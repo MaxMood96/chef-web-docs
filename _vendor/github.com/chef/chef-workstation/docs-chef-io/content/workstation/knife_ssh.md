@@ -12,8 +12,9 @@ aliases = ["/knife_ssh.html", "/knife_ssh/"]
     identifier = "chef_workstation/chef_workstation_tools/knife/knife_ssh.md knife ssh"
     parent = "chef_workstation/chef_workstation_tools/knife"
 +++
+<!-- markdownlint-disable-file MD036 -->
 
-{{% knife_ssh_summary %}}
+{{< readfile file="content/workstation/reusable/md/knife_ssh_summary.md" >}}
 
 ## Syntax
 
@@ -27,7 +28,7 @@ knife ssh SEARCH_QUERY SSH_COMMAND (options)
 
 {{< note >}}
 
-{{% knife_common_see_common_options_link %}}
+{{< readfile file="content/workstation/reusable/md/knife_common_see_common_options_link.md" >}}
 
 {{< /note >}}
 
@@ -57,8 +58,6 @@ This subcommand has the following options:
 
 : The SSH identity file used to connect to the SSH gateway.
 
-   *New in Chef Client 13.0.*
-
 `-i IDENTITY_FILE`, `--ssh-identity-file IDENTIFY_FILE`
 
 : The SSH identity file used for authentication. Key-based authentication is recommended.
@@ -87,17 +86,15 @@ This subcommand has the following options:
 
 : The search query used to return a list of servers to be accessed using SSH and the specified `SSH_COMMAND`. This option uses the same syntax as the search subcommand. If the `SEARCH_QUERY` does not contain a colon character (`:`), then the default query pattern is `tags:*#{@query}* OR roles:*#{@query}* OR fqdn:*#{@query}* OR addresses:*#{@query}*`, which means the following two search queries are effectively the same:
 
-<!-- -->
-
-``` bash
-knife search ubuntu
-```
-
-or:
-
-``` bash
-knife search node "tags:*ubuntu* OR roles:*ubuntu* OR fqdn:*ubuntu* (etc.)"
-```
+  ``` bash
+  knife search ubuntu
+  ```
+  
+  or:
+  
+  ``` bash
+  knife search node "tags:*ubuntu* OR roles:*ubuntu* OR fqdn:*ubuntu* (etc.)"
+  ```
 
 `SSH_COMMAND`
 
@@ -117,7 +114,7 @@ knife search node "tags:*ubuntu* OR roles:*ubuntu* OR fqdn:*ubuntu* (etc.)"
 
 {{< note >}}
 
-{{% knife_common_see_all_config_options %}}
+{{< readfile file="content/workstation/reusable/md/knife_common_see_all_config_options.md" >}}
 
 {{< /note >}}
 
@@ -127,7 +124,7 @@ The following examples show how to use this knife subcommand:
 
 **Find server uptime**
 
-To find the uptime of all of web servers running Ubuntu on the Amazon
+To find the uptime of web servers running Ubuntu on the Amazon
 EC2 platform, enter:
 
 ``` bash
@@ -152,7 +149,7 @@ knife ssh 'name:*' 'sudo chef-client'
 
 **Force a Chef Infra Client run**
 
-To force a Chef Infra Client run on all of the web servers running
+To force a Chef Infra Client run on the web servers running
 Ubuntu on the Amazon EC2 platform, enter:
 
 ``` bash

@@ -10,7 +10,45 @@ gh_repo = "chef-web-docs"
     parent = "chef_infra/cookbook_reference/attributes"
 +++
 <!-- markdownlint-disable-file MD036 -->
-{{% node_attribute_precedence %}}
+Chef Infra Client applies attributes in the following
+order:
+
+| Application Order (Last One Wins) | Attribute Type   | Source Order                                                        |
+|-----------------------------------|------------------|---------------------------------------------------------------------|
+| 1                                 | `default`        | Cookbook attribute fileRecipeEnvironmentRole                        |
+| 2                                 | `force_default`  | Cookbook attribute fileRecipe                                       |
+| 3                                 | `normal`         | JSON file passed with `chef-client -j`Cookbook attribute fileRecipe |
+| 4                                 | `override`       | Cookbook attribute fileRecipeRoleEnvironment                        |
+| 5                                 | `force_override` | Cookbook attribute fileRecipe                                       |
+| 6                                 | `automatic`      | Identified by Ohai at the start of a Chef Infra Client Run          |
+
+{{< note >}}
+
+The attribute precedence order for the sources "roles" and "environments" are opposite in the `default` and `override`. The `default` order is **environment** then **role**. The `override` order is **role** then **environment**
+
+Applying the role `override` first lets you use the same role in a set of environments.
+Applying the environment `override` on top of the role `override` lets you define a subset of these with environment-specific settings.
+
+This is useful if you have an environment that's different within a sub-set of a role. For example, the role for an application server may exist in all environments, but one environment may use a different database server.
+
+{{< /note >}}
+
+Attribute precedence, viewed from the same perspective as the overview
+diagram, where the numbers in the diagram match the order of attribute
+precedence:
+
+![image](/images/overview_chef_attributes_precedence.png)
+
+Attribute precedence, when viewed as a table:
+
+|                | Attribute Files | Node/Recipe | Environment | Role | Ohai Data |
+|----------------|-----------------|-------------|-------------|------|-----------|
+| default        | 1               | 2           | 3           | 4    |           |
+| force_default  | 5               | 6           |             |      |           |
+| normal         | 7               | 8           |             |      |           |
+| override       | 9               | 10          | 12          | 11   |           |
+| force_override | 13              | 14          |             |      |           |
+| automatic      |                 |             |             |      | 15        |
 
 ## Examples
 
@@ -189,7 +227,7 @@ When the default attribute precedence `node['foo']['bar']` is removed:
 node.rm_default('foo', 'bar') #=> {'baz' => 52, 'thing' => 'allthestuff'}
 ```
 
-What is left under `'foo'` is only `'bat'`:
+What's left under `'foo'` is only `'bat'`:
 
 ```ruby
 node.attributes.combined_default['foo'] #=> {'bat' => { 'things' => [5,6] } }

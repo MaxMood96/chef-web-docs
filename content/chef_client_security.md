@@ -15,37 +15,31 @@ aliases = ["/chef_client_security.html", "/auth.html"]
 +++
 <!-- markdownlint-disable-file MD033 -->
 
-{{% chef_auth %}}
+{{< readfile file="content/server/reusable/md/chef_auth.md" >}}
 
 ## Authentication
 
-{{% chef_auth_authentication %}}
+{{< readfile file="content/server/reusable/md/chef_auth_authentication.md" >}}
 
 ### chef-validator
 
-{{% security_chef_validator %}}
+{{< readfile file="content/reusable/md/security_chef_validator.md" >}}
 
-{{% security_chef_validator_context %}}
+{{< readfile file="content/reusable/md/security_chef_validator_context.md" >}}
 
 ## SSL Certificates
 
-{{< warning >}}
-
-The following information applies to on-premises Chef Infra Server and does not apply to Hosted Chef.
-
-{{< /warning >}}
-
-{{% server_security_ssl_cert_client %}}
+{{< readfile file="content/server/reusable/md/server_security_ssl_cert_client.md" >}}
 
 ### trusted_certs Directory
 
 Your organization may use a private Certificate Authority (CA) to generate SSL Certificates or they may create self-signed SSL certificates to use on internal networks or during software development and testing.
 
-The `trusted_certs` directory on Chef Workstation and in Chef Infra Client works as a trusted certificate store for all communication in the Chef Infra system. Chef Infra trusts all SSL certificates stored in this directory--including certificates that are not issued by a trusted Certificate Authority (CA).
+The `trusted_certs` directory on Chef Workstation and in Chef Infra Client works as a trusted certificate store for all communication in the Chef Infra system. Chef Infra trusts all SSL certificates stored in this directory--including certificates that aren't issued by a trusted Certificate Authority (CA).
 
 Place private and self-signed certificates in the `trusted_certs` directory to use them within Chef Infra Client and Workstation tools.
 
-Use the the [chef_client_trusted_certificate]({{< relref "/resources/chef_client_trusted_certificate" >}}) Chef Infra Client resource to manage these certificates continuously.
+Use the [chef_client_trusted_certificate]({{< relref "/resources/chef_client_trusted_certificate" >}}) Chef Infra Client resource to manage these certificates continuously.
 
 #### trusted_certs Locations
 
@@ -67,7 +61,7 @@ When you bootstrap a node, the Chef Infra Client copies the SSL certificates for
 
 Use the `SSL_CERT_FILE` environment variable to specify the location for the SSL certificate authority (CA) bundle for Chef Infra Client.
 
-A value for `SSL_CERT_FILE` is not set by default. Unless updated, the locations in which Chef Infra will look for SSL certificates are:
+A value for `SSL_CERT_FILE` isn't set by default. Unless updated, the locations in which Chef Infra will look for SSL certificates are:
 
 - Chef Infra Client: `/opt/chef/embedded/ssl/certs/cacert.pem`
 - Chef Workstation: `/opt/chef-workstation/embedded/ssl/certs/cacert.pem`
@@ -141,11 +135,11 @@ Run the `knife ssl check` subcommand to verify the state of the SSL certificate,
 
 ##### Verified
 
-{{% knife_ssl_check_verify_server_config %}}
+{{< readfile file="content/workstation/reusable/md/knife_ssl_check_verify_server_config.md" >}}
 
 ##### Unverified
 
-{{% knife_ssl_check_bad_ssl_certificate %}}
+{{< readfile file="content/workstation/reusable/md/knife_ssl_check_bad_ssl_certificate.md" >}}
 
 #### knife ssl fetch
 
@@ -153,4 +147,4 @@ Run the `knife ssl fetch` to download the self-signed certificate from the Chef 
 
 ##### Verify Checksums
 
-{{% knife_ssl_fetch_verify_certificate %}}
+{{< readfile file="content/workstation/reusable/md/knife_ssl_fetch_verify_certificate.md" >}}

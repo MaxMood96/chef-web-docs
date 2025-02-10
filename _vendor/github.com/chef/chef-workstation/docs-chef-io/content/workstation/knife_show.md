@@ -12,8 +12,9 @@ aliases = ["/knife_show.html", "/knife_show/"]
     identifier = "chef_workstation/chef_workstation_tools/knife/knife_show.md knife show"
     parent = "chef_workstation/chef_workstation_tools/knife"
 +++
+<!-- markdownlint-disable-file MD036 -->
 
-{{% knife_show_summary %}}
+{{< readfile file="content/workstation/reusable/md/knife_show_summary.md" >}}
 
 ## Syntax
 
@@ -27,7 +28,7 @@ knife show [PATTERN...] (options)
 
 {{< note >}}
 
-{{% knife_common_see_common_options_link %}}
+{{< readfile file="content/workstation/reusable/md/knife_common_see_common_options_link.md" >}}
 
 {{< /note >}}
 

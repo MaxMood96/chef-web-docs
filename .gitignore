@@ -1,5 +1,9 @@
 .DS_Store
 
+# Hugo/Go workspace files
+*.work
+*.work.sum
+
 # ignore doctree files in translation folders
 *.doctree
 *.pickle
@@ -11,8 +15,6 @@ public/
 **/.sass-cache/*
 *.css.map
 *.css_t.map
-
-/.delivery/cli.toml
 
 /.vscode
 
@@ -28,6 +30,9 @@ static/fonts/fontawesome
 node_modules
 vendor
 
+# dart-sass files for local dev testing
+/dart-sass
+
 # temp file created by hugo
 .hugo_build.lock
 
@@ -35,3 +40,6 @@ vendor
 docs_dictionary.txt
 chef_dictionary.txt
 
+# Local Netlify folder
+# https://docs.netlify.com/cli/get-started/#link-and-unlink-sites
+.netlify

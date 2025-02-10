@@ -17,9 +17,9 @@ A firewalld has a number of zones that can be configured to allow and deny acces
 
 ## Availability
 
-### Installation
+### Install
 
-This resource is distributed along with Chef InSpec itself. You can use it automatically.
+{{< readfile file="content/inspec/reusable/md/inspec_installation.md" >}}
 
 ### Version
 
@@ -40,6 +40,7 @@ Use the where clause to test open interfaces, sources, and services that are in 
       its('interfaces') { should cmp ['enp0s3', 'eno2'] }
       its('sources') { should cmp ['192.168.1.0/24', '192.168.1.2'] }
       its('services') { should cmp ['ssh', 'icmp'] }
+      its('target') { should cmp ['default'] }
     end
 
 ## Properties
@@ -68,7 +69,31 @@ The `services` property is used in conjunction with the where class to display o
       its('services') { should cmp ['ssh', 'icmp'] }
     end
 
-### `default_zone`
+### target
+
+The `target` property is used in conjunction with the where class to display the target action in an active zone.
+
+    describe firewalld.where { zone == 'public' } do
+      its('target') { should cmp ['default'] } # or ['DROP'], ['ACCEPT'], etc.
+    end
+
+### ports
+
+The `ports` property is used in conjunction with the where class to display the ports used by an active zone.
+
+    describe firewalld.where { zone == 'public' } do
+      its('ports') { should cmp ["80/tcp", "443/tcp"] }
+    end
+
+### protocols
+
+The `protocols` property is used in conjunction with the where class to display the protocols used by an active zone.
+
+    describe firewalld.where { zone == 'public' } do
+      its('protocols') { should cmp ["icmp", "ipv4"] }
+    end
+
+### default_zone
 
 The `default_zone` property displays the default active zone to be used.
 
@@ -76,7 +101,9 @@ The `default_zone` property displays the default active zone to be used.
 
 ## Matchers
 
-For a full list of available matchers, please visit our [matchers page](/inspec/matchers/).
+{{< readfile file="content/inspec/reusable/md/inspec_matchers_link.md" >}}
+
+This resource has the following special matchers.
 
 ### `be_installed`
 
@@ -114,4 +141,16 @@ The `be_running` matcher tests if the firewalld service is running:
 
     it { should have_rule_enabled('family=ipv4 source address=192.168.0.14 accept', 'public') }
 
-It is not necessary to add the "rule" string, and you can start with the optional flags that are used in firewalld and end with the action
+It is not necessary to add the "rule" string, and you can start with the optional flags that are used in firewalld and end with the action.
+
+### `have_icmp_block_inversion_enabled`
+
+`have_icmp_block_inversion_enabled` returns true or false if ICMP block inversion flag is set for the indicated zone.
+
+    it { should have_icmp_block_inversion_enabled }
+
+### `have_masquerade_enabled`
+
+`have_masquerade_enabled` returns true or false if the masquerade flag is set for the indicated zone.
+
+    it { should have_masquerade_enabled }

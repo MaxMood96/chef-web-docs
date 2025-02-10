@@ -11,6 +11,12 @@ platform = "azure"
     parent = "inspec/resources/azure"
 +++
 
+{{< warning >}}
+
+This resource will be deprecated when version 2 of the inspec-azure resource pack is released.
+
+{{< /warning >}}
+
 Use the `azurerm_ad_users` InSpec audit resource to test properties of
 some or all Azure Active Directory users within a Tenant.
 
@@ -25,7 +31,7 @@ please open an issue or submit a pull request using the updated version.
 
 ## Availability
 
-### Installation
+### Install
 
 This resource is available in the `inspec-azure` [resource
 pack](/inspec/glossary/#resource-pack). To use it, add the
@@ -76,7 +82,7 @@ The following examples show how to use this InSpec audit resource.
 Filters the results to include only those Users that match the given
 name. This is a string value.
 
-    describe azurerm_ad_users.where{ displayName.eql?('Joe Bloggs') } do
+    describe azurerm_ad_users.where{ displayName.eql?('Haris Shefu') } do
       it { should exist }
     end
 
@@ -113,8 +119,9 @@ The userTypes property provides a list of all User Types for all users.
 
 ## Matchers
 
-This InSpec audit resource has the following special matchers. For a full list of available matchers,
-please visit our [Universal Matchers page](/inspec/matchers/).
+{{< readfile file="content/inspec/reusable/md/inspec_matchers_link.md" >}}
+
+This resource has the following special matchers.
 
 ### exists
 

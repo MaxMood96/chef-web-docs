@@ -12,7 +12,7 @@ aliases = ["/chef_solo.html"]
     weight = 10
 +++
 
-{{% chef_solo_summary %}}
+{{< readfile file="content/reusable/md/chef_solo_summary.md" >}}
 
 ## Cookbooks
 
@@ -28,16 +28,15 @@ cookbooks be added to an archive. For example:
 tar zcvf chef-solo.tar.gz ./cookbooks
 ```
 
-If multiple cookbook directories are being used, chef-solo expects the
+If you use multiple cookbook directories, chef-solo expects the
 tar.gz archive to have a directory structure similar to the following:
 
 ```text
-cookbooks/
-  |---- cbname1/
-    |--attributes/ ... etc
-  ...
-  |---- cbname2/
-    |--attributes/
+. cookbooks
+├── cookbook-name-1
+│   └── attributes
+└── cookbook-name-2
+    └── attributes
 ```
 
 The `cookbook_path` variable in the solo.rb file must include both
@@ -57,12 +56,12 @@ Unlike Chef Infra Client, where the node object is stored on the Chef
 Infra Server, chef-solo stores its node objects as JSON files on local
 disk. By default, chef-solo stores these files in a `nodes` folder in
 the same directory as your `cookbooks` directory. You can control the
-location of this directory via the `node_path` value in your
+location of this directory using the `node_path` value in your
 configuration file.
 
 ## Attributes
 
-chef-solo does not interact with the Chef Infra Server. Consequently,
+chef-solo doesn't interact with the Chef Infra Server. Consequently,
 node-specific attributes must be located in a JSON file on the target
 system, a remote location (such as Amazon Simple Storage Service (S3)),
 or a web server on the local network.
@@ -70,7 +69,7 @@ or a web server on the local network.
 The JSON file must also specify the recipes that are part of the
 run-list. For example:
 
-```javascript
+```json
 {
   "resolver": {
     "nameservers": [ "10.0.0.1" ],
@@ -80,7 +79,7 @@ run-list. For example:
 }
 ```
 
-## Data Bags
+## Data bags
 
 A data bag is defined using JSON. chef-solo will look for data bags in
 `/var/chef/data_bags`, but this location can be modified by changing the
@@ -104,7 +103,7 @@ mkdir /var/chef-solo/data_bags/admins
 
 and then create a JSON file in that location:
 
-```javascript
+```json
 {
   "id": "ITEM_NAME"
 }
@@ -129,7 +128,7 @@ role_path '/var/chef-solo/roles'
 
 Role data looks like the following in JSON:
 
-```javascript
+```json
 {
   "name": "test",
   "default_attributes": { },
@@ -157,7 +156,7 @@ and finally, JSON data passed to chef-solo:
 
 ## Environments
 
-{{% chef_solo_environments %}}
+{{< readfile file="content/reusable/md/chef_solo_environments.md" >}}
 
 ## chef-solo (executable)
 

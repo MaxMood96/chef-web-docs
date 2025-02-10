@@ -12,8 +12,9 @@ aliases = ["/knife_exec.html", "/knife_exec/"]
     identifier = "chef_workstation/chef_workstation_tools/knife/knife_exec.md knife exec"
     parent = "chef_workstation/chef_workstation_tools/knife"
 +++
+<!-- markdownlint-disable-file MD033 MD036 -->
 
-{{% knife_exec_summary %}}
+{{< readfile file="content/workstation/reusable/md/knife_exec_summary.md" >}}
 
 ## Authenticated API Requests
 
@@ -115,7 +116,7 @@ knife exec SCRIPT (options)
 
 {{< note >}}
 
-{{% knife_common_see_common_options_link %}}
+{{< readfile file="content/workstation/reusable/md/knife_common_see_common_options_link.md" >}}
 
 {{< /note >}}
 
@@ -131,7 +132,7 @@ This subcommand has the following options:
 
 {{< note >}}
 
-{{% knife_common_see_all_config_options %}}
+{{< readfile file="content/workstation/reusable/md/knife_common_see_all_config_options.md" >}}
 
 {{< /note >}}
 
@@ -193,7 +194,7 @@ knife exec -E 'nodes.all {|n| puts "#{n.name} has #{n.memory.total} free memory"
 
 **List available search indexes**
 
-To list all of the available search indexes, enter:
+To list the available search indexes, enter:
 
 ``` bash
 knife exec -E 'puts api.get("search").keys'
@@ -244,7 +245,7 @@ Your attributes: ipaddress fqdn
 
 **Find shadow cookbooks**
 
-To find all of the locations in which cookbooks exist that may shadow
+To find the locations in which cookbooks exist that may shadow
 each other, create a file called `shadow-check.rb` that contains the
 following Ruby code:
 

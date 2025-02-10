@@ -22,14 +22,14 @@ Windows PowerShell cmdlets and two Microsoft Azure CLI commands.
 
 If the Microsoft Azure [cross-platform command line tool
 (Xplat-CLI)](https://github.com/Azure/azure-xplat-cli) is installed on
-the workstation, along with the Azure Chef Extension, the `get-chef` and
-`set-chef` extensions may be used to manage Chef running on virtual
+the workstation along with the Azure Chef Extension, you can use the `get-chef` and
+`set-chef` extensions to manage Chef running on virtual
 machines in Microsoft Azure.
 
 ### get-chef
 
 Use the `get-chef` command to get the details for the Azure Chef
-Extension that is running on the named virtual machine.
+Extension that's running on the named virtual machine.
 
 #### Syntax
 
@@ -58,7 +58,7 @@ This command has the following options:
 
 `-a`, `--auto-update-client`
 
-: Auto-update Chef Infra Client. Set to `true` to auto update the version of the Azure Chef Extension when the virtual machine is restarted. For example, if this option is enabled, a virtual machine that has version `1205.12.2.0` will be updated automatically to `1205.12.2.1` when it is published. Default value: `false`.
+: Automatically update Chef Infra Client. Set to `true` to automatically update the version of the Azure Chef Extension when the virtual machine is restarted. For example, if this option is enabled, a virtual machine that has version `1205.12.2.0` will be updated automatically to `1205.12.2.1` when it's published. Default value: `false`.
 
 `-b`, `--disable`
 
@@ -78,7 +78,7 @@ This command has the following options:
 
 `-j JSON`, `--bootstrap-options JSON`
 
-: A JSON string that is added to the first run of a Chef Infra Client.
+: A JSON string that's added to the first run of a Chef Infra Client.
   For example:
 
   ```bash
@@ -125,7 +125,7 @@ azure vm extension set-chef your-vm-name --validation-pem ~/chef-repo/.chef/test
 azure vm extension set-chef your-vm-name --validation-pem ~/chef-repo/.chef/testorg-validator.pem --client-config ~/chef-repo/.chef/client.rb --version "1201.12" -R 'recipe[your_cookbook_name::your_recipe_name]'
 ```
 
-##### Azure Resource Manager (ARM) Templates
+##### Azure Resource Manager (ARM) templates
 
 If you are using Azure Resource Manager templates to create your infrastructure you can use the Chef extension to have Azure handle the bootstrapping/configuration of your node to your Chef Infra Server.
 
@@ -146,17 +146,17 @@ The extension has the following options that can be provided in the
 
 : Tells the extension whether the supplied validation key is `plaintext` or `base64encoded`.
 
-  {{< note spaces=4 >}}
+  {{< note >}}
 
-  If using the Chef extension in an ARM template, it is recommended that you base64 encode your validation key and set this option to `base64encoded`
+  If using the Chef extension in an ARM template, it's recommended that you base64 encode your validation key and set this option to `base64encoded`
 
   {{< /note >}}
 
 `bootstrap_version`
 
-: The version of Chef Infra Client that will be installed on the system. **linux only**
+: The version of Chef Infra Client that will be installed on the system. **Linux only**
 
-  {{< note spaces=4 >}}
+  {{< note >}}
   Due to constraints in Azure, the `bootstrap_version` option is only available on the `LinuxChefClient` extension.
   {{< /note >}}
 
@@ -168,7 +168,7 @@ The extension has the following options that can be provided in the
 
 : Specifies a local path to install Chef Infra Client from. This feature is mainly used for cases where there are restrictions on internet access.
 
-  {{< note spaces=4 >}}
+  {{< note >}}
   Azure extensions have network access limitations. See the [Azure documentation](https://docs.microsoft.com/en-us/azure/virtual-machines/extensions/features-linux#network-access) for more information.
   {{< /note >}}
 
@@ -188,7 +188,7 @@ The extension has the following options that can be provided in the
 
 : A hash of the following options: `chef_node_name`, `chef_server_url`, `environment`, `secret`, and `validation_client_name`.
 
-  {{< note spaces=4 >}}
+  {{< note >}}
 
   Options that are supplied in the bootstrap items will take precedence over any conflicts found in the `client.rb` file.
 
@@ -196,7 +196,7 @@ The extension has the following options that can be provided in the
 
 `chef_node_name`
 
-: Determines which configuration should be applied and sets the `client_name`, which is the name used when authenticating to a Chef Infra Server. The default value is the the Chef Infra Client FQDN, as detected by Ohai. In general, Chef recommends that you leave this setting blank and let Ohai assign the FQDN of the node as the `node_name` during each Chef Infra Client run.
+: Determines which configuration should be applied and sets the `client_name`, which is the name used when authenticating to a Chef Infra Server. The default value is the Chef Infra Client FQDN, as detected by Ohai. In general, Chef recommends that you leave this setting blank and let Ohai assign the FQDN of the node as the `node_name` during each Chef Infra Client run.
 
 `chef_server_url`
 
@@ -208,7 +208,7 @@ The extension has the following options that can be provided in the
 
 `secret`
 
-: The encryption key that is used for values contained within a data bag item.
+: The encryption key that's used for values contained within a data bag item.
 
 `validation_client_name`
 
@@ -222,7 +222,7 @@ The extension has the following options that can be provided in the
 
 : Verify the SSL certificate on the Chef Infra Server. When `true`, Chef Infra Client always verifies the SSL certificate. When `false`, Chef Infra Client uses the value of `ssl_verify_mode` to determine if the SSL certificate requires verification.
 
-#### Protected Settings
+#### Protected settings
 
 The following options can be provided to the extension through the `protectedSettings` hash:
 
@@ -240,11 +240,11 @@ The following options can be provided to the extension through the `protectedSet
 
 ### Examples
 
-The following examples show how Chef Infra Client can be installed and configured from an ARM template.
+The following examples show how you can install and configure Chef Infra Client from an ARM template.
 
-#### Installing the Azure Chef extension on a Linux system
+#### Install the Azure Chef extension on a Linux system
 
-```javascript
+```json
 {
    "type": "Microsoft.Compute/virtualMachines/extensions",
    "name": "myVirtualMachine/LinuxChefClient",
@@ -270,9 +270,9 @@ The following examples show how Chef Infra Client can be installed and configure
  }
 ```
 
-#### Installing the Azure Chef extension on a Windows system
+#### Install the Azure Chef extension on a Windows system
 
-```javascript
+```json
 {
   "type": "Microsoft.Compute/virtualMachines/extensions",
   "name": "myVirtualMachine/ChefClient",
@@ -289,7 +289,7 @@ The following examples show how Chef Infra Client can be installed and configure
         "validation_client_name": "my-chef-organization-validator"
       },
       "runlist": "recipe[awesome_customers_windows],recipe[iis],role[windows_base]",
-      "chef_package_url" : "https://my.packages.chef.io/chef-client-15.11.8-1-x64.msi",
+      "chef_package_url" : "https://download.example.com/chef-client-15.11.8-1-x64.msi",
       "validation_key_format": "plaintext"
     },
     "protectedSettings": {
@@ -299,9 +299,9 @@ The following examples show how Chef Infra Client can be installed and configure
 }
 ```
 
-#### Installing the Azure Chef extension on a Linux system with SSL peer verification turned off and given a data bag secret
+#### Install the Azure Chef extension on a Linux system with SSL peer verification turned off and given a data bag secret
 
-```javascript
+```json
 {
    "type": "Microsoft.Compute/virtualMachines/extensions",
    "name": "myVirtualMachine/LinuxChefClient",
@@ -331,6 +331,6 @@ The following examples show how Chef Infra Client can be installed and configure
 
 {{< note >}}
 
-Here we're also base64 encoding our validator key which is a recommended approach when using the Azure Chef extension in an ARM template
+In this example the validator key is base64 encoded, which is a recommended approach when using the Azure Chef extension in an ARM template.
 
 {{< /note >}}
