@@ -13,17 +13,17 @@ product = ["client", "server"]
     weight = 70
 +++
 <!-- markdownlint-disable-file MD033 -->
-{{% role %}}
+{{< readfile file="content/reusable/md/role.md" >}}
 
 ## Role Attributes
 
 {{< note >}}
 
-{{% notes_see_attributes_overview %}}
+{{< readfile file="content/reusable/md/notes_see_attributes_overview.md" >}}
 
 {{< /note >}}
 
-{{% role_attribute %}}
+{{< readfile file="content/reusable/md/role_attribute.md" >}}
 
 ### Attribute Types
 
@@ -43,11 +43,11 @@ There are two types of attributes that can be used with roles:
 <tbody>
 <tr>
 <td><code>default</code></td>
-<td>{{< readFile_shortcode file="node_attribute_type_default.md" >}}</td>
+<td>{{< readfile file="content/reusable/md/node_attribute_type_default.md" >}}</td>
 </tr>
 <tr>
 <td><code>override</code></td>
-<td>{{< readFile_shortcode file="node_attribute_type_override.md" >}}</td>
+<td>{{< readfile file="content/reusable/md/node_attribute_type_override.md" >}}</td>
 </tr>
 </tbody>
 </table>
@@ -55,11 +55,11 @@ There are two types of attributes that can be used with roles:
 ## Role Formats
 
 Role data is stored in two formats: as a Ruby file that contains
-domain-specific language and as JSON data.
+domain-specific language or as JSON data.
 
 ### Chef Language
 
-{{% ruby_summary %}}
+{{< readfile file="content/reusable/md/ruby_summary.md" >}}
 
 Domain-specific Ruby attributes:
 
@@ -77,14 +77,14 @@ Domain-specific Ruby attributes:
 <tbody>
 <tr>
 <td><p><code>default_attributes</code></p></td>
-<td><p>Optional. A set of attributes to be applied to all nodes, assuming the node does not already have a value for the attribute. This is useful for setting global defaults that can then be overridden for specific nodes. If more than one role attempts to set a default value for the same attribute, the last role applied is the role to set the attribute value. When nested attributes are present, they are preserved. For example, to specify that a node that has the attribute <code>apache2</code> should listen on ports 80 and 443 (unless ports are already specified):</p>
+<td><p>Optional. A set of attributes to be applied to all nodes, assuming the node doesn't already have a value for the attribute. This is useful for setting global defaults that can then be overridden for specific nodes. If more than one role attempts to set a default value for the same attribute, the last role applied is the role to set the attribute value. When nested attributes are present, they're preserved. For example, to specify that a node that has the attribute <code>apache2</code> should listen on ports 80 and 443 (unless ports are already specified):</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode ruby"><code class="sourceCode ruby"><span id="cb1-1"><a href="#cb1-1"></a>default_attributes <span class="st">&#39;apache2&#39;</span> =&gt; {</span>
 <span id="cb1-2"><a href="#cb1-2"></a>  <span class="st">&#39;listen_ports&#39;</span> =&gt; [ <span class="st">&#39;80&#39;</span>, <span class="st">&#39;443&#39;</span> ]</span>
 <span id="cb1-3"><a href="#cb1-3"></a>}</span></code></pre></div></td>
 </tr>
 <tr>
 <td><p><code>description</code></p></td>
-<td><p>A description of the functionality that is covered. For example:</p>
+<td><p>A description of the functionality that's covered. For example:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode ruby"><code class="sourceCode ruby"><span id="cb2-1"><a href="#cb2-1"></a>description <span class="st">&#39;The base role for systems that serve HTTP traffic&#39;</span></span></code></pre></div></td>
 </tr>
 <tr>
@@ -98,12 +98,12 @@ Domain-specific Ruby attributes:
 </tr>
 <tr>
 <td><p><code>name</code></p></td>
-<td><p>A unique name within the organization. Each name must be made up of letters (upper- and lower-case), numbers, underscores, and hyphens: [A-Z][a-z][0-9] and [_-]. Spaces are not allowed. For example:</p>
+<td><p>A unique name within the organization. Each name must be made up of letters (uppercase and lowercase), numbers, underscores, and hyphens: [A-Z][a-z][0-9] and [_-]. Spaces aren't allowed. For example:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode ruby"><code class="sourceCode ruby"><span id="cb4-1"><a href="#cb4-1"></a>name <span class="st">&#39;dev01-24&#39;</span></span></code></pre></div></td>
 </tr>
 <tr>
 <td><p><code>override_attributes</code></p></td>
-<td><p>Optional. A set of attributes to be applied to all nodes, even if the node already has a value for an attribute. This is useful for ensuring that certain attributes always have specific values. If more than one role attempts to set an override value for the same attribute, the last role applied wins. When nested attributes are present, they are preserved. For example:</p>
+<td><p>Optional. A set of attributes to be applied to all nodes, even if the node already has a value for an attribute. This is useful for ensuring that certain attributes always have specific values. If more than one role attempts to set an override value for the same attribute, the last role applied wins. When nested attributes are present, they're preserved. For example:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode ruby"><code class="sourceCode ruby"><span id="cb5-1"><a href="#cb5-1"></a>override_attributes <span class="st">&#39;apache2&#39;</span> =&gt; {</span>
 <span id="cb5-2"><a href="#cb5-2"></a>  <span class="st">&#39;max_children&#39;</span> =&gt; <span class="st">&#39;50&#39;</span></span>
 <span id="cb5-3"><a href="#cb5-3"></a>}</span></code></pre></div>
@@ -125,7 +125,7 @@ Domain-specific Ruby attributes:
 </tr>
 <tr>
 <td><p><code>run_list</code></p></td>
-<td><p>A list of recipes and/or roles to be applied and the order in which they are to be applied. For example, the following run-list:</p>
+<td><p>A list of recipes and/or roles to be applied and the order in which they're to be applied. For example, the following run-list:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode ruby"><code class="sourceCode ruby"><span id="cb8-1"><a href="#cb8-1"></a>run_list <span class="st">&#39;recipe[apache2]&#39;</span>,</span>
 <span id="cb8-2"><a href="#cb8-2"></a>         <span class="st">&#39;recipe[apache2::mod_ssl]&#39;</span>,</span>
 <span id="cb8-3"><a href="#cb8-3"></a>         <span class="st">&#39;role[monitor]&#39;</span></span></code></pre></div>
@@ -134,12 +134,12 @@ Domain-specific Ruby attributes:
 </tbody>
 </table>
 
-Each role must be saved as a ruby file the `roles/` subdirectory of
-the chef-repo. (If the repository does not have this subdirectory, then
-create it using knife.) Each Ruby file should have the .rb suffix. A
+Each role must be saved as a ruby file in the `roles/` subdirectory of
+the chef-repo. (If the repository doesn't have this subdirectory, then
+create it using knife.) Each Ruby file should have the `.rb` suffix. A
 complete role has the following syntax:
 
-```javascript
+```ruby
 name "role_name"
 description "role_description"
 run_list "recipe[name]", "recipe[name::attribute]", "recipe[name::attribute]"
@@ -154,7 +154,7 @@ role named `webserver` that has a run-list that defines actions for
 three different roles, and for certain roles takes extra steps (such as
 the `apache2` role listening on ports 80 and 443):
 
-```javascript
+```ruby
 name "webserver"
 description "The base role for systems that serve HTTP traffic"
 run_list "recipe[apache2]", "recipe[apache2::mod_ssl]", "role[monitor]"
@@ -169,7 +169,7 @@ The JSON format for roles maps directly to the domain-specific Ruby
 format: same settings, attributes, and values, and a similar structure
 and organization. For example:
 
-```javascript
+```json
 {
   "name": "webserver",
   "chef_type": "role",
@@ -229,7 +229,7 @@ The JSON format has two additional settings:
 </tr>
 <tr>
 <td><code>json_class</code></td>
-<td>Always set this to <code>Chef::Role</code>. The Chef Infra Client uses this setting to auto-inflate a role object. If objects are being rebuilt outside of Ruby, ignore it.</td>
+<td>Always set this to <code>Chef::Role</code>. The Chef Infra Client uses this setting to auto inflate a role object. If objects are being rebuilt outside of Ruby, ignore it.</td>
 </tr>
 </tbody>
 </table>
@@ -253,35 +253,31 @@ There are several ways to manage roles:
     directly, although using knife directly is the most common way to manage roles.
 - The command line can also be used with JSON files and third-party
     services, such as Amazon EC2, where the JSON files can contain
-    per-instance metadata stored in a file on-disk and then read by
+    metadata for each instance stored in a file on-disk and then read by
     chef-solo or Chef Infra Client as required.
 
 By creating and editing files using the Chef Language (Ruby) or JSON, you can dynamically generate role data. Roles created and edited
 using files are compatible with all versions of Chef, including
 chef-solo. Roles created and edited using files can be kept in version
 source control, which also keeps a history of what changed when. When
-roles are created and edited using files, they should not be managed
+roles are created and edited using files, they shouldn't be managed
 using knife, as changes will be
 overwritten.
 
-A run-list that is associated with a role can be edited using the Chef
+A run-list that's associated with a role can be edited using the Chef
 management console add-on. The canonical source of a role's data is
 stored on the Chef Infra Server, which means that keeping role data in
 version source control can be challenging.
 
 If roles are created and managed using knife and then arbitrarily updated
 uploaded through JSON data, that action will overwrite the previous work with knife.
-It is strongly recommended to keep to one process and not switch back and forth.
+It's strongly recommended to keep to one process and not switch back and forth.
 
-### Set Per-environment Run-lists
+### Set Run-lists for Environments
 
-A per-environment run-list is a run-list that is associated with a role
-and a specific environment. More than one environment can be specified
-in a role, but each specific environment may be associated with only one
-run-list. If a run-list is not specified, the default run-list will be
-used. For example:
+Associating a run-list with a role and a specific environment lets you use the run-list on different nodes that share the same environment. More than one environment can be specified in a role, but each specific environment may be associated with only one run-list. If a run-list isn't specified, the default run-list will be used. For example:
 
-```javascript
+```json
 {
   "name": "webserver",
   "default_attributes": {
@@ -304,15 +300,15 @@ used. For example:
 where:
 
 - `webserver` is the name of the role
-- `env_run_lists` is a hash of per-environment run-lists for
+- `env_run_lists` is a hash of environment run-lists for
     `production`, `preprod`, `test`, and `dev`
 - `production` and `preprod` use the default run-list because they do
-    not have a per-environment run-list
+    not have a shared environment run-list
 - `run_list` defines the default run-list
 
 ### Delete from Run-list
 
 When an environment is deleted, it will remain within a run-list for a
-role until it is removed from that run-list. If a new environment is
+role until it's removed from that run-list. If a new environment is
 created that has an identical name to an environment that was deleted, a
 run-list that contains an old environment name will use the new one.

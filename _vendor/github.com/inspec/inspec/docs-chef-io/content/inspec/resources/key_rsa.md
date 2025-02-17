@@ -13,13 +13,13 @@ platform = "os"
 
 Use the `key_rsa` Chef InSpec audit resource to test RSA public/private keypairs.
 
-This resource is mainly useful when used in conjunction with the x509_certificate resource but it can also be used for checking SSH keys.
+This resource is mainly useful when used in conjunction with the x509_certificate resource, but it can also be used for checking RSA-based SSH keys.
 
 ## Availability
 
-### Installation
+### Install
 
-This resource is distributed along with Chef InSpec itself. You can use it automatically.
+{{< readfile file="content/inspec/reusable/md/inspec_installation.md" >}}
 
 ### Version
 
@@ -29,16 +29,16 @@ This resource first became available in v1.18.0 of InSpec.
 
 An `key_rsa` resource block declares a `key file` to be tested.
 
-    describe key_rsa('mycertificate.key') do
+    describe key_rsa('certificate.key') do
       it { should be_private }
       it { should be_public }
-      its('public_key') { should match "-----BEGIN PUBLIC KEY-----\n3597459df9f3982" }
+      its('public_key') { should match "PUBLIC_KEY" }
       its('key_length') { should eq 2048 }
     end
 
 You can use an optional passphrase with `key_rsa`
 
-    describe key_rsa('mycertificate.key', 'passphrase') do
+    describe key_rsa('certificate.key', 'passphrase') do
       it { should be_private }
     end
 
@@ -48,35 +48,37 @@ You can use an optional passphrase with `key_rsa`
 
 The `public_key` property returns the public part of the RSA key pair
 
-    describe key_rsa('/etc/pki/www.mywebsite.com.key') do
-      its('public_key') { should match "-----BEGIN PUBLIC KEY-----\n3597459df9f3982......" }
+    describe key_rsa('/etc/pki/www.example.com.key') do
+      its('public_key') { should match "RSA_PUBLIC_KEY" }
     end
 
 ### private_key (String)
 
 The `private_key` property returns the private key or the RSA key pair.
 
-    describe key_rsa('/etc/pki/www.mywebsite.com.key') do
-      its('private_key') { should match "-----BEGIN RSA PRIVATE KEY-----\nMIIJJwIBAAK......" }
+    describe key_rsa('/etc/pki/www.example.com.key') do
+      its('private_key') { should match "RSA_PRIVATE_KEY" }
     end
 
 ### key_length
 
 The `key_length` property allows testing the number of bits in the key pair.
 
-    describe key_rsa('/etc/pki/www.mywebsite.com.key') do
+    describe key_rsa('/etc/pki/www.example.com.key') do
       its('key_length') { should eq 2048 }
     end
 
 ## Matchers
 
-For a full list of available matchers, please visit our [matchers page](/inspec/matchers/).
+{{< readfile file="content/inspec/reusable/md/inspec_matchers_link.md" >}}
+
+This resource has the following special matchers.
 
 ### public?
 
 To verify if a key is public use the following:
 
-    describe key_rsa('/etc/pki/www.mywebsite.com.key') do
+    describe key_rsa('/etc/pki/www.example.com.key') do
       it { should be_public }
     end
 
@@ -84,6 +86,6 @@ To verify if a key is public use the following:
 
 This property verifies that the key includes a private key:
 
-    describe key_rsa('/etc/pki/www.mywebsite.com.key') do
+    describe key_rsa('/etc/pki/www.example.com.key') do
       it { should be_private }
     end

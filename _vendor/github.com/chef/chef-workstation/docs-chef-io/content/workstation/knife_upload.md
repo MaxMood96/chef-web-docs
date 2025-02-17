@@ -12,8 +12,9 @@ aliases = ["/knife_upload.html", "/knife_upload/"]
     identifier = "chef_workstation/chef_workstation_tools/knife/knife_upload.md knife upload"
     parent = "chef_workstation/chef_workstation_tools/knife"
 +++
+<!-- markdownlint-disable-file MD036 -->
 
-{{% knife_upload_summary %}}
+{{< readfile file="content/workstation/reusable/md/knife_upload_summary.md" >}}
 
 ## Syntax
 
@@ -27,7 +28,7 @@ knife upload [PATTERN...] (options)
 
 {{< note >}}
 
-{{% knife_common_see_common_options_link %}}
+{{< readfile file="content/workstation/reusable/md/knife_common_see_common_options_link.md" >}}
 
 {{< /note >}}
 
@@ -71,7 +72,7 @@ This subcommand has the following options:
 
 {{< note >}}
 
-{{% knife_common_see_all_config_options %}}
+{{< readfile file="content/workstation/reusable/md/knife_common_see_all_config_options.md" >}}
 
 {{< /note >}}
 

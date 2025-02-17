@@ -12,8 +12,9 @@ aliases = ["/knife_status.html", "/knife_status/"]
     identifier = "chef_workstation/chef_workstation_tools/knife/knife_status.md knife status"
     parent = "chef_workstation/chef_workstation_tools/knife"
 +++
+<!-- markdownlint-disable-file MD036 -->
 
-{{% knife_status_summary %}}
+{{< readfile file="content/workstation/reusable/md/knife_status_summary.md" >}}
 
 ## Syntax
 
@@ -27,7 +28,7 @@ knife status (options)
 
 {{< note >}}
 
-{{% knife_common_see_common_options_link %}}
+{{< readfile file="content/workstation/reusable/md/knife_common_see_common_options_link.md" >}}
 
 {{< /note >}}
 
@@ -56,7 +57,7 @@ This subcommand has the following options:
 
 {{< note >}}
 
-{{% knife_common_see_all_config_options %}}
+{{< readfile file="content/workstation/reusable/md/knife_common_see_all_config_options.md" >}}
 
 {{< /note >}}
 
@@ -66,7 +67,7 @@ The following examples show how to use this knife subcommand:
 
 **View status, include run-lists**
 
-{{% knife_status_include_run_lists %}}
+{{< readfile file="content/workstation/reusable/md/knife_status_include_run_lists.md" >}}
 
 **View status using a time range**
 
@@ -86,7 +87,7 @@ to return something like:
 
 **View status using a query**
 
-{{% knife_status_returned_by_query %}}
+{{< readfile file="content/workstation/reusable/md/knife_status_returned_by_query.md" >}}
 
 **View status for all nodes**
 

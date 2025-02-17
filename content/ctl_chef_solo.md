@@ -14,7 +14,7 @@ aliases = ["/ctl_chef_solo.html"]
     weight = 20
 +++
 <!-- markdownlint-disable-file MD046 -->
-{{% chef_solo_summary %}}
+{{< readfile file="content/reusable/md/chef_solo_summary.md" >}}
 
 ## Options
 
@@ -32,7 +32,7 @@ This command has the following options:
 
 `-d`, `--daemonize`
 
-: Run the executable as a daemon. This option may not be used in the same command with the `--[no-]fork` option. This option is only available on machines that run in UNIX or Linux environments. For machines that are running Microsoft Windows that require similar functionality, use the `chef-client::service` recipe in the `chef-client` cookbook: <https://supermarket.chef.io/cookbooks/chef-client>. This will install a Chef Infra Client service under Microsoft Windows using the Windows Service Wrapper.
+: Run the executable as a daemon. This option may not be used in the same command with the `--[no-]fork` option. This option is only available on machines that run in UNIX or Linux environments. For machines that are running Windows that require similar functionality, use the `chef-client::service` recipe in the `chef-client` cookbook: <https://supermarket.chef.io/cookbooks/chef-client>. This will install a Chef Infra Client service under Windows using the Windows Service Wrapper.
 
 `-E ENVIRONMENT_NAME`, `--environment ENVIRONMENT_NAME`
 
@@ -40,11 +40,11 @@ This command has the following options:
 
 `-f`, `--[no-]fork`
 
-: Contains Chef Infra Client runs in a secondary process with dedicated RAM. When a Chef Infra Client run is complete, the RAM is returned to the master process. This option helps ensure that a Chef Infra Client uses a steady amount of RAM over time because the master process does not run recipes. This option also helps prevent memory leaks such as those that can be introduced by the code contained within a poorly designed cookbook. Use `--no-fork` to disable running Chef Infra Client in fork node. Default value: `--fork`. This option may not be used in the same command with the `--daemonize` and `--interval` options.
+: Contains Chef Infra Client runs in a secondary process with dedicated RAM. When a Chef Infra Client run is complete, the RAM is returned to the master process. This option helps ensure that a Chef Infra Client uses a steady amount of RAM over time because the master process doesn't run recipes. This option also helps prevent memory leaks such as those that can be introduced by the code contained within a poorly designed cookbook. Use `--no-fork` to disable running Chef Infra Client in fork node. Default value: `--fork`. This option may not be used in the same command with the `--daemonize` and `--interval` options.
 
 `-F FORMAT`, `--format FORMAT`
 
-: {{% ctl_chef_client_options_format %}}
+: {{< readfile file="content/workstation/reusable/md/ctl_chef_client_options_format.md" >}}
 
 `--force-formatter`
 
@@ -70,17 +70,17 @@ This command has the following options:
 
 : The path to a file that contains JSON data.
 
-    {{< readFile_shortcode file="node_ctl_run_list.md" spaces=4 >}}
+    {{< readfile file="content/reusable/md/node_ctl_run_list.md" spaces=4 >}}
 
-    {{< warning spaces=4 >}}
+    {{< warning >}}
 
-    {{< readFile_shortcode file="node_ctl_attribute.md">}}
+    {{< readfile file="content/reusable/md/node_ctl_attribute.md">}}
 
     {{< /warning >}}
 
 `-l LEVEL`, `--log_level LEVEL`
 
-: The level of logging to be stored in a log file. Possible levels: `auto` (default), `debug`, `error`, `fatal`, `info`, `trace`, or `warn`. Default value: `warn` (when a terminal is available) or `info` (when a terminal is not available).
+: The level of logging to be stored in a log file. Possible levels: `auto` (default), `debug`, `error`, `fatal`, `info`, `trace`, or `warn`. Default value: `warn` (when a terminal is available) or `info` (when a terminal isn't available).
 
 `-L LOGLOCATION`, `--logfile c`
 
@@ -88,7 +88,7 @@ This command has the following options:
 
 `--legacy-mode`
 
-: Cause Chef Infra Client to use the original chef-solo mode instead of chef local mode. This is not recommended. **Removed in Chef Client 14.**
+: Cause Chef Infra Client to use the original chef-solo mode instead of chef local mode. This isn't recommended. **Removed in Chef Infra Client 14.**
 
 `--minimal-ohai`
 
@@ -110,7 +110,7 @@ This command has the following options:
 
 : The URL of the remote cookbook `tar.gz` file that you want to download.
 
-    In Chef Client 14, the short `-r` form will be removed, as it conflicts with the ability to specify a run list.
+    In Chef Infra Client 14, the short `-r` form will be removed, as it conflicts with the ability to specify a run list.
 
 `--run-lock-timeout SECONDS`
 
@@ -118,7 +118,7 @@ This command has the following options:
 
 `-s SECONDS`, `--splay SECONDS`
 
-: A random number between zero and `splay` that is added to `interval`. Use splay to help balance the load on the Chef Infra Server by ensuring that many Chef Infra Client runs are not occurring at the same interval. When running Chef Infra Client at intervals, apply `--splay` and `--interval` values before a Chef Infra Client run.
+: A random number between zero and `splay` that's added to `interval`. Use splay to help balance the load on the Chef Infra Server by ensuring that many Chef Infra Client runs aren't occurring at the same interval. When running Chef Infra Client at intervals, apply `--splay` and `--interval` values before a Chef Infra Client run.
 
 `-u USER`, `--user USER`
 

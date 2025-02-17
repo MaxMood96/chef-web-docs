@@ -27,7 +27,22 @@ chef generate repo REPO_NAME
 
 ### Cookbook Directory Structure
 
-{{% cookbooks_default %}}
+The default structure of the cookbooks directory is:
+
+```plain
+. chef-repo
+└── cookbooks
+    ├── README.md
+    └── example
+        ├── README.md
+        ├── attributes
+        │   ├── README.md
+        │   └── default.rb
+        ├── metadata.rb
+        └── recipes
+            ├── README.md
+            └── default.rb
+```
 
 ## Cookbook Commands
 
@@ -35,7 +50,44 @@ Use the following commands to create a cookbook, install a cookbook from Superma
 
 ### Create
 
-{{% chef_generate_cookbook %}}
+Chef Workstation generates the `cookbooks` directory as part of your Chef Infra repository, the `chef-repo`.
+
+Generate a `chef-repo/cookbooks` directory with the command:
+
+```bash
+chef generate template PATH_TO_COOKBOOKS COOKBOOK_NAME
+```
+
+For example, this command generates a `custom_web` cookbook:
+
+```bash
+chef generate cookbook cookbooks/custom_web
+```
+
+The `custom_web` cookbook directory has the structure:
+
+```text
+. cookbooks
+└── custom_web
+    ├── CHANGELOG.md
+    ├── LICENSE
+    ├── Policyfile.rb
+    ├── README.md
+    ├── chefignore
+    ├── compliance
+    │   ├── README.md
+    │   ├── inputs
+    │   ├── profiles
+    │   └── waivers
+    ├── kitchen.yml
+    ├── metadata.rb
+    ├── recipes
+    │   └── default.rb
+    └── test
+        └── integration
+            └── default
+                └── default_test.rb
+```
 
 Any unneeded directory components can be left unused or deleted, if
 preferred.
@@ -68,7 +120,7 @@ that:
 
 ### Download
 
-To download a cookbook when git is not used for version source control,
+To download a cookbook when git isn't used for version source control,
 run the following command:
 
 ```bash

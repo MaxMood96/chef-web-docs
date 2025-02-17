@@ -12,7 +12,13 @@ aliases = ["/install_supermarket.html", "/install_supermarket/"]
     weight = 20
 +++
 
-{{% supermarket_private_source_code %}}
+The source code for Chef Supermarket is located at the following URLs:
+
+- The application itself: <https://github.com/chef/supermarket>.
+    Report issues to: <https://github.com/chef/supermarket/issues>.
+- The cookbook that is run by the `supermarket-ctl reconfigure`
+    command:
+    <https://github.com/chef/supermarket/tree/main/omnibus/cookbooks/omnibus-supermarket>
 
 ## Requirements
 
@@ -51,7 +57,7 @@ To configure Chef Supermarket to use Chef Identity, do the following:
 
 2. Update the `/etc/opscode/chef-server.rb` configuration file.
 
-    {{< readFile_shortcode file="config_ocid_application_hash_supermarket.md" >}}
+    {{< readfile file="content/server/reusable/md/config_ocid_application_hash_supermarket.md" >}}
 
 3. Reconfigure the Chef Infra Server.
 
@@ -61,18 +67,19 @@ To configure Chef Supermarket to use Chef Identity, do the following:
 
 4. Retrieve Supermarket's OAuth 2.0 client credentials:
 
-    Depending on your Chef Infra Server version and configuration (see [chef-server.rb](/server/config_rb_server_optional_settings/#config-rb-server-insecure-addon-compat)), this can be retrieved via [chef-server-ctl oc-id-show-app supermarket](/ctl_chef_server/#ctl-chef-server-oc-id-show-app) or is located in `/etc/opscode/oc-id-applications/supermarket.json`:
+    Depending on your Chef Infra Server version and configuration (see [chef-server.rb](/server/config_rb_server_optional_settings/#general-14)), you can retrieve this from [chef-server-ctl oc-id-show-app supermarket](/server/ctl_chef_server/#oc-id-show-app) or find it in `/etc/opscode/oc-id-applications/supermarket.json`:
 
-    ```javascript
+    ```json
     {
       "name": "supermarket",
       "uid": "0bad0f2eb04e935718e081fb71asdfec3681c81acb9968a8e1e32451d08b",
       "secret": "17cf1141cc971a10ce307611beda7ffadstr4f1bc98d9f9ca76b9b127879",
-      "redirect_uri": "https://supermarket.mycompany.com/auth/chef_oauth2/callback"
+      "redirect_uri": "https://supermarket.example.com/auth/chef_oauth2/callback",
+      "confidential": true
     }
     ```
 
-    The `uid` and `secret` values will be needed later on during the setup process for Chef Supermarket.
+    You will need the `uid` and `secret` later on during the setup process for Chef Supermarket.
 
 {{< note >}}
 
@@ -294,7 +301,7 @@ While there are many benefits to using the cookbook method to install Supermarke
 
 Before following these steps, be sure to complete the OAuth setup process detailed in the [Chef Identity](/install_supermarket/#chef-identity) section of this guide.
 
-1. [Download](https://www.chef.io/downloads/tools/supermarket) the correct package for your operating system from `chef.io/downloads`.
+1. Download the correct package of Chef Supermarket for your operating system from [Chef Downloads](https://www.chef.io/downloads).
 
 2. Install Supermarket using the appropriate package manager for your distribution:
 
@@ -405,7 +412,7 @@ Encrypted S3 buckets are currently not supported.
 1. Shut down the server running Private Supermarket.
 1. Backup the `/var/opt/supermarket` directory.
 
-1. Download the [Chef Supermarket](https://www.chef.io/downloads/tools/supermarket) package.
+1. Download the correct package of Chef Supermarket for your operating system from [Chef Downloads](https://www.chef.io/downloads).
 1. Upgrade your system with the new package using the appropriate package manager for your distribution:
 
     - For Ubuntu:

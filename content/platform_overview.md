@@ -20,15 +20,15 @@ has expanded. Today, Chef has a complete automation solution for both
 infrastructure and applications that takes you all the way from
 development to production. Here's the complete Chef solution.
 
-{{< figure src="/images/automate_architecture.svg" width=500 alt="Diagram of Automate architecture.">}}
+{{< figure src="/images/automate_architecture.svg" width=500 alt="Diagram of Chef Automate architecture.">}}
 
 ## Chef Infra
 
-{{% chef %}}
+{{< readfile file="content/reusable/md/chef.md" >}}
 
 ### Using Chef Workstation
 
-Chef Workstation allows you to author cookbooks and administer your
+[Chef Workstation](/workstation/) allows you to author cookbooks and administer your
 infrastructure. Chef Workstation runs on the computer you use everyday,
 whether it's Linux, macOS, or Windows.
 
@@ -59,7 +59,7 @@ Server, and chef for interacting with your local chef code repository
 ### Uploading your code to Chef Infra Server
 
 Once you're done developing and testing code on your local workstation,
-you can upload it to the Chef Infra Server. The Chef Infra Server acts
+you can upload it to the [Chef Infra Server](/server/). The Chef Infra Server acts
 as a hub for configuration data. It stores cookbooks, the policies that
 are applied to the systems in your infrastructure and metadata that
 describes each system. The knife command lets you communicate with the
@@ -86,25 +86,23 @@ business policy.
 
 ## Chef Habitat
 
-Chef Habitat offers a new approach to deploying applications called
+[Chef Habitat](/habitat/) offers a new approach to deploying applications called
 application automation. Application automation means that the automation
 is packaged with the application and travels with it, no matter where
 that application is deployed. The unit of deployment becomes the
 application and its associated automation. The runtime environment,
-whether it is a container, bare metal, or PaaS does not in any way
+whether it's a container, bare metal, or PaaS doesn't in any way
 define the application.
 
 Chef Habitat is comprised of a packaging format and a supervisor. The
 format defines Chef Habitat packages, which are isolated, immutable, and
 auditable. The Chef Habitat supervisor knows how to take the packages
 and run them. It's aware of the package's peer relationships, its
-upgrade strategy and security policies. To learn everything about Chef
-Habitat, go to the Chef Habitat web site at
-[https://www.habitat.sh](https://www.habitat.sh/).
+upgrade strategy, and security policies.
 
 ## Chef InSpec
 
-Chef InSpec is an open-source testing framework with a human- and
+[Chef InSpec](/inspec/) is an open-source testing framework with a human- and
 machine-readable language for specifying compliance, security and policy
 requirements. When compliance is expressed as code, you can integrate it
 into your deployment pipeline and automatically test for adherence to
@@ -120,7 +118,7 @@ inspect the configuration of virtual resources by using their API.
 
 To get a sense of how the Chef InSpec language works, here are some
 examples. This Chef InSpec rule ensures that insecure services and
-protocols, such as telnet, are not used.
+protocols, such as telnet, aren't used.
 
 ```ruby
 describe package('telnetd') do
@@ -134,7 +132,7 @@ end
 
 ## Chef Automate
 
-Chef Automate provides a full suite of enterprise capabilities for node
+[Chef Automate](/automate/) provides a full suite of enterprise capabilities for node
 visibility and compliance. Chef Automate integrates with the open-source
 products Chef Infra Client, Chef InSpec and Chef Habitat. Chef Automate
 comes with comprehensive 24x7 support services for the entire platform,
@@ -145,26 +143,24 @@ as well as visibility into your applications and infrastructure.
 
 ### Nodes
 
-Chef Automate gives you a data warehouse that accepts input from Chef
-Server, Chef Habitat, and Chef Automate workflow and compliance. It
-provides views into operational and workflow events. There is a query
-language available through the UI and customizable dashboards.
+Chef Automate gives you a data warehouse that accepts input from Chef Infra Server, Chef Habitat, and Chef Automate workflow and compliance.
+It provides views into operational and workflow events.
+There is a query language available through the UI and customizable dashboards.
 
 Here is an example of the Chef Automate dashboard.
 
-{{< figure src="/images/visibility1.png" width=700 alt="Image of Chef Automate dashboard showing the status of nodes under management with Chef Automate." >}}
+{{< figure src="/images/automate-dashboard.png" width=700 alt="Chef Automate dashboard showing the status of nodes monitored with Chef Automate." >}}
 
 ### Compliance
 
 Chef Automate creates customizable reports that identify compliance
 issues, security risks, and outdated software. You can write your own
-compliance rules in Chef InSpec, or you can get started quickly by using
+compliance rules in Chef InSpec, or you can get started by using
 built-in profiles, which are predefined rule sets for a variety of
 security frameworks, such as Center for Internet Security (CIS)
 benchmarks, included as part of Chef Automate.
 
-For information on the integrated reporting capabilities in Chef
-Automate, see [Compliance Overview](/automate/reports/).
+For information on the integrated reporting capabilities in Chef Automate, see [Compliance Overview](/automate/reports/).
 
 ### High availability
 
@@ -176,5 +172,5 @@ management console for the Chef Infra Server.
 ## Learning More
 
 If you're interested in getting hands-on experience, go to
-<https://learn.chef.io/> for tutorials, information about formal
+the [Learn Chef site](https://learn.chef.io) for tutorials, information about formal
 training classes and community resources.

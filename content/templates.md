@@ -14,42 +14,81 @@ aliases = ["/templates.html", "essentials_cookbook_templates.html"]
     weight = 100
 +++
 
-{{% template %}}
+{{< readfile file="content/reusable/md/template.md" >}}
 
-{{% chef_generate_template %}}
+The `templates` directory doesn't exist by default in a cookbook.
+Generate the `templates` directory and a template file from the `chef-repo/cookbooks` directory with the command:
+
+```bash
+chef generate template PATH_TO_COOKBOOK TEMPLATE_NAME
+```
+
+For example, this command generates a `httpd` template in the `custom_web` cookbook:
+
+```bash
+chef generate template cookbooks/custom_web httpd
+```
+
+The `custom_web` cookbook directory with a template has the structure:
+
+```text
+. cookbooks
+├── README.md
+└── custom_web
+    ├── CHANGELOG.md
+    ├── LICENSE
+    ├── Policyfile.rb
+    ├── README.md
+    ├── chefignore
+    ├── compliance
+    │   ├── README.md
+    │   ├── inputs
+    │   ├── profiles
+    │   └── waivers
+    ├── kitchen.yml
+    ├── metadata.rb
+    ├── recipes
+    │   └── default.rb
+    ├── templates
+    │   └── httpd.erb
+    └── test
+        └── integration
+            └── default
+                └── default_test.rb
+```
 
 ## Requirements
 
-{{< readFile_shortcode file="template_requirements.md" >}}
+{{< readfile file="content/reusable/md/template_requirements.md" >}}
 
 ## Variables
 
-{{< readFile_shortcode file="template_variables.md" >}}
+{{< readfile file="content/reusable/md/template_variables.md" >}}
 
 ## File Specificity
 
-{{% template_specificity %}}
+{{< readfile file="content/reusable/md/template_specificity.md" >}}
 
-{{% template_specificity_pattern %}}
+{{< readfile file="content/reusable/md/template_specificity_pattern.md" >}}
 
-{{% template_specificity_example %}}
+{{< readfile file="content/reusable/md/template_specificity_example.md" >}}
 
 ## Host Notation
 
-{{% template_host_notation %}}
+{{< readfile file="content/reusable/md/template_host_notation.md" >}}
 
 ## Transfer Frequency
 
-{{% template_transfer_frequency %}}
+{{< readfile file="content/reusable/md/template_transfer_frequency.md" >}}
 
 ## Partial Templates
 
-{{% template_partials %}}
+{{< readfile file="content/reusable/md/template_partials.md" >}}
 
 ### variables Attribute
 
-{{< readFile_shortcode file="template_partials_variables_attribute.md" >}}
+{{< readfile file="content/reusable/md/template_partials_variables_attribute.md" >}}
 
 ### render Method
 
-{{< readFile_shortcode file = "template_partials_render_method.md" >}}
+{{< readfile file="content/reusable/md/template_partials_render_method.md" >}}

@@ -15,10 +15,16 @@ product = []
 
 {{< chef_automate_mark >}}
 
-{{% EOL_manage %}}
+{{< warning >}}
 
-Chef Manage can support logging in users via SAML authentication. In
-order to do so, there must be a Chef Automate Server that is configured
+{{< readfile file="content/reusable/md/EOL_manage.md" >}}
+
+This document is no longer maintained.
+
+{{< /warning >}}
+
+Chef Manage can support logging in users using SAML authentication. In
+order to do so, there must be a Chef Automate Server that's configured
 to act as a SAML Identity Provider (IdP). When the Chef Automate Server
 is configured to do so, it will provide an OpenID Connect (OIDC)
 protocol end-point that Chef Manage can use to initiate authentication.
@@ -58,7 +64,7 @@ Finally, run `chef-manage-ctl reconfigure` to apply these settings.
 
 {{< warning >}}
 
-You cannot have both LDAP and SAML authentication enabled at the same
+You can't have both LDAP and SAML authentication enabled at the same
 time. If you do, the reconfigure will fail with an appropriate error
 message.
 

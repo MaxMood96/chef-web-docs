@@ -20,30 +20,29 @@ for installation instructions.
 
 ## Platforms
 
-{{% adopted_platforms_server %}}
+{{< readfile file="content/server/reusable/md/adopted_platforms_server.md" >}}
 
 ### Untested Platforms
 
 The following platforms are not tested by Chef Software:
 
--   Any Linux or UNIX distribution that is not listed as a Foundational
-    platform.
--   Microsoft Windows
--   32-bit architectures
+- Any Linux or UNIX distribution that is not listed as a Foundational platform.
+- Microsoft Windows
+- 32-bit architectures
 
 ## Capacity Planning
 
 Read the [guidance around capacity
-planning]({{< relref "server/#capacity-planning" >}}) for information about
+planning]({{< relref "capacity_planning" >}}) for information about
 how to choose the right topology for the Chef Infra Server.
 
 ## Hardware Requirements
 
-{{% system_requirements_server_hardware %}}
+{{< readfile file="content/server/reusable/md/system_requirements_server_hardware.md" >}}
 
 ## Software Requirements
 
-{{% system_requirements_server_software %}}
+{{< readfile file="content/server/reusable/md/system_requirements_server_software.md" >}}
 
 ### UIDs and GIDs
 
@@ -305,15 +304,18 @@ ensure that hostname is resolvable.
     recognize it as an IPv6 address. For example:
 
     ```ruby
-    bookshelf['url'] "https://[2001:db8:85a3:8d3:1319:8a2e:370:7348]"
+    bookshelf['vip'] = "hostname.example.com"
+
+    # If we're getting weird. Change to IPv6
+    bookshelf['vip'] = "[2001:db8:85a3:8d3:1319:8a2e:370]"
     ```
 
 The `api_fqdn` setting can be added to the private-chef.rb file (it is
 not there by default). When added, its value should be equal to the FQDN
 or IP address for the service URI used by the Chef Infra Server. Then
 configure the same value for the `bookshelf['vip']` setting prior to
-installing the Chef Infra Server. For example:
-`api_fqdn "chef.example.com"` or `api_fqdn 123.45.67.890`.
+installing the Chef Infra Server. FQDNs must always be in lowercase.
+For example: `api_fqdn "chef.example.com"` or `api_fqdn "123.45.67.890"`.
 
 #### Configure Hostnames
 
@@ -495,7 +497,7 @@ The following group accounts are required:
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td><code>opscode</code></td>
 <td>The group name under which services will run.</td>
 </tr>
@@ -518,11 +520,11 @@ The following user accounts are required:
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td><code>opscode</code></td>
 <td>The user name under which services will run.</td>
 </tr>
-<tr class="even">
+<tr>
 <td><code>opscode-pgsql</code></td>
 <td>The user name for PostgreSQL. (This is only required on the back end servers in a high availability setup.)</td>
 </tr>

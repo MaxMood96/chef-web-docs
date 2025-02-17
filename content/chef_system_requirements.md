@@ -26,18 +26,19 @@ Install and configure the Chef Infra Server, then install and configure
 Chef Workstation, and then run the bootstrap command from Chef
 Workstation to install Chef Infra Client on each node.
 
-## The Chef Infra Server
+## Chef Infra Server
 
-The following sections describe the various requirements for the Chef
-Infra Server.
+### Hardware requirements
 
-### Hosted Chef Infra Server Requirements
+Chef Infra Server has the following hardware requirements:
 
-Every node that will be configured by Chef Infra Client and every workstation that will upload data to the Chef Infra Server must be able to communicate with the hosted Chef server.
+{{< readfile file="content/server/reusable/md/system_requirements_server_hardware.md" >}}
 
-### Chef Infra Server, On-premises or in Cloud Environment
+### Software requirements
 
-{{% system_requirements_server_hardware %}} {{% system_requirements_server_software %}}
+Chef Infra Server has the following software requirements:
+
+{{< readfile file="content/server/reusable/md/system_requirements_server_software.md" >}}
 
 ## Chef Infra Client
 
@@ -57,7 +58,7 @@ Every node that will be configured by Chef Infra Client and every workstation th
     data and should be generously sized. 5GB is a safe number as a
     starting point, but tune the size of `/var/chef/cache` as necessary.
     This location is tunable in a node's
-    [client.rb](/config_rb_client/) file via the
+    [client.rb](/config_rb_client/) file using the
     `file_cache_path` setting.
 
 ## Chef Workstation

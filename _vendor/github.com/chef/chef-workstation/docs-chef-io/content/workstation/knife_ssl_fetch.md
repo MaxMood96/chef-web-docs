@@ -12,8 +12,9 @@ aliases = ["/knife_ssl_fetch.html", "/knife_ssl_fetch/"]
     identifier = "chef_workstation/chef_workstation_tools/knife/knife_ssl_fetch.md knife ssl_fetch"
     parent = "chef_workstation/chef_workstation_tools/knife"
 +++
+<!-- markdownlint-disable-file MD036 -->
 
-{{% knife_ssl_fetch_summary %}}
+{{< readfile file="content/workstation/reusable/md/knife_ssl_fetch_summary.md" >}}
 
 ## Syntax
 
@@ -29,7 +30,7 @@ This subcommand has the following options:
 
 `URL_or_URI`
 
-: The URL or URI for the location at which the SSL certificate is located. Default value: the URL for the Chef Infra Server, as defined in the config.rb file.
+: The URL or URI for the location at which the SSL certificate is located. Default value: the URL of the Chef Infra Server, as defined in the config.rb file.
 
 ## Examples
 
@@ -62,4 +63,4 @@ knife ssl fetch https://www.example.com
 
 **Verify Checksums**
 
-{{% knife_ssl_fetch_verify_certificate %}}
+{{< readfile file="content/workstation/reusable/md/knife_ssl_fetch_verify_certificate.md" >}}

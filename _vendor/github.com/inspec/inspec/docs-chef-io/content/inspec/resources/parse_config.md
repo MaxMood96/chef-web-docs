@@ -15,9 +15,9 @@ Use the `parse_config` Chef InSpec audit resource to test arbitrary configuratio
 
 ## Availability
 
-### Installation
+### Install
 
-This resource is distributed along with Chef InSpec itself. You can use it automatically.
+{{< readfile file="content/inspec/reusable/md/inspec_installation.md" >}}
 
 ### Version
 
@@ -132,4 +132,4 @@ This resource is based on the `parse_config_file` resource. See the [`parse_conf
 
 ## Matchers
 
-For a full list of available matchers, please visit our [matchers page](/inspec/matchers/).
+{{< readfile file="content/inspec/reusable/md/inspec_matchers_link.md" >}}

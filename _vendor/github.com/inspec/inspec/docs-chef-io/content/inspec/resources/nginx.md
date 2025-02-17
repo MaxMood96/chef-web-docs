@@ -17,9 +17,9 @@ Nginx resource extracts and exposes data reported by the command 'nginx -V'
 
 ## Availability
 
-### Installation
+### Install
 
-This resource is distributed along with Chef InSpec itself. You can use it automatically.
+{{< readfile file="content/inspec/reusable/md/inspec_installation.md" >}}
 
 ### Version
 

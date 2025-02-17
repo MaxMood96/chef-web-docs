@@ -3,14 +3,14 @@
 set -eoux pipefail
 
 branch="expeditor/update_docs_${EXPEDITOR_REPO}_${EXPEDITOR_NUMBER}"
-git checkout -b "$branch"
+git checkout -B "$branch"
 
 
 # Update the documentation module that chef-web-docs will
 # use to build the docs from.
 # See https://gohugo.io/hugo-modules/use-modules/#update-one-module
 
-hugo mod get github.com/${EXPEDITOR_AGENT_CONFIG_GITHUB_REPO}/docs-chef-io
+hugo mod get -u github.com/${EXPEDITOR_REPO}/docs-chef-io
 hugo mod tidy
 
 # Update the vendored files in chef-web-docs
@@ -31,7 +31,7 @@ git add .
 # audit of our codebase that no DCO sign-off is needed for this sort of PR since
 #it contains no intellectual property
 
-dco_safe_git_commit "Bump Hugo module ${EXPEDITOR_REPO} for ${EXPEDITOR_AGENT_CONFIG_GITHUB_REPO}#${EXPEDITOR_NUMBER}."
+dco_safe_git_commit "Bump Hugo module ${EXPEDITOR_REPO} for ${EXPEDITOR_REPO}#${EXPEDITOR_NUMBER}."
 
 open_pull_request
 

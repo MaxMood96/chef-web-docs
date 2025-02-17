@@ -15,9 +15,9 @@ Use the `chocolatey_package` Chef InSpec audit resource to test if the named [Ch
 
 ## Availability
 
-### Installation
+### Install
 
-This resource is distributed along with Chef InSpec itself. You can use it automatically.
+{{< readfile file="content/inspec/reusable/md/inspec_installation.md" >}}
 
 ### Version
 

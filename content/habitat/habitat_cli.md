@@ -18,7 +18,7 @@ The commands for the Chef Habitat CLI (`hab`) are listed below.
 
 | Applies to Version | Last Updated |
 | ------- | ------------ |
-| hab 1.6.420/20211101172443 (linux) | 1 Nov 2021 |
+| hab 1.6.1243/20241227194506 (linux) | 27 Dec 2024 |
 
 ## hab
 
@@ -96,7 +96,7 @@ hab bldr <SUBCOMMAND>
 | Command | Description |
 | ------- | ----------- |
 | [hab bldr channel](#hab-bldr-channel) | Commands relating to Habitat Builder channels |
-| [hab bldr job](#hab-bldr-job) | Commands relating to Habitat Builder jobs |
+| [hab bldr job](#hab-bldr-job) | REMOVED: Commands relating to Habitat Builder jobs |
 ---
 
 ### hab bldr channel
@@ -241,12 +241,13 @@ Lists origin channels
 **USAGE**
 
 ```
-hab bldr channel list [OPTIONS] [ORIGIN]
+hab bldr channel list [FLAGS] [OPTIONS] [ORIGIN]
 ```
 
 **FLAGS**
 
 ```
+-s, --sandbox    Include sandbox channels for the origin
 -h, --help       Prints help information
 -V, --version    Prints version information
 ```
@@ -305,7 +306,7 @@ hab bldr channel promote [OPTIONS] <SOURCE_CHANNEL> <TARGET_CHANNEL> --origin <O
 
 ### hab bldr job
 
-Commands relating to Habitat Builder jobs
+REMOVED: Commands relating to Habitat Builder jobs
 
 **USAGE**
 
@@ -327,16 +328,16 @@ hab bldr job <SUBCOMMAND>
 
 | Command | Description |
 | ------- | ----------- |
-| [hab bldr job cancel](#hab-bldr-job-cancel) | Cancel a build job group and any in-progress builds |
-| [hab bldr job demote](#hab-bldr-job-demote) | Demote packages from a completed build job from a specified channel |
-| [hab bldr job promote](#hab-bldr-job-promote) | Promote packages from a completed build job to a specified channel |
-| [hab bldr job start](#hab-bldr-job-start) | Schedule a build job or group of jobs |
-| [hab bldr job status](#hab-bldr-job-status) | Get the status of one or more job groups |
+| [hab bldr job cancel](#hab-bldr-job-cancel) | REMOVED: Cancel a build job group and any in-progress builds |
+| [hab bldr job demote](#hab-bldr-job-demote) | REMOVED: Demote packages from a completed build job from a specified channel |
+| [hab bldr job promote](#hab-bldr-job-promote) | REMOVED: Promote packages from a completed build job to a specified channel |
+| [hab bldr job start](#hab-bldr-job-start) | REMOVED: Schedule a build job or group of jobs |
+| [hab bldr job status](#hab-bldr-job-status) | REMOVED: Get the status of one or more job groups |
 ---
 
 ### hab bldr job cancel
 
-Cancel a build job group and any in-progress builds
+REMOVED: Cancel a build job group and any in-progress builds
 
 **USAGE**
 
@@ -371,7 +372,7 @@ hab bldr job cancel [FLAGS] [OPTIONS] <GROUP_ID>
 
 ### hab bldr job demote
 
-Demote packages from a completed build job from a specified channel
+REMOVED: Demote packages from a completed build job from a specified channel
 
 **USAGE**
 
@@ -408,7 +409,7 @@ hab bldr job demote [FLAGS] [OPTIONS] <GROUP_ID> <CHANNEL>
 
 ### hab bldr job promote
 
-Promote packages from a completed build job to a specified channel
+REMOVED: Promote packages from a completed build job to a specified channel
 
 **USAGE**
 
@@ -445,7 +446,7 @@ hab bldr job promote [FLAGS] [OPTIONS] <GROUP_ID> <CHANNEL>
 
 ### hab bldr job start
 
-Schedule a build job or group of jobs
+REMOVED: Schedule a build job or group of jobs
 
 **USAGE**
 
@@ -481,7 +482,7 @@ hab bldr job start [FLAGS] [OPTIONS] <PKG_IDENT> [PKG_TARGET]
 
 ### hab bldr job status
 
-Get the status of one or more job groups
+REMOVED: Get the status of one or more job groups
 
 **USAGE**
 
@@ -1814,19 +1815,21 @@ hab pkg build [FLAGS] [OPTIONS] <PLAN_CONTEXT>
 **FLAGS**
 
 ```
--D, --docker     Uses a Dockerized Studio for the build
--R, --reuse      Reuses a previous Studio for the build (default: clean up before building)
--h, --help       Prints help information
--V, --version    Prints version information
+-D, --docker            Uses a Dockerized Studio for the build
+-N, --native-package    Build a native package on the host system without a studio
+-R, --reuse             Reuses a previous Studio for the build (default: clean up before building)
+-h, --help              Prints help information
+-V, --version           Prints version information
 ```
 
 **OPTIONS**
 
 ```
---cache-key-path <CACHE_KEY_PATH>    Cache for creating and searching for encryption keys [env: HAB_CACHE_KEY_PATH=]  [default: /hab/cache/keys]
--k, --keys <HAB_ORIGIN_KEYS>             Installs secret origin keys (ex: "unicorn", "acme,other,acme-ops")
--r, --root <HAB_STUDIO_ROOT>             Sets the Studio root (default: /hab/studios/<DIR_NAME>)
--s, --src <SRC_PATH>                     Sets the source path (default: $PWD)
+--cache-key-path <CACHE_KEY_PATH>      Cache for creating and searching for encryption keys [env: HAB_CACHE_KEY_PATH=]  [default: /hab/cache/keys]
+-k, --keys <HAB_ORIGIN_KEYS>               Installs secret origin keys (ex: "unicorn", "acme,other,acme-ops")
+-r, --root <HAB_STUDIO_ROOT>               Sets the Studio root (default: /hab/studios/<DIR_NAME>)
+-f, --refresh-channel <REFRESH_CHANNEL>    Channel used to retrieve plan dependencies for Chef supported origins env: HAB_REFRESH_CHANNEL=]  [default: stable]
+-s, --src <SRC_PATH>                       Sets the source path (default: $PWD)
 ```
 
 **ARGS**
@@ -2243,6 +2246,7 @@ hab pkg install [FLAGS] [OPTIONS] <PKG_IDENT_OR_ARTIFACT>...
 -b, --binlink                Binlink all binaries from installed package(s) into BINLINK_DIR
 -f, --force                  Overwrite existing binlinks
     --ignore-install-hook    Do not run any install hooks
+    --ignore-local           Do not use locally-installed packages when a corresponding package cannot be installed from Builder
 -h, --help                   Prints help information
 -V, --version                Prints version information
 ```
@@ -3153,6 +3157,9 @@ hab sup run [FLAGS] [OPTIONS] [--] [PKG_IDENT_OR_ARTIFACT]
 
 -r, --ring <RING> The name of the ring used by the Supervisor when running with wire encryption [env: HAB_RING=]
 
+    --service-max-backoff-period <SERVICE_MAX_BACKOFF_PERIOD> The maximum period of time in seconds to wait before attempting to restart a service that failed to start up default: 0]
+    --service-min-backoff-period <SERVICE_MIN_BACKOFF_PERIOD> The minimum period of time in seconds to wait before attempting to restart a service that failed to start up default: 0]
+    --service-restart-cooldown-period <SERVICE_RESTART_COOLDOWN_PERIOD> The period of time in seconds to wait before assuming that a service started up successfully after a restart default: 300]
     --service-update-period <SERVICE_UPDATE_PERIOD> The period of time in seconds between service update checks [default: 60]
 
     --shutdown-timeout <SHUTDOWN_TIMEOUT> The delay in seconds after sending the shutdown signal to wait before killing the service process

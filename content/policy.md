@@ -13,58 +13,38 @@ product = ["client", "server"]
     weight = 10
 +++
 
-{{% policy_summary %}}
+{{< readfile file="content/reusable/md/policy_summary.md" >}}
 
 ## Cookbook Versions
 
-{{% cookbooks_version %}}
-
-{{< note >}}
+{{< readfile file="content/reusable/md/cookbooks_version.md" >}}
 
 For more information about cookbook versioning, see [About Cookbook
 Versioning](/cookbook_versioning/)
 
-{{< /note >}}
-
 ## Data Bags (Secrets)
 
-{{% data_bag %}}
-
-{{< note >}}
+{{< readfile file="content/reusable/md/data_bag.md" >}}
 
 For more information about data bags, see [About Data
 Bags](/data_bags/)
 
-{{< /note >}}
-
 ## Environments
 
-{{% environment %}}
-
-{{< note >}}
+{{< readfile file="content/reusable/md/environment.md" >}}
 
 For more information about environments, see [About
 Environments](/environments/)
 
-{{< /note >}}
-
 ## Roles
 
-{{% role %}}
-
-{{< note >}}
+{{< readfile file="content/reusable/md/role.md" >}}
 
 For more information about roles, see [About Roles](/roles/)
 
-{{< /note >}}
-
 ## Policyfile
 
-{{% policyfile_summary %}}
-
-{{< note >}}
+{{< readfile file="content/reusable/md/policyfile_summary.md" >}}
 
 For more information about Policyfile, see [About
 Policyfile](/policyfile/)
-
-{{< /note >}}

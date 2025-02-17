@@ -6,22 +6,25 @@ gh_repo = "inspec"
 [menu]
   [menu.inspec]
     title = "Reporters"
-    identifier = "inspec/reference/reporters.md Reporters"
-    parent = "inspec/reference"
-    weight = 50
+    identifier = "inspec/Reporters"
+    parent = "inspec"
+    weight = 100
 +++
 
-Introduced in Chef InSpec 1.51.6
+A Chef InSpec reporter formats and delivers the results of a Chef InSpec audit run. You can output the results of your audits to more than one reporter.
 
-A `reporter` is a facility for formatting and delivering the results of a Chef InSpec auditing run.
+## Configure
 
-Chef InSpec allows you to output your test results to one or more reporters. Configure the reporter(s) using either the `--reporter` option or as part of the general config file using the `--config` (or `--json-config`, prior to v3.6) option. While you can configure multiple reporters to write to different files, only one reporter can output to the screen(stdout).
+Configure the reporter(s) using the `--reporter` option or as part of the general configuration file using the `--config` option.
 
-## Syntax
+You can use both the `--reporter` and `--config` options, in which case the options are merged.
+While you can configure multiple reporters to write to different files, only one reporter can output to the screen(stdout).
 
-You can specify one or more reporters using the `--reporter` cli flag. You can also specify a output by appending a path separated by a colon.
+### reporter option
 
-Output json to screen.
+You can specify one or more reporters using the `--reporter` CLI flag. You can also specify an output by appending a path separated by a colon.
+
+**Output JSON to screen**
 
 ```bash
 inspec exec example_profile --reporter json
@@ -29,7 +32,7 @@ inspec exec example_profile --reporter json
 inspec exec example_profile --reporter json:-
 ```
 
-Output yaml to screen
+**Output YAML to screen.**
 
 ```bash
 inspec exec example_profile --reporter yaml
@@ -37,33 +40,42 @@ inspec exec example_profile --reporter yaml
 inspec exec example_profile --reporter yaml:-
 ```
 
-Output cli to screen and write json to a file.
+**Output CLI to screen and write JSON to a file.**
 
 ```bash
 inspec exec example_profile --reporter cli json:/tmp/output.json
 ```
 
-Output nothing to screen and write junit and html to a file.
+**Output nothing to screen and write JUnit and HTML to a file.**
 
 ```bash
 inspec exec example_profile --reporter junit2:/tmp/junit.xml html:www/index.html
 ```
 
-Output json to screen and write to a file. Write junit to a file.
+**Output JSON to screen and write to a file. Write JUnit to a file.**
 
 ```bash
 inspec exec example_profile --reporter json junit2:/tmp/junit.xml | tee out.json
 ```
 
-If you wish to pass the profiles directly after specifying the reporters you will need to use the end of options flag `--`.
+If you wish to pass the profiles directly after specifying the reporters, you must use the end of options flag `--`.
 
 ```bash
 inspec exec --reporter json junit2:/tmp/junit.xml -- profile1 profile2
 ```
 
-If you are using the cli option `--config`, you can also set reporters.
+**Output real-time progress to screen with a progress bar.**
 
-Output cli to screen.
+```bash
+inspec exec example_profile --reporter progress-bar
+```
+
+### config file
+
+You can also set reporters using a configuration file.
+For guidance on creating and using a config file, see the [InSpec config documentation](/inspec/config/).
+
+**Output CLI to screen.**
 
 ```json
 {
@@ -75,7 +87,7 @@ Output cli to screen.
 }
 ```
 
-Output cli to screen and write json to a file.
+**Output CLI to screen and write JSON to a file.**
 
 ```json
 {
@@ -90,25 +102,53 @@ Output cli to screen and write json to a file.
     }
 }
 ```
-## Reporter Options
 
-The following are CLI options that may be used to modify reporter behavior. Many of these options allow you to limit the size of the report, because some reporters (such as the json-automate reporter) have a limit on the total size of the report that can be processed.
+## Options
+
+The following are CLI options that are used to modify reporter behavior.
+Many of these options allow you to limit the report size because some reporters (such as the json-automate reporter) limit on the total size of the report that can be processed.
 
 `--diff`, `--no-diff`
 
-: Include a `diff` comparison of textual differences in failed test output (default: `true`).
+: Include a `diff` comparison of textual differences in the failed test output.
 
-: Use `--no-diff` to limit the size of the report output when tests contain large amounts of text output.
+  Use `--no-diff` to limit the size of the report output when tests contain large amounts of text output.
+
+  Default: `true`
+
+`--enhanced-outcomes`
+
+: Includes enhanced outcome of controls in report data.
+
+  The control level status outcomes are:
+  - `Passed`
+  - `Failed`
+  - `Not Applicable (N/A)`
+  - `Not Reviewed (N/R)`
+  - `Error (ERR)`.
+
+  Supported with the following reporters:
+  - automate
+  - cli
+  - html2
+  - json
+  - json-automate
+  - progress-bar
+  - yaml
+
 
 `--filter-empty-profiles`
 
-: Remove empty profiles (those containing zero controls, such as resource packs) from the output of the reporter.
+: Remove empty profiles (those containing zero controls, such as resource packs) from the reporter's output.
 
-`--reporter-backtrace-inclusion`, `--no-reporter-backtrace-inclusion`
+`--reporter-backtrace-inclusion`
+`--no-reporter-backtrace-inclusion`
 
-: Include a code backtrace in report data (default: `true`).
+: Include a code backtrace in report data.
 
-: The `--no-reporter-backtrace-inclusion` option may be used to limit report size when large code stack traces are present in the output.
+  The `--no-reporter-backtrace-inclusion` option may be used to limit report size when large code stack traces are present in the output.
+
+  Default: `true`
 
 `--reporter-include-source`
 
@@ -116,17 +156,105 @@ The following are CLI options that may be used to modify reporter behavior. Many
 
 `--reporter-message-truncation=N`
 
-: Number of characters to truncate failure messages in report data (default: no truncation).
+: Number of characters to truncate failure messages in report data.
 
-: This may be used to limit the size of reports when failure messages are exceptionally large.
+  This may be used to limit the size of reports when failure messages are exceptionally large.
 
-## Supported Reporters
+  Default: no truncation
 
-The following are the current supported reporters:
+## Reporters
+
+The following are the supported reporters.
+
+### automate
+
+The `automate` reporter type is a special reporter which sends its results over the network to [Chef Automate]({{< relref "/automate/">}}). To use this reporter, you must pass in the correct configuration via a JSON configuration `--config`.
+
+Example Configuration:
+
+```json
+{
+    "reporter": {
+        "automate" : {
+            "stdout" : false,
+            "url" : "https://AUTOMATE_URL/data-collector/v0/",
+            "token" : "AUTOMATE_ADMIN_TOKEN",
+            "insecure" : true,
+            "node_name" : "inspec_test_node",
+            "environment" : "prod"
+        }
+    }
+}
+```
+
+#### Mandatory fields
+
+`stdout`
+: Either suppress or shows the automate report in the CLI screen on completion.
+
+`url`
+: Chef Automate. Append `data-collector/v0/` at the end.
+
+`token`
+: Chef Automate tokens. You can generate this token by navigating to the **admin** tab of Automate and then clicking **API keys**.
+
+#### Optional fields
+
+`insecure`
+: Disables or enables the SSL check when accessing the Chef Automate instance.
+
+`node_name`
+: Node name which shows up in Chef Automate.
+
+`node_uuid`
+: Node UUID, which shows up in Chef Automate. Use a single static UUID per node for all your reports. You must specify a `node_uuid` in the Chef InSpec configuration file if running Chef InSpec outside of an audit cookbook or another environment where a `chef_guid` or `node_uuid` is already known to Chef InSpec.
+
+`environment`
+: Sets the environment metadata for Chef Automate.
 
 ### cli
 
-This is the basic text base report. It includes details about which tests passed and failed and includes an overall summary at the end.
+This is the basic text based report. It includes details about tests that passed and failed and an overall summary at the end.
+
+### documentation
+
+This reporter is a very minimal text-based report. It shows you which tests passed by name and has a small summary at the end.
+
+### html
+
+This reporter is the legacy RSpec HTML reporter retained for backward compatibility.
+The report generated is unaware of profiles or controls and only contains unsorted test information.
+Most users should migrate to the `html2` reporter for more complete data.
+
+### html2
+
+This reporter is an improved HTML reporter that contains full data about the structure of the profile, controls, and tests. The generated report renders HTML code for viewing your tests in a browser.
+
+The `html2` reporter requires no configuration to function. However, options `--alternate_css_file` and `--alternate_js_file` are available for customization. The options are set in the JSON-formatted configuration file that Chef InSpec consumes.
+
+For details, see [our configuration file documentation](/inspec/config/).
+
+For example:
+
+```json
+{
+  "version": "1.2",
+  "plugins": {
+    "inspec-reporter-html2": {
+      "alternate_js_file":"/var/www/js/my-javascript.js",
+      "alternate_css_file":"/var/www/css/my-style.css"
+    }
+  }
+}
+```
+
+#### alternate_css_file
+
+Specifies the full path to the location of a CSS file that is read and inlined into the HTML report. The default CSS is not included.
+
+#### alternate_js_file
+
+Specifies the full path to the location of a JavaScript file that is read and inlined into the HTML report. The default JavaScript is included. The JavaScript file should implement at least a `pageLoaded()` function, which is called by the `onload` event of the HTML `body` element.
 
 ### json
 
@@ -148,127 +276,47 @@ For example:
 }
 ```
 
+### json-automate
+
+The `json-automate` reporter is a special reporter that prepares the data format used by the Automate reporter. `json-automate` does not communicate on the network; instead, it simply produces the JSON report format that Automate would be consuming. Notably, the report is based on the `json` reporter, with the following modifications:
+
+- Controls appearing in child profiles are de-duplicated by ID, merging into the parent profile.
+- Child profiles are deleted, flattening the report.
+
+The `json-automate` reporter is primarily used for internal needs, but some users may find it helpful if they want a JSON-based reporter that merges controls.
+
 ### json-min
 
-This reporter is a redacted version of the json and only includes test results.
+This reporter is a redacted version of the JSON and only includes test results.
+
+### json-rspec
+
+This reporter includes all information from the Rspec runner. Unlike the JSON reporter, this includes Rspec-specific details.
+
+### junit
+
+This legacy reporter outputs nonstandard JUnit XML and is provided only for backward compatibility. New JUnit users should use the junit2 reporter.
+
+### junit2
+
+This reporter outputs the standard JUnit spec in XML format. New JUnit users should use this reporter instead of the legacy junit reporter.
+
+### progress
+
+This reporter is very condensed and provides you a `.`(pass), `f`(fail), or `*`(skip) character per test and a small summary at the end.
+
+### progress-bar
+
+This reporter outputs the real-time progress of a running InSpec profile using a progress bar and prints the running control's ID with an indicator of the control's status (`Passed`, `failed`, or `skipped`).
+
+For example:
+
+![Progress Bar Reporter showing outcome of tests in CLI output.](/images/inspec/reporter_outcome_progress_bar.png)
+
+And reporter outcome with `--enhanced-outcomes` option:
+
+![Progress Bar Reporter showing outcome of tests in CLI output with enhance output.](/images/inspec/reporter_outcome_progress_bar_enhanced_outcomes.png)
 
 ### yaml
 
 This reporter includes all information about the profiles and test results in standard yaml format.
-
-### documentation
-
-This reporter is a very minimal text base report. It shows you which tests passed by name and has a small summary at the end.
-
-### junit2
-
-This reporter outputs the standard JUnit spec in XML format and is recommended for all new users of JUnit.
-
-#### junit
-
-This legacy reporter outputs nonstandard JUnit XML and is provided only for backwards compatibility.
-
-### progress
-
-This reporter is very condensed and gives you a `.`(pass), `f`(fail), or `*`(skip) character per test and a small summary at the end.
-
-### json-rspec
-
-This reporter includes all information from the rspec runner. Unlike the json reporter this includes rspec specific details.
-
-### html
-
-This reporter is the legacy RSpec HTML reporter, which is retained for backwards compatibility. The report generated is not aware of profiles or controls, and only contains unsorted test information. Most users should migrate to the `html2` reporter for more complete data.
-
-### html2
-
-This reporter is an improved HTML reporter that contains full data about the structure of the profile, controls, and tests. The generated report renders HTML code for viewing your tests in a browser.
-
-The `html2` reporter requires no configuration to function. However, two options--`alternate_css_file` and `alternate_js_file`--are available for customization. The options are set in the JSON-formatted configuration file that Chef InSpec consumes. For details, see [our configuration file documentation](/inspec/config/).
-
-For example:
-
-```json
-{
-  "version": "1.2",
-  "plugins": {
-    "inspec-reporter-html2": {
-      "alternate_js_file":"/var/www/js/my-javascript.js",
-      "alternate_css_file":"/var/www/css/my-style.css"
-    }
-  }
-}
-```
-
-#### alternate_css_file
-
-Specifies the full path to the location of a CSS file that will be read and inlined into the HTML report. The default CSS will not be included.
-
-#### alternate_js_file
-
-Specifies the full path to the location of a JavaScript file that will be read and inlined into the HTML report. The default JavaScript will not be included. The JavaScript file should implement at least a `pageLoaded()` function, which will be called by the `onload` event of the HTML `body` element.
-
-## Automate Reporter
-
-The `automate` reporter type is a special reporter which will send its results over the network to [Chef Automate]({{< relref "/automate/">}}). To use this reporter you must pass in the correct configuration via a json config `--config`.
-
-Example config:
-
-```json
-{
-    "reporter": {
-        "automate" : {
-            "stdout" : false,
-            "url" : "https://YOUR_A2_URL/data-collector/v0/",
-            "token" : "YOUR_A2_ADMIN_TOKEN",
-            "insecure" : true,
-            "node_name" : "inspec_test_node",
-            "environment" : "prod"
-        }
-    }
-}
-```
-
-### Mandatory fields
-
-#### stdout
-
-This will either suppress or show the automate report in the CLI screen on completion
-
-#### url
-
-This is your Automate 2 url. Append `data-collector/v0/` at the end.
-
-#### token
-
-This is your Automate 2 token. You can generate this token by navigating to the admin tab of A2 and then api keys.
-
-### Optional fields
-
-#### insecure
-
-This will disable or enable the ssl check when accessing the Automate 2 instance.
-
-#### node_name
-
-This will be the node name which shows up in Automate.
-
-#### node_uuid
-
-This will be the node UUID which shows up in Chef Automate. Use a single static UUID
-per node for all your reports. You must specify a `node_uuid` in the Chef InSpec
-configuration file if running Chef InSpec outside of an audit cookbook or another
-environment where a `chef_guid` or `node_uuid` is already known to Chef InSpec.
-
-#### environment
-
-This will set the environment metadata for Automate.
-
-## JSON-Automate Reporter
-
-The `json-automate` reporter is a special reporter that prepares the data format used by the Automate reporter. `json-automate` does not communicate on the network; rather it simply produces the JSON report format that Automate would be consuming. Notably, the report is based on the `json` reporter, with the following modifications:
-
- * Controls that appear in child profiles are de-duplicated by ID, merging up into the parent profile.
- * Child profiles are deleted, flattening the report.
-
-The `json-automate` reporter is primarily used for internal needs, but some users may find it useful if they want a JSON based reporter that merges controls.

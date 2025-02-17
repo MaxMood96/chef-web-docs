@@ -19,9 +19,9 @@ Use the `interface` Chef InSpec audit resource to test basic network adapter pro
 
 ## Availability
 
-### Installation
+### Install
 
-This resource is distributed along with Chef InSpec itself. You can use it automatically.
+{{< readfile file="content/inspec/reusable/md/inspec_installation.md" >}}
 
 ### Version
 
@@ -96,7 +96,9 @@ The `speed` property tests the speed of the network interface, in MB/sec. Note: 
 
 ## Matchers
 
-For a full list of available matchers, please visit our [matchers page](/inspec/matchers/).
+{{< readfile file="content/inspec/reusable/md/inspec_matchers_link.md" >}}
+
+This resource has the following special matchers.
 
 ### be_up
 

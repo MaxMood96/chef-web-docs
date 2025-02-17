@@ -15,9 +15,9 @@ Use the `docker_service` Chef InSpec audit resource to verify a docker swarm ser
 
 ## Availability
 
-### Installation
+### Install
 
-This resource is distributed along with Chef InSpec itself. You can use it automatically.
+{{< readfile file="content/inspec/reusable/md/inspec_installation.md" >}}
 
 ### Version
 
@@ -29,7 +29,7 @@ A `docker_service` resource block declares the service by name:
 
     describe docker_service('foo') do
       it { should exist }
-      its('id') { should eq '2ghswegspre1' }
+      its('id') { should eq 'docker-service-id' }
       its('repo') { should eq 'alpine' }
       its('tag') { should eq 'latest' }
     end
@@ -38,7 +38,7 @@ A `docker_service` resource block declares the service by name:
 
 The resource allows you to pass in a service id:
 
-    describe docker_service(id: '2ghswegspre1') do
+    describe docker_service(id: 'docker-service-id') do
       ...
     end
 
@@ -56,7 +56,7 @@ The following examples show how to use Chef InSpec `docker_service` resource.
 
 The `id` property returns the service id:
 
-    its('id') { should eq '2ghswegspre1' }
+    its('id') { should eq 'docker-service-id' }
 
 ### image
 
@@ -104,14 +104,16 @@ The `tag` property tests the value of image tag:
 
     describe docker_service('foo') do
       it { should exist }
-      its('id') { should eq '2ghswegspre1' }
+      its('id') { should eq 'docker-service-id' }
       its('repo') { should eq 'alpine' }
       its('tag') { should eq 'latest' }
     end
 
 ## Matchers
 
-For a full list of available matchers, please visit our [matchers page](/inspec/matchers/).
+{{< readfile file="content/inspec/reusable/md/inspec_matchers_link.md" >}}
+
+This resource has the following special matchers.
 
 ### exist
 

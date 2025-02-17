@@ -22,12 +22,13 @@ Before upgrading a production server make sure to upgrade a test server to confi
 
 ## Upgrade Matrix
 
-If running a Chef Infra Server 12.17.15 or later you can upgrade directly to the latest releases of Chef Infra Server 14. If you are running a release before 12.17.15 you must perform a stepped upgrade as outlined below.
+If running a Chef Infra Server 12.17.15 or later you can upgrade directly to the latest releases of Chef Infra Server. If you are running a release before 12.17.15 you must perform a stepped upgrade as outlined below.
 
 | Running Version | Upgrade To Version | Requires License | Supported Version |
-|---------|---------|------|-----------|
-| 13 | 14 | Yes | Yes |
-| 12.17.15 | 14 | Yes | No |
+|---------|---------|------|-------------------|
+| 14 | 15 | Yes | Yes |
+| 13 | 15 | Yes | No |
+| 12.17.15 | 15 | Yes | No |
 | 12.3.0 | 12.17.15 | No | No |
 | 11 | 12.3.0 | No | No |
 
@@ -37,78 +38,17 @@ Requires License
 Supported Release
 : Chef Infra Server 14 and later are supported Chef Software releases. Earlier releases are not supported. For more information about supported Chef Software see the [Supported Versions]({{< relref "/versions#supported-commercial-distributions" >}}) documentation.
 
-## Release-Specific Steps
-
-### Upgrading to 14.x
-
-Chef Infra Server 14.0 moved from Solr to Elasticsearch as its search index.
-{{% server_upgrade_duration %}}
-
-The Chef Infra Server 14 upgrade does not automatically reindex existing external Elasticsearch installations.
-
-#### Upgrading to 14.8
-
-Chef Infra Server 14.8 upgrades PostgreSQL from 9.6 to 13.3. The 14.8 upgrade process requires a one-time downtime to vacuum, upgrade, and re-index the database. The entire upgrade operation takes about one minute for each 1000 nodes (1000 nodes is approximately 286MB). This process may take longer depending on your server hardware and the size of the node objects on your Chef Infra Server.
-
-{{< note >}}
-
-Set the `postgresql['pg_upgrade_timeout']` attribute in [chef-server.rb]({{< relref "config_rb_server_optional_settings" >}}) to the timeout value for the upgrade. Set this value based on the size of your data, where it take about one minute per 1,000 nodes which is approximately 286MB.
-
-{{</note >}}
-
-##### Database Preparation
-
-1. Run `VACUUM FULL` on the PostgreSQL database if you don't have automatic vacuuming set up. This process will reduce the size of the database by deleting unnecessary data and speeds up the migration. The `VACUUM FULL` operation takes around 1 to 2 minutes per gigabyte of data depending on the complexity of the data, and requires free disk space at least as large as the size of your database.
-
-    ```bash
-       sudo su - opscode-pgsql
-       /opt/opscode/embedded/bin/vacuumdb --all --full
-    ```
-
-   You should then see output like:
-
-    ```bash
-       vacuumdb: vacuuming database "bifrost"
-       vacuumdb: vacuuming database "oc_id"
-       vacuumdb: vacuuming database "opscode-pgsql"
-       vacuumdb: vacuuming database "opscode_chef"
-       vacuumdb: vacuuming database "postgres"
-       vacuumdb: vacuuming database "template1"
-    ```
-
-1. Back up the PostgreSQL database before upgrading so you can restore the full database to a previous release in the event of a failure. See [Backup and Restore]({{< relref "server_backup_restore" >}}) for more information.
-
-##### Upgrade Steps
-
-Follow the Chef Infra Server upgrade instructions below.
-
-{{< note >}}
-
-Estimates are based on an 8-core 32 GB memory (t3.2xlarge) AWS EC2 instance with 2 organizations and 3 users having 565,000+ nodes, 13,000+ cookbooks, 29,000+ databags, 274,000+ environments, and 281,000+ roles.
-
-{{</note >}}
-
-### Upgrading to 12.17.15
-
-{{< warning >}}
-Upgrade Chef Infra Server and any add-ons to compatible versions before setting `insecure_addon_compat` to `false`.
-{{< /warning >}}
-
-As of version 12.14, Chef Infra Server renders passwords inside of the `/etc/opscode` directory by default.
-If you are using Chef Infra Server without add-ons, or if you are using the latest add-ons versions, you can set `insecure_addon_compat` to `false` in `/etc/opscode/chef-server.rb.
-and Chef Infra Server will write all credentials to a single location.
-
-For more information on password generation, including a list of supported add-on versions, see [Chef Infra Server Credentials Management]({{< relref "server_security/#chef-infra-server-credentials-management" >}}).
-
-### Upgrading to 12.3.0
-
-If you are running a Chef Infra Server release before 12.3.0, please contact Chef Support for guidance on upgrading your Chef Infra Server installation.
-
-## Chef Infra Server 14 Upgrade Process
+## General Chef Infra Server Upgrade Process
 
 ### Standalone Server
 
-{{% server_upgrade_duration %}}
+{{< note >}}
+
+See the [Release-Specific Steps](#release-specific-steps) for information about upgrading specific versions of Chef Infra Server **before** starting the upgrade process.
+
+{{< /note >}}
+
+{{< readfile file="content/server/reusable/md/server_upgrade_duration.md" >}}
 
 1. Run `vacuumdb` before starting the upgrade:
 
@@ -148,7 +88,7 @@ If you are running a Chef Infra Server release before 12.3.0, please contact Che
 
    After performing the stepped upgrade to 12.17.15, continue with the next step.
 
-1. Download the desired Chef Infra Server version from the [Chef Infra Server Downloads](https://www.chef.io/downloads/tools/infra-server).
+1. Download the desired Chef Infra Server version from the [Chef Infra Server Downloads](https://www.chef.io/downloads).
 
 1. Stop the Chef Infra Server:
 
@@ -218,13 +158,9 @@ If you are running a Chef Infra Server release before 12.3.0, please contact Che
    reindexdb: reindexing database "template1"
    ```
 
+{{< readfile file="content/server/reusable/md/server_analyze_postgresql_db.md" >}}
+
 You are now finished with the upgrade.
-
-{{< note >}}
-
-Check the [post upgrade steps](#post-upgrade-steps) if you are upgrading from a version before Chef Infra Server 14.8 to a version greater than or equal to 14.8.
-
-{{</note >}}
 
 #### Upgrade Failure Troubleshooting
 
@@ -270,11 +206,15 @@ The following External PostgreSQL upgrade steps are provided as a courtesy only.
    apt-get update
    apt install ruby
    apt install make
-   curl -L https://chef.io/chef/install.sh | sudo bash -s -- -P chefdk
-   export PATH=$PATH:/root/.chefdk/gem/ruby/2.6.0/bin
+   curl -L https://chefdownload-commercial.chef.io/install.sh?license_id=<LICENSE_ID> | sudo bash -s -- -P chef-workstation
+   export PATH=$PATH:/root/.chef-workstation/gem/ruby/2.6.0/bin
    apt-get -y install gcc postgresql libpq-dev
-   /opt/chefdk/embedded/bin/gem install knife-ec-backup -- --with-pg-config=/opt/opscode/embedded/postgresql/9.6/bin/pg_config
+   /opt/chef-workstation/embedded/bin/gem install knife-ec-backup -- --with-pg-config=/opt/opscode/embedded/postgresql/9.6/bin/pg_config
    ```
+
+   Replace `<LICENSE_ID>` with your license ID.
+
+   For more information on the `install.sh` script, see the [Chef Install Script documentation](/chef_install_script/).
 
 1. Configure `knife` if it is not already configured. A sample session follows (again, note that your steps could differ, depending on a range of factors).
 
@@ -300,19 +240,19 @@ The following External PostgreSQL upgrade steps are provided as a courtesy only.
 
    ```bash
    mkdir /backup
-   /opt/chefdk/embedded/bin/knife ec backup /backup
+   /opt/chef-workstation/embedded/bin/knife ec backup /backup
    ```
 
 1. If you are running Chef Infra Server version 12.17.15 or greater, proceed to the next step below. Otherwise consult the [upgrade matrix](#upgrade-matrix) and perform a stepped upgrade.
 
-   If you are running a Chef Infra Server release before 12.17.15, you cannot upgrade directly to 14.8.X. You must perform a stepped upgrade first.
+   If you are running a Chef Infra Server release before 12.17.15, you cannot upgrade directly to the latest. You must perform a stepped upgrade first.
 
    - If you are running Chef Infra Server 12.3.0, upgrade to 12.17.15.
    - If you are running Chef Infra Server 11, you must first upgrade to 12.3.0, and then to 12.17.15.
 
    After performing the stepped upgrade, return here and continue with the next step below.
 
-1. [Download](https://www.chef.io/downloads/tools/infra-server) the desired version of Chef Infra Server.
+1. [Download](https://www.chef.io/downloads) the desired version of Chef Infra Server.
 
 1. Stop the Chef Infra Server:
 
@@ -471,6 +411,8 @@ The following External PostgreSQL upgrade steps are provided as a courtesy only.
    reindexdb: reindexing database "template1"
    ```
 
+{{< readfile file="content/server/reusable/md/server_analyze_postgresql_db.md" >}}
+
 1. Log into the Chef Infra Server machine.
 
 1. Check the status of Chef Infra Server. PostgreSQL should be connected.
@@ -513,7 +455,11 @@ The following External PostgreSQL upgrade steps are provided as a courtesy only.
 
 ### Chef Backend Install
 
-{{% EOL_backend %}}
+{{< warning >}}
+
+{{< readfile file="content/server/reusable/md/EOL_backend.md" >}}
+
+{{< /warning >}}
 
 The Chef Infra Server can operate in a high availability configuration that provides automated load balancing and failover for stateful components in the system architecture.
 
@@ -542,7 +488,7 @@ To upgrade to Chef Infra Server on a tiered Chef Infra Server configuration, do 
     chef-server-ctl reconfigure
     ```
 
-3. Download the desired Chef Infra Server version from the [Chef Infra Server Downloads](https://www.chef.io/downloads/tools/infra-server) page, then copy it to each server.
+3. Download the desired Chef Infra Server version from [Chef Downloads](https://www.chef.io/downloads), then copy it to each server.
 
 4. Stop all front end servers:
 
@@ -552,13 +498,13 @@ To upgrade to Chef Infra Server on a tiered Chef Infra Server configuration, do 
 
 5. Install the Chef Infra Server package on all servers:
 
-    To install with `dpkg`:
+   To install with `dpkg`:
 
     ```bash
     dpkg -i /path/to/chef-server-core-<version>.deb
     ```
 
-    To install with the RPM Package Manager:
+   To install with the RPM Package Manager:
 
     ```bash
     rpm -Uvh --nopostun /path/to/chef-server-core-<version>.rpm
@@ -576,7 +522,7 @@ To upgrade to Chef Infra Server on a tiered Chef Infra Server configuration, do 
     chef-server-ctl upgrade
     ```
 
-    To accept the license and upgrade in one command:
+   To accept the license and upgrade in one command:
 
     ```bash
     CHEF_LICENSE='accept' chef-server-ctl upgrade
@@ -587,25 +533,202 @@ To upgrade to Chef Infra Server on a tiered Chef Infra Server configuration, do 
     ```bash
     scp -r /etc/opscode <each server's IP>:/etc
     ```
-
-9. Upgrade each of the front end servers:
-
-    ```bash
-    chef-server-ctl upgrade
-    ```
-
-10. Run the following command on both the front end, and back end servers:
+   
+9. Run the following command on the back end servers:
 
     ```bash
     chef-server-ctl start
     ```
 
-11. [Upgrade]({{< relref "#upgrading-manage-add-on" >}}) any Chef Infra Server add-ons.
+10. Upgrade each of the front end servers:
 
-12. After the upgrade process is complete, test and verify that the server works.
+    ```bash
+    chef-server-ctl upgrade
+    ```
 
-13. Clean up the server by removing the old data:
+11. Run the following command on both the front end:
 
-   ```bash
-   chef-server-ctl cleanup
-   ```
+    ```bash
+    chef-server-ctl start
+    ```
+
+12. [Upgrade]({{< relref "#upgrading-manage-add-on" >}}) any Chef Infra Server add-ons.
+
+13. After the upgrade process is complete, test and verify that the server works.
+
+14. Clean up the server by removing the old data:
+
+```bash
+chef-server-ctl cleanup
+```
+
+## Release-Specific Steps
+
+### Upgrading to 15.5 or later (tiered installations only)
+
+The Chef Infra Server 15.5 upgrade from 15.0.X or later does not automatically reindex for  Tiered installations.
+{{< readfile file="content/server/reusable/md/server_upgrade_duration.md" >}}
+
+#### steps for reindex
+1. Run the below command on frontend server's
+```bash
+chef-server-ctl reindex
+```
+
+{{< note >}}
+
+`chef-server-ctl reindex` is a downtime operation.
+
+{{</note >}}
+
+Chef Infra Server 15.5 is the minimum recommended version for upgrade from older versions lessthan 15 for tiered installations.
+
+### Upgrading to 15.x
+
+Chef Infra Server 15.0 moved from Elasticsearch to OpenSearch as its search index.
+
+{{< readfile file="content/server/reusable/md/server_upgrade_duration.md" >}}
+
+The Chef Infra Server 15 will automatically transfer search data from Elasticsearch to OpenSearch without the need for a reindex. The Chef Infra Server 15 upgrade will need to manually reindex existing external Elasticsearch installations.
+
+The upgrade duration might take more time if you are upgrading from Chef Infra Server 12.x/13.x, as it automatically reindexes your database.
+
+### Upgrading to 14.x
+
+Chef Infra Server 14.0 moved from Solr to Elasticsearch as its search index.
+{{< readfile file="content/server/reusable/md/server_upgrade_duration.md" >}}
+
+The Chef Infra Server 14 upgrade does not automatically reindex existing external Elasticsearch installations.
+
+#### Upgrading to 14.14
+
+Chef Infra Server 14.14 supports external OpenSearch for indexing. Please follow the migration section below to migrate from Elasticsearch to external OpenSearch.
+
+#### Steps To Enable External OpenSearch
+
+1. Set the `elasticsearch['enable']` attribute to `false`.
+1. Set the `opensearch['external']` attribute to `true`.
+1. Set the `opensearch['external_url']` attribute to the external OpenSearch URL.
+1. Set the `opscode_erchef['search_queue_mode']` attribute to `batch`.
+1. Set the `opscode_erchef['search_provider']` attribute to `opensearch`.
+1. Set the `opscode_erchef['search_auth_username']` attribute to OpenSearch username.
+1. Set the `opscode_erchef['search_auth_password']` attribute to OpenSearch password.
+
+For example:
+
+```bash
+elasticsearch['enable'] = false
+opscode_erchef['search_queue_mode'] = 'batch'
+opscode_erchef['search_provider'] = 'opensearch'
+opensearch['external'] = true
+opensearch['external_url'] = "http://127.0.0.1:9200"
+opscode_erchef['search_auth_username'] = "OPEN_SEARCH_USER"
+opscode_erchef['search_auth_password'] = "OPEN_SEARCH_PWD"
+```
+
+{{< note >}}
+
+The OpenSearch user should have full access to the cluster, including access to all cluster-wide operations and the ability to write to all indices. We recommend that the user has the admin backend role. 
+
+Please refer to OpenSearch's documentation on [predefined roles](https://opensearch.org/docs/latest/security-plugin/access-control/users-roles/#predefined-roles) and [role mapping configuration](https://opensearch.org/docs/latest/security-plugin/configuration/yaml#roles_mappingyml).
+
+This user must be created on the external OpenSearch cluster. The Chef Infra Server executable cannot be used to create this user on external OpenSearch setups.
+{{</note >}}
+
+#### Steps To Migrate from Elasticsearch to External OpenSearch
+
+There are two ways to migrate from Elasticsearch to external OpenSearch: migrating your data, or reindexing and reconfiguring your database.
+
+We recommend migrating your data over reindexing and reconfiguring.
+
+**Migrate Data**
+
+Copy or move your Elasticsearch OSS data and logs directories to the newly installed OpenSearch paths. See OpenSearch's [documentation on upgrading to OpenSearch](https://opensearch.org/docs/latest/upgrade-to/upgrade-to/#upgrade-to-opensearch). 
+
+**Reindex and Reconfigure**
+
+Reindex and reconfigure your database after upgrading to Chef Infra Server 14.13. The duration of this operation will vary depending on your server hardware and the number of node objects on your Chef Infra Server. 
+
+Use the Chef Infra Server command-line tool to reindex and reconfigure your database:
+
+```bash
+chef-server-ctl reindex
+chef-server-ctl reconfigure
+```
+
+#### Upgrading to 14.8
+
+Chef Infra Server 14.8 upgrades PostgreSQL from 9.6 to 13.3. The 14.8 upgrade process requires a one-time downtime to vacuum, upgrade, and re-index the database. The entire upgrade operation takes about one minute for each 1000 nodes (1000 nodes is approximately 286MB). This process may take longer depending on your server hardware and the size of the node objects on your Chef Infra Server.
+
+{{< note >}}
+
+Set the `postgresql['pg_upgrade_timeout']` attribute in [chef-server.rb]({{< relref "config_rb_server_optional_settings" >}}) to the timeout value for the upgrade. Set this value based on the size of your data, where it take about one minute per 1,000 nodes which is approximately 286MB.
+
+{{</note >}}
+
+#### Upgrading to 14.16
+
+Chef Infra Server 14.16 includes a bug fix for the bifrost database. This bug may create unused authorization IDs in the bifrost database. After upgrading to Chef Infra Server 14.16, the unused authorization IDs must be manually deleted.
+
+To analyze the data that gets deleted and get an estimate of the time needed to delete the data, run:
+
+```bash
+chef-server-ctl cleanup-bifrost --estimate-only
+```
+
+To delete the unused authorization IDs from the bifrost database, run:
+
+
+```bash
+chef-server-ctl cleanup-bifrost
+```
+
+##### Database Preparation
+
+1. Run `VACUUM FULL` on the PostgreSQL database if you don't have automatic vacuuming set up. This process will reduce the size of the database by deleting unnecessary data and speeds up the migration. The `VACUUM FULL` operation takes around 1 to 2 minutes per gigabyte of data depending on the complexity of the data, and requires free disk space at least as large as the size of your database.
+
+    ```bash
+       sudo su - opscode-pgsql
+       /opt/opscode/embedded/bin/vacuumdb --all --full
+    ```
+
+   You should then see output like:
+
+    ```bash
+       vacuumdb: vacuuming database "bifrost"
+       vacuumdb: vacuuming database "oc_id"
+       vacuumdb: vacuuming database "opscode-pgsql"
+       vacuumdb: vacuuming database "opscode_chef"
+       vacuumdb: vacuuming database "postgres"
+       vacuumdb: vacuuming database "template1"
+    ```
+
+{{< readfile file="content/server/reusable/md/server_analyze_postgresql_db.md" >}}
+
+1. Back up the PostgreSQL database before upgrading so you can restore the full database to a previous release in the event of a failure. See [Backup and Restore]({{< relref "server_backup_restore" >}}) for more information.
+
+##### Upgrade Steps
+
+Follow the Chef Infra Server upgrade instructions below.
+
+{{< note >}}
+
+Estimates are based on an 8-core 32 GB memory (t3.2xlarge) AWS EC2 instance with 2 organizations and 3 users having 565,000+ nodes, 13,000+ cookbooks, 29,000+ databags, 274,000+ environments, and 281,000+ roles.
+
+{{</note >}}
+
+### Upgrading to 12.17.15
+
+{{< warning >}}
+Upgrade Chef Infra Server and any add-ons to compatible versions before setting `insecure_addon_compat` to `false`.
+{{< /warning >}}
+
+As of version 12.14, Chef Infra Server renders passwords inside of the `/etc/opscode` directory by default.
+If you are using Chef Infra Server without add-ons, or if you are using the latest add-ons versions, you can set `insecure_addon_compat` to `false` in `/etc/opscode/chef-server.rb.
+and Chef Infra Server will write all credentials to a single location.
+
+For more information on password generation, including a list of supported add-on versions, see [Chef Infra Server Credentials Management]({{< relref "server_security/#chef-infra-server-credentials-management" >}}).
+
+### Upgrading to 12.3.0
+
+If you are running a Chef Infra Server release before 12.3.0, please contact Chef Support for guidance on upgrading your Chef Infra Server installation.

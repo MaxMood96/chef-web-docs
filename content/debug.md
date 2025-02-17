@@ -23,7 +23,7 @@ Ideally, the best way to debug a recipe is to not have to debug it in the first 
 
 ## Basic
 
-Some simple ways to quickly identify common issues that can trigger recipe and/or Chef Infra Client run failures include:
+Some simple ways to identify common issues that can trigger recipe and/or Chef Infra Client run failures include:
 
 * Using an empty run-list
 * Using verbose logging with knife
@@ -32,11 +32,11 @@ Some simple ways to quickly identify common issues that can trigger recipe and/o
 
 ### Empty Run-lists
 
-{{% node_run_list_empty %}}
+{{< readfile file="content/reusable/md/node_run_list_empty.md" >}}
 
 ### Knife
 
-Use the verbose logging that is built into knife:
+Use the verbose logging that's built into knife:
 
 `-V`, `--verbose`
 
@@ -44,17 +44,17 @@ Use the verbose logging that is built into knife:
 
 {{< note >}}
 
-Plugins do not always support verbose logging.
+Plugins don't always support verbose logging.
 
 {{< /note >}}
 
 ### Chef Infra Client
 
-Use the verbose logging that is built into Chef Infra Client:
+Use the verbose logging that's built into Chef Infra Client:
 
 `-l LEVEL`, `--log_level LEVEL`
 
-: The level of logging to be stored in a log file. Possible levels: `auto` (default), `debug`, `error`, `fatal`, `info`, `trace`, or `warn`. Default value: `warn` (when a terminal is available) or `info` (when a terminal is not available).
+: The level of logging to be stored in a log file. Possible levels: `auto` (default), `debug`, `error`, `fatal`, `info`, `trace`, or `warn`. Default value: `warn` (when a terminal is available) or `info` (when a terminal isn't available).
 
 `-L LOGLOCATION`, `--logfile c`
 
@@ -62,42 +62,70 @@ Use the verbose logging that is built into Chef Infra Client:
 
 ### log Resource
 
-{{% resource_log_summary %}}
+Use the **log** resource to create log entries. The **log** resource
+behaves like any other resource: built into the resource collection
+during the compile phase, and then run during the execution phase. (To
+create a log entry that isn't built into the resource collection, use
+`Chef::Log` instead of the **log** resource.)
+
+{{< note >}}
+
+By default, every log resource that executes will count as an updated
+resource in the updated resource count at the end of a Chef run. You can
+disable this behavior by adding `count_log_resource_updates false` to
+your Chef `client.rb` configuration file.
+
+{{< /note >}}
 
 New in 12.0, `-o RUN_LIST_ITEM`. Changed in 12.0 `-f` no longer allows unforked intervals, `-i SECONDS` is applied before a Chef Infra Client run.
 
 #### Syntax
 
-{{% resource_log_syntax %}}
+{{< readfile file="content/reusable/md/resource_log_syntax.md" >}}
 
 #### Actions
 
-{{% resource_log_actions %}}
+The log resource has the following actions:
+
+`:nothing`
+
+:   {{< readfile file="content/reusable/md/resources_common_actions_nothing.md" >}}
+
+`:write`
+
+:   Default. Write to log.
 
 #### Properties
 
-{{% resource_log_properties %}}
+{{< readfile file="content/reusable/md/resource_log_properties.md" >}}
 
 #### Examples
 
 The following examples demonstrate various approaches for using
 resources in recipes:
 
-##### Specify a log entry
+##### Specify a Log Entry
 
-{{% resource_log_set_info %}}
+```ruby
+log 'a string to log'
+```
 
 ##### Set debug logging level
 
-{{% resource_log_set_debug %}}
+{{< readfile file="content/reusable/md/resource_log_set_debug.md" >}}
 
 ##### Create log entry when the contents of a data bag are used
 
-{{% resource_log_set_debug %}}
+{{< readfile file="content/reusable/md/resource_log_set_debug.md" >}}
 
 ##### Add a message to a log file
 
-{{% resource_log_add_message %}}
+```ruby
+log 'message' do
+  message 'This is the message that will be added to the log.'
+  level :info
+end
+```
 
 ## Advanced
 
@@ -106,57 +134,82 @@ include:
 
 * Using the **chef_handler** resource
 * Using the chef-shell and the **breakpoint** resource to add breakpoints to recipes, and to then step through the recipes using the breakpoints
-* Using the `debug_value` method from chef-shell to identify the location(s) from which attribute values are being set
+* Using the `debug_value` method from chef-shell to identify the locations from which attribute values are being set
 * Using the `ignore_failure` method in a recipe to force Chef Infra Client to move past an error to see what else is going on in the recipe, outside of a known failure
 * Using chef-solo to run targeted Chef Infra Client runs for specific scenarios
 
 ### chef_handler
 
-{{% handler %}}
+{{< readfile file="content/reusable/md/handler.md" >}}
 
-{{% handler_types %}}
+{{< readfile file="content/reusable/md/handler_types.md" >}}
 
 Read more [about exception, report, and start handlers](/handlers/).
 
 ### chef-shell
 
-{{% chef_shell_summary %}}
+{{< readfile file="content/reusable/md/chef_shell_summary.md" >}}
 
-{{% chef_shell_modes %}}
+{{< readfile file="content/reusable/md/chef_shell_modes.md" >}}
 
 #### Configure
 
-{{% chef_shell_config %}}
+{{< readfile file="content/reusable/md/chef_shell_config.md" >}}
 
 #### chef-shell.rb
 
-{{% chef_shell_config_rb %}}
+{{< readfile file="content/reusable/md/chef_shell_config_rb.md" >}}
 
 #### Run as a Chef Infra Client
 
-{{% chef_shell_run_as_chef_client %}}
+{{< readfile file="content/reusable/md/chef_shell_run_as_chef_client.md" >}}
 
 #### Manage
 
-{{% chef_shell_manage %}}
+{{< readfile file="content/reusable/md/chef_shell_manage.md" >}}
 
 ### breakpoint Resource
 
-{{% chef_shell_breakpoints %}}
+{{< readfile file="content/reusable/md/chef_shell_breakpoints.md" >}}
 
-{{% resource_breakpoint_summary %}}
+Use the **breakpoint** resource to add breakpoints to recipes. Run the
+chef-shell in Chef Infra Client mode, and then use those breakpoints to
+debug recipes. Breakpoints are ignored by Chef Infra Client during an
+actual Chef Infra Client run. That said, breakpoints are typically used
+to debug recipes only when running them in a non-production environment,
+after which they're removed from those recipes before the parent
+cookbook is uploaded to the Chef Infra Server.
 
 #### Syntax
 
-{{% resource_breakpoint_syntax %}}
+A **breakpoint** resource block creates a breakpoint in a recipe:
+
+```ruby
+breakpoint 'name' do
+  action :break
+end
+```
+
+where
+
+`:break` will tell Chef Infra Client to stop running a recipe; can
+only be used when Chef Infra Client is being run in chef-shell mode
 
 #### Actions
 
-{{% resource_breakpoint_actions %}}
+The breakpoint resource has the following actions:
+
+`:break`
+
+:   Use to add a breakpoint to a recipe.
+
+`:nothing`
+
+:   {{< readfile file="content/reusable/md/resources_common_actions_nothing.md" >}}
 
 #### Attributes
 
-{{% resource_breakpoint_properties %}}
+This resource doesn't have any properties.
 
 #### Examples
 
@@ -164,23 +217,71 @@ The following examples demonstrate various approaches for using resources in rec
 
 ##### A recipe without a breakpoint
 
-{{% resource_breakpoint_no %}}
+```ruby
+yum_key node['yum']['elrepo']['key'] do
+  url  node['yum']['elrepo']['key_url']
+  action :add
+end
+
+yum_repository 'elrepo' do
+  description 'ELRepo.org Community Enterprise Linux Extras Repository'
+  key node['yum']['elrepo']['key']
+  mirrorlist node['yum']['elrepo']['url']
+  includepkgs node['yum']['elrepo']['includepkgs']
+  exclude node['yum']['elrepo']['exclude']
+  action :create
+end
+```
 
 ##### The same recipe with breakpoints
 
-{{% resource_breakpoint_yes %}}
+```ruby
+breakpoint "before yum_key node['yum']['repo_name']['key']" do
+  action :break
+end
+
+yum_key node['yum']['repo_name']['key'] do
+  url  node['yum']['repo_name']['key_url']
+  action :add
+end
+
+breakpoint "after yum_key node['yum']['repo_name']['key']" do
+  action :break
+end
+
+breakpoint "before yum_repository 'repo_name'" do
+  action :break
+end
+
+yum_repository 'repo_name' do
+  description 'description'
+  key node['yum']['repo_name']['key']
+  mirrorlist node['yum']['repo_name']['url']
+  includepkgs node['yum']['repo_name']['includepkgs']
+  exclude node['yum']['repo_name']['exclude']
+  action :create
+end
+
+breakpoint "after yum_repository 'repo_name'" do
+  action :break
+end
+```
+
+where the name of each breakpoint is an arbitrary string. In the
+previous examples, the names are used to indicate if the breakpoint is
+before or after a resource, and then also to specify which resource.
 
 ### Step Through Run-list
 
-{{% chef_shell_step_through_run_list %}}
+{{< readfile file="content/reusable/md/chef_shell_step_through_run_list.md" >}}
 
 ### Debug Existing Recipe
 
-{{< readFile_shortcode file="chef_shell_debug_existing_recipe.md" >}}
+{{< readfile file="content/reusable/md/chef_shell_debug_existing_recipe.md" >}}
 
 ### Advanced Debugging
 
-{{< readFile_shortcode file="chef_shell_advanced_debug.md" >}}
+{{< readfile file="content/reusable/md/chef_shell_advanced_debug.md" >}}
 
 ### debug_value
 
@@ -207,7 +308,7 @@ override[:test][:source] = 'attributes override'
 
 To debug the location in which the value of `node[:test][:source]` is set, use chef-shell and run a command similar to:
 
-```none
+```ruby
 pp node.debug_value('test', 'source')
 ```
 
@@ -231,36 +332,21 @@ where
 
 * `set_unless_enabled` indicates if the attribute collection is in `set_unless` mode; this typically returns `false`
 * Each attribute type is listed in order of precedence
-* Each attribute value shown is the value that is set for that precedence level
+* Each attribute value shown is the value that's set for that precedence level
 * `:not_present` is shown for any attribute precedence level that has no attributes
 
-### ignore_failure Method
+### ignore_failure method
 
-All resources share a set of common actions, attributes, and so on. Use the following attribute in a resource to help identify where an issue within a recipe may be located:
+All resources share a set of common actions, attributes, and other properties. Use the following attribute in a resource to help identify where an issue within a recipe may be located:
 
-<table>
-<colgroup>
-<col style="width: 12%" />
-<col style="width: 87%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Attribute</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>ignore_failure</code></td>
-<td>Continue running a recipe if a resource fails for any reason. Default value: <code>false</code>.</td>
-</tr>
-</tbody>
-</table>
+| Attribute      | Description                                                                           |
+|----------------|---------------------------------------------------------------------------------------|
+| ignore_failure | Continue running a recipe if a resource fails for any reason. Default value: `false`. |
 
 ### chef-solo
 
 See [chef-solo (executable)](/ctl_chef_solo/) for complete CTL documentation.
 
-{{% chef_solo_summary %}}
+{{< readfile file="content/reusable/md/chef_solo_summary.md" >}}
 
 See [chef-solo (executable)](/ctl_chef_solo/) for complete CTL documentation.

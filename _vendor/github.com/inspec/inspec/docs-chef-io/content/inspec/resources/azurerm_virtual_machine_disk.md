@@ -11,6 +11,8 @@ platform = "azure"
     parent = "inspec/resources/azure"
 +++
 
+{{< inspec/azurerm_deprecated resource="azure_virtual_machine_disk" >}}
+
 Use the `azurerm_virtual_machine_disk` InSpec audit resource to test properties related to
 a virtual machine's disk. This resource will only support managed disks. If your disk is
 not managed it will not `exist` to the matcher.
@@ -27,7 +29,7 @@ version.
 
 ## Availability
 
-### Installation
+### Install
 
 This resource is available in the `inspec-azure` [resource
 pack](/inspec/glossary/#resource-pack). To use it, add the
@@ -165,9 +167,9 @@ requests are always welcome.
 
 ## Matchers
 
-This InSpec audit resource has the following special matchers. For a full list of
-available matchers, please visit our [Universal Matchers
-page](/inspec/matchers/).
+{{< readfile file="content/inspec/reusable/md/inspec_matchers_link.md" >}}
+
+This resource has the following special matchers.
 
 ### exists
 

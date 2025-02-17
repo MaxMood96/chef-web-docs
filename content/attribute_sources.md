@@ -10,14 +10,14 @@ draft = false
 +++
 <!-- markdownlint-disable-file MD036 -->
 
-Chef Infra Client evaluates attributes in the order that they are defined in the
+Chef Infra Client evaluates attributes in the order that they're defined in the
 run-list, including any attributes that are in the run-list as
 cookbook dependencies.
 
 Attributes are provided to Chef Infra Client from the following
 locations:
 
-- JSON files passed via the `chef-client -j`
+- JSON files passed using the `chef-client -j`
 - Nodes (collected by Ohai at the start of each Chef Infra Client run)
 - Attribute files (in cookbooks)
 - Recipes (in cookbooks)
@@ -36,7 +36,7 @@ Notes:
 - Chef Infra Client will pull down the node object from the Chef Infra
     Server and then reset all the attributes except `normal`. The node
     object will contain the attribute data from the previous Chef Infra
-    Client run including attributes set with JSON files via `-j`.
+    Client run including attributes set with JSON files using `-j`.
 - Chef Infra Client will update the cookbooks on the node (if
     required), which updates the attributes contained in attribute files
     and recipes
@@ -51,9 +51,9 @@ Notes:
 
 ## Automatic Attributes (Ohai)
 
-{{% ohai_automatic_attribute %}}
+{{< readfile file="content/reusable/md/ohai_automatic_attribute.md" >}}
 
-{{% ohai_attribute_list %}}
+{{< readfile file="content/reusable/md/ohai_attribute_list.md" >}}
 
 ## Attribute Files
 
@@ -79,15 +79,32 @@ node.default['apache']['dir']          = '/etc/apache2'
 node.default['apache']['listen_ports'] = [ '80','443' ]
 ```
 
-{{% node_attribute_when_to_use_unless_variants %}}
+Another (much less common) approach is to set a value only if an
+attribute has no value. This can be done by using the `_unless` variants
+of the attribute priority methods:
 
-**File Methods**
+- `default_unless`
+- `normal_unless`
 
-{{% cookbooks_attribute_file_methods %}}
+Use the `_unless` variants carefully (and only when necessary) because
+when they're used, attributes applied to nodes may become out of sync
+with the values in the cookbooks as these cookbooks are updated. This
+approach can create situations where two otherwise identical nodes end
+up having slightly different configurations and can also be a challenge
+to debug.
 
-**attribute?**
+### File Methods
 
-A useful method that is related to attributes is the `attribute?`
+Use the following methods within the attributes file for a cookbook or within a recipe. These methods correspond to the attribute type of the same name:
+
+- `override`
+- `default`
+- `normal`
+- `_unless`
+
+### attribute?
+
+A useful method that's related to attributes is the `attribute?`
 method. This method will check for the existence of an attribute, so
 that processing can be done in an attributes file or recipe, but only if
 a specific attribute exists.
@@ -110,18 +127,18 @@ end
 
 ## Attributes from Recipes
 
-{{% cookbooks_recipe %}}
+{{< readfile file="content/reusable/md/cookbooks_recipe.md" >}}
 
-{{% cookbooks_attribute %}}
+{{< readfile file="content/reusable/md/cookbooks_attribute.md" >}}
 
 ## Attributes from Roles
 
-{{% role %}}
+{{< readfile file="content/reusable/md/role.md" >}}
 
-{{% role_attribute %}}
+{{< readfile file="content/reusable/md/role_attribute.md" >}}
 
 ## Attributes from Environments
 
-{{% environment %}}
+{{< readfile file="content/reusable/md/environment.md" >}}
 
-{{% environment_attribute %}}
+{{< readfile file="content/reusable/md/environment_attribute.md" >}}

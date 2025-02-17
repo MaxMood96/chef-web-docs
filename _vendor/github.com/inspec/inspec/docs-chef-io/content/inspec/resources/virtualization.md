@@ -15,9 +15,9 @@ Use the `virtualization` Chef InSpec audit resource to test the virtualization p
 
 ## Availability
 
-### Installation
+### Install
 
-This resource is distributed along with Chef InSpec itself. You can use it automatically.
+{{< readfile file="content/inspec/reusable/md/inspec_installation.md" >}}
 
 ### Version
 
@@ -64,7 +64,9 @@ The following examples show how to use this Chef InSpec audit resource.
 
 ## Matchers
 
-For a full list of available matchers, please visit our [matchers page](/inspec/matchers/).
+{{< readfile file="content/inspec/reusable/md/inspec_matchers_link.md" >}}
+
+This resource has the following special matchers.
 
 ### virtualization.virtual_system? Helper
 
@@ -72,7 +74,7 @@ This helper returns, if any of the supported virtualization platforms was detect
 
 ### virtualization.physical_system? Helper
 
-If no virtualization platform is detected, this will return `true`. For unsupported virtualization platforms this can result in false posititves.
+If no virtualization platform is detected, this will return `true`. For unsupported virtualization platforms this can result in false positives.
 
 ### virtualization.system names
 

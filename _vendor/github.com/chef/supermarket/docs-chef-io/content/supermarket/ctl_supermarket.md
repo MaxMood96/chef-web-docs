@@ -12,7 +12,11 @@ aliases = ["/ctl_supermarket.html", "/ctl_supermarket/"]
     weight = 10
 +++
 
-{{% ctl_supermarket_summary %}}
+The Chef Supermarket installations that are done using the Chef
+installer include a command-line utility named supermarket-ctl. This
+command-line tool is used to start and stop individual services,
+reconfigure the Chef Supermarket server, run smoke tests, and tail the
+Chef Supermarket log files.
 
 ## make-admin
 
@@ -184,7 +188,7 @@ supermarket-ctl help
 
 ### reconfigure
 
-The `reconfigure` subcommand is used when changes are made to the supermarket.rb file to reconfigure the server. When changes are made to the supermarket.rb file, they will not be applied to the Chef Supermarket configuration until after this command is run. This subcommand will also restart any services for which the `service_name['enabled']` setting is set to `true`.
+The `reconfigure` subcommand is used when changes are made to the `supermarket.rb` file to reconfigure the server. When changes are made to the `supermarket.rb` file, they will not be applied to the Chef Supermarket configuration until after this command is run. This subcommand will also restart any services for which the `service_name['enable']` setting is set to `true`.
 
 This subcommand has the following syntax:
 
@@ -220,7 +224,7 @@ To revert the `uninstall` subcommand, run the `reconfigure` subcommand (because 
 
 ## Service Subcommands
 
-{{% ctl_common_service_subcommands %}}
+{{< readfile file="content/server/reusable/md/ctl_common_service_subcommands.md" >}}
 
 ### hup
 

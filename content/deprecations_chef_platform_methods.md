@@ -12,8 +12,8 @@ Several methods under `Chef::Platform` that were previously public APIs
 to control resolution of provider classes were replaced by the dynamic
 `Chef::ProviderResolver` work and the `provides` keyword.
 
-This deprecation warning was added in Chef Client 12.18.x, and using
-these APIs will become a hard error in Chef Client 13.
+This deprecation warning was added in Chef Infra Client 12.18.x, and using
+these APIs will become a hard error in Chef Infra Client 13.
 
 ## Remediation
 
@@ -43,8 +43,8 @@ As the internal resources and providers in core chef have been ported
 over to use the `Chef::ProviderResolver` dynamic resolution the use of
 the old Chef::Platform class methods have actually been broken. Tools
 like `chefspec` and `chef-minitest-handler` were ported over to the new
-APIs in Chef Client 12.0. The `Chef::Resource#provider_for_action` API
-dates back to before Chef Client 11.0.0 and is fully backwards
+APIs in Chef Infra Client 12.0. The `Chef::Resource#provider_for_action` API
+dates back to before Chef Infra Client 11.0.0 and is fully backwards
 compatible, any remaining code using the old APIs should be exceedingly
 buggy at this point.
 
@@ -64,7 +64,7 @@ provides :mysql_service, platform: "fedora", platform_version: ">= 19"
 ```
 
 This can also be directly sent to the provider class in library code,
-although this form is less encouraged (which does not mean the same
+although this form is less encouraged (which doesn't mean the same
 thing as discouraged -- but you gain better code organization with the
 prior code):
 
@@ -72,21 +72,21 @@ prior code):
 Chef::Provider::MysqlSserviceSystemd.provides :mysql_service, platform: "fedora", platform_version: ">= 19"
 ```
 
-The `provides` API on providers is only supported in Chef Client 12.0 or
+The `provides` API on providers is only supported in Chef Infra Client 12.0 or
 later. This change will create a hard backwards compatibility break
-between Chef Client 13 and Chef Client 11 without the cookbook doing the
+between Chef Infra Client 13 and Chef Infra Client 11 without the cookbook doing the
 work to check the Chef::VERSION and switch between these APIs. This API
-is supported back to Chef Client 12.0, although some more advanced forms
-of the `provides` syntax were only introduced in Chef Client 12.5.1.
+is supported back to Chef Infra Client 12.0, although some more advanced forms
+of the `provides` syntax were only introduced in Chef Infra Client 12.5.1.
 
 Also you may have found this web page due to deprecation of
-library-based resources and providers that do not declare provides in
+library-based resources and providers that don't declare provides in
 which case your Chef Infra Client run is likely full of a compilation of
 warnings and deprecations:
 
-```none
-* foo[it] action doit[2016-12-07T14:28:59-08:00] WARN: Class Chef::Provider::Foo does not declare 'provides :foo'.
-  [2016-12-07T14:28:59-08:00] WARN: This will no longer work in Chef Client 13: you must use 'provides' to use the resource's DSL.
+```plain
+* foo[it] action doit[2016-12-07T14:28:59-08:00] WARN: Class Chef::Provider::Foo doesn't declare 'provides :foo'.
+  [2016-12-07T14:28:59-08:00] WARN: This will no longer work in Chef Infra Client 13: you must use 'provides' to use the resource's DSL.
   (up to date)
 
 Running handlers:
@@ -105,7 +105,7 @@ Class.find is deprecated at 1 location:
 ```
 
 In this case, the initial warning that
-`Class Chef::Provider::Foo does not declare 'provides :foo'` is accurate
+`Class Chef::Provider::Foo doesn't declare 'provides :foo'` is accurate
 and gives the remediation.
 
 Code that looks like this:

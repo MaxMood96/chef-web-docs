@@ -11,12 +11,14 @@ platform = "azure"
     parent = "inspec/resources/azure"
 +++
 
+{{< inspec/azurerm_deprecated resource="azure_mysql_servers" >}}
+
 Use the `azurerm_mysql_servers` InSpec audit resource to test properties and configuration of multiple Azure MySQL Servers.
 
 ## Azure REST API version
 
 This resource interacts with version `2017-12-01` of the Azure Management API. For more
-information see the [Official Azure Documentation](https://docs.microsoft.com/en-us/rest/api/mysql/servers/list).
+information see the [Official Azure Documentation](https://docs.microsoft.com/en-us/rest/api/sql/2020-08-01-preview/servers/list).
 
 At the moment, there doesn't appear to be a way to select the version of the
 Azure API docs. If you notice a newer version being referenced in the official
@@ -25,7 +27,7 @@ version.
 
 ## Availability
 
-### Installation
+### Install
 
 This resource is available in the `inspec-azure` [resource
 pack](/inspec/glossary/#resource-pack). To use it, add the
@@ -129,8 +131,9 @@ The type of Resource, typically `Microsoft.DBforMySQL/servers`.
 
 ## Matchers
 
-This InSpec audit resource has the following special matchers. For a full list of available matchers,
-please visit our [Universal Matchers page](/inspec/matchers/).
+{{< readfile file="content/inspec/reusable/md/inspec_matchers_link.md" >}}
+
+This resource has the following special matchers.
 
 ### exists
 

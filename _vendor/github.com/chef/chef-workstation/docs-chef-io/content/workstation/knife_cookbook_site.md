@@ -12,8 +12,9 @@ aliases = ["/knife_cookbook_site.html", "/knife_cookbook_site/"]
     identifier = "chef_workstation/chef_workstation_tools/knife/knife_cookbook_site.md knife cookbook site"
     parent = "chef_workstation/chef_workstation_tools/knife"
 +++
+<!-- markdownlint-disable-file MD024 MD036 -->
 
-{{% supermarket_api_summary %}}
+{{< readfile file="/content/supermarket/reusable/md/supermarket_api_summary.md" >}}
 
 Use the `knife cookbook site` subcommand to interact with cookbooks that
 are available in the [Chef Supermarket](https://supermarket.chef.io/). A
@@ -30,13 +31,13 @@ supermarket](/workstation/knife_supermarket/) command.
 
 {{< warning >}}
 
-{{% notes_knife_cookbook_site_use_devkit_berkshelf %}}
+{{< readfile file="content/workstation/reusable/md/notes_knife_cookbook_site_use_devkit_berkshelf.md" >}}
 
 {{< /warning >}}
 
 {{< note >}}
 
-{{% knife_common_see_common_options_link %}}
+{{< readfile file="content/workstation/reusable/md/knife_common_see_common_options_link.md" >}}
 
 {{< /note >}}
 
@@ -92,7 +93,7 @@ This argument has the following options:
 
 {{< note >}}
 
-{{% knife_common_see_all_config_options %}}
+{{< readfile file="content/workstation/reusable/md/knife_common_see_all_config_options.md" >}}
 
 {{< /note >}}
 
@@ -174,7 +175,7 @@ This argument has the following options:
 
 {{< note >}}
 
-{{% knife_common_see_all_config_options %}}
+{{< readfile file="content/workstation/reusable/md/knife_common_see_all_config_options.md" >}}
 
 {{< /note >}}
 
@@ -308,7 +309,7 @@ The following examples show how to use this knife subcommand:
 
 **Search for cookbooks**
 
-To search for all of the cookbooks that can be used with Apache, enter:
+To search for the cookbooks that can be used with Apache, enter:
 
 ``` bash
 knife cookbook site search 'apache*'
@@ -369,7 +370,7 @@ This argument has the following options:
 
 {{< note >}}
 
-{{% knife_common_see_all_config_options %}}
+{{< readfile file="content/workstation/reusable/md/knife_common_see_all_config_options.md" >}}
 
 {{< /note >}}
 

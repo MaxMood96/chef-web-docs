@@ -15,9 +15,9 @@ Use the `iis_app` Chef InSpec audit resource to test the state of IIS on Windows
 
 ## Availability
 
-### Installation
+### Install
 
-This resource is distributed along with Chef InSpec itself. You can use it automatically.
+{{< readfile file="content/inspec/reusable/md/inspec_installation.md" >}}
 
 ### Version
 
@@ -70,7 +70,7 @@ For example:
 
 `physical_path` property returns the physical path of the application, such as `'C:\\inetpub\\wwwroot\\myapp'`.
 
-    its('phyiscal_path') { should eq 'C:\\inetpub\\wwwroot\\myapp' }
+    its('physical_path') { should eq 'C:\\inetpub\\wwwroot\\myapp' }
 
 ### protocols
 
@@ -106,7 +106,9 @@ For example:
 
 ## Matchers
 
-For a full list of available matchers, please visit our [matchers page](/inspec/matchers/).
+{{< readfile file="content/inspec/reusable/md/inspec_matchers_link.md" >}}
+
+This resource has the following special matchers.
 
 ### exist
 

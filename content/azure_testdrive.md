@@ -14,11 +14,11 @@ product = ["client", "workstation", "automate"]
     weight = 10
 +++
 
-{{% azure_marketplace %}}
+{{< readfile file="content/reusable/md/azure_marketplace.md" >}}
 
-{{% workstation %}}
+{{< readfile file="content/reusable/md/workstation.md" >}}
 
-{{% automate_ha_support %}}
+{{< readfile file="content/reusable/md/automate_ha_support.md" >}}
 
 ## Test Drive
 
@@ -34,12 +34,12 @@ A **Test Drive** is a ready-to-go environment that allows you to experience Chef
 
 1. Sign in with your Microsoft account email address.
   {{< figure src="/images/az_signin.png" alt="Sign In" >}}
-  
+
 1. Enter your password and select **Sign In**.
   {{< figure src="/images/ms_pass.png" alt="Enter Password" >}}
 
 1. Select **Continue** to accept the Microsoft information terms.
-  {{< figure src="/images/az_test_continue.png" alt=" Agree to MS information use policy and select continue" >}}  
+  {{< figure src="/images/az_test_continue.png" alt=" Agree to MS information use policy and select continue" >}}
 
 ### Deploy Automate
 

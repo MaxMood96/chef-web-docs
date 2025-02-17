@@ -30,7 +30,7 @@ The steps for setting up an accumulator pattern are:
 
 ## Example Accumulator: Samba
 
-Samba Linux tool systems for supporting sharing resources in a network with Windows systems. Samba uses a single file for configuration. In order to share more than one directory using this configuration file, you need to write multiple `samba_share` resources.
+Samba Linux tool systems for supporting sharing resources in a network with Windows systems. Samba uses a single file for configuration. To share more than one directory using this configuration file, you need to write multiple `samba_share` resources.
 
 The accumulator pattern lets you split out each configuration section into its own resource.
 
@@ -87,7 +87,7 @@ The following example shows how to:
 - Use `edit_resource` to find the template
 - Use `edit_resource` to add new variables to the existing collection
 
-_Note_: This uses the `||=` Ruby method to add a new Hash if one does not exist already.
+_Note_: This uses the `||=` Ruby method to add a new Hash if one doesn't exist already.
 
 ```ruby
 # action for the samba_server custom resource

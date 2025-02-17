@@ -12,14 +12,15 @@ aliases = ["/knife_cookbook.html", "/knife_cookbook/"]
     identifier = "chef_workstation/chef_workstation_tools/knife/knife_cookbook.md knife cookbook"
     parent = "chef_workstation/chef_workstation_tools/knife"
 +++
+<!-- markdownlint-disable-file MD024 MD036 -->
 
-{{% cookbooks_summary %}}
+{{< readfile file="content/reusable/md/cookbooks_summary.md" >}}
 
-{{% knife_cookbook_summary %}}
+{{< readfile file="content/workstation/reusable/md/knife_cookbook_summary.md" >}}
 
 {{< note >}}
 
-{{% knife_common_see_common_options_link %}}
+{{< readfile file="content/workstation/reusable/md/knife_common_see_common_options_link.md" >}}
 
 {{< /note >}}
 
@@ -47,7 +48,7 @@ This argument has the following options:
 
 {{< note >}}
 
-{{% knife_common_see_all_config_options %}}
+{{< readfile file="content/workstation/reusable/md/knife_common_see_all_config_options.md" >}}
 
 {{< /note >}}
 
@@ -95,7 +96,7 @@ This argument has the following options:
 
 {{< note >}}
 
-{{% knife_common_see_all_config_options %}}
+{{< readfile file="content/workstation/reusable/md/knife_common_see_all_config_options.md" >}}
 
 {{< /note >}}
 
@@ -148,7 +149,7 @@ This argument has the following options:
 
 {{< note >}}
 
-{{% knife_common_see_all_config_options %}}
+{{< readfile file="content/workstation/reusable/md/knife_common_see_all_config_options.md" >}}
 
 {{< /note >}}
 
@@ -192,7 +193,7 @@ This argument has the following options:
 
 {{< note >}}
 
-{{% knife_common_see_all_config_options %}}
+{{< readfile file="content/workstation/reusable/md/knife_common_see_all_config_options.md" >}}
 
 {{< /note >}}
 
@@ -235,7 +236,7 @@ This argument has the following options:
 
 {{< note >}}
 
-{{% knife_common_see_all_config_options %}}
+{{< readfile file="content/workstation/reusable/md/knife_common_see_all_config_options.md" >}}
 
 {{< /note >}}
 
@@ -325,7 +326,7 @@ This argument has the following options:
 
 {{< note >}}
 
-{{% knife_common_see_all_config_options %}}
+{{< readfile file="content/workstation/reusable/md/knife_common_see_all_config_options.md" >}}
 
 {{< /note >}}
 
@@ -441,7 +442,7 @@ This argument has the following options:
 
 {{< note >}}
 
-{{% knife_common_see_all_config_options %}}
+{{< readfile file="content/workstation/reusable/md/knife_common_see_all_config_options.md" >}}
 
 {{< /note >}}
 
@@ -522,7 +523,7 @@ This argument has the following options:
 
 {{< note >}}
 
-{{% knife_common_see_all_config_options %}}
+{{< readfile file="content/workstation/reusable/md/knife_common_see_all_config_options.md" >}}
 
 {{< /note >}}
 
